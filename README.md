@@ -16,6 +16,7 @@ A tourism website built using HTML, CSS, and JavaScript.
 -Ali Ahmed Hassan
 -Abdulrahman Saad 
 -Abdullah Mohamed
+-Mutasim Mohamed
 
 ## Project Structure
 - pages/
