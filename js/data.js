@@ -2,7 +2,7 @@ const destinations = [
     {
         name: "Cairo",
         country: "Egypt",
-        image: "../assets/images/place1.jpg"
+        image: "../assets/images/place3.jpg"
     },
     {
         name: "Dubai",
@@ -12,6 +12,6 @@ const destinations = [
     {
         name: "Paris",
         country: "France",
-        image: "../assets/images/place3.jpg"
+        image: "../assets/images/place1.jpg"
     }
 ];
