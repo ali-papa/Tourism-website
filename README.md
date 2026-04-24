@@ -23,3 +23,5 @@ A tourism website built using HTML, CSS, and JavaScript.
 - css/
 - js/
 - assets/
+
+
