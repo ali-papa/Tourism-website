@@ -14,11 +14,14 @@
     <!-- Layout -->
     <link rel="stylesheet" href="../css/layout.css">
 
+    <!-- link home page -->
+    <link rel="stylesheet" href="../css/pages/home.css">
+
 </head>
 
 <body>
 
-    <!-- 🔵 Navbar -->
+    <!-- Navbar -->
     <nav class="navbar">
         <h2 class="logo">Tourism</h2>
 
@@ -31,20 +34,39 @@
     </nav>
 
 
-    <!-- 🟡 Main Content -->
+    <!-- Main Content -->
     <div class="container">
-        <h1>Welcome to Tourism Website</h1>
-        <p>This is the home page</p>
-    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Explore the World</h1>
+        <p>Discover tourist destinations inside and outside Egypt</p>
+        <button onclick="showMessage()">Start Exploring</button>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="destinations">
+
+        <h2>Popular Destinations</h2>
+
+        <div class="cards" id="cardsContainer">
+        </div>
+
+        </div>
+
+    </section>
+
+</div>
 
 
-    <!-- 🔴 Footer -->
+    <!--Footer -->
     <footer class="footer">
         <p>© 2026 Tourism Website</p>
     </footer>
 
 
     <!-- JavaScript -->
+    <script src="../js/data.js"></script>
     <script src="../js/main.js"></script>
 
 </body>
