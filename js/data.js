@@ -1,3 +1,6 @@
+
+// this file contains fake data for destinations
+
 const destinations = [
     {
         id: 1,

@@ -5,18 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tourism Website</title>
 
-    <!-- Main CSS -->
     <link rel="stylesheet" href="../css/main.css">
-
-    <!-- Components (Navbar, Buttons, Cards) -->
     <link rel="stylesheet" href="../css/components.css">
-
-    <!-- Layout -->
     <link rel="stylesheet" href="../css/layout.css">
-
-    <!-- link home page -->
     <link rel="stylesheet" href="../css/pages/home.css">
-
 </head>
 
 <body>
@@ -34,38 +26,35 @@
     </nav>
 
 
-    <!-- Main Content -->
     <div class="container">
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Explore the World</h1>
-        <p>Discover tourist destinations inside and outside Egypt</p>
-        <button onclick="showMessage()">Start Exploring</button>
-    </section>
+        <!-- Hero -->
+        <section class="hero">
+            <h1>Discover the World</h1>
+            <p>Explore amazing places inside and outside Egypt</p>
 
-    <!-- Destinations Section -->
-    <section class="destinations">
+            <button class="explore-main-btn" onclick="scrollToDestinations()">
+                ✈ Explore Now
+            </button>
 
-        <h2>Popular Destinations</h2>
+            <a href="search.html" class="explore-btn">Search Destinations</a>
+        </section>
 
-        <div class="cards" id="cardsContainer">
-        </div>
+        <!-- Destinations -->
+        <section class="destinations" id="destinationsSection">
 
-        </div>
+            <h2 class="section-title">Popular Destinations</h2>
 
-    </section>
+            <div class="cards" id="cardsContainer"></div>
 
-</div>
+        </section>
 
+    </div>
 
-    <!--Footer -->
     <footer class="footer">
         <p>© 2026 Tourism Website</p>
     </footer>
 
-
-    <!-- JavaScript -->
     <script src="../js/data.js"></script>
     <script src="../js/main.js"></script>
 

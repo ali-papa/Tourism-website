@@ -1,12 +1,21 @@
-function showMessage() {
-    alert("Welcome to Egypt Tourism!");
+function scrollToDestinations() {
+    const section = document.getElementById("destinationsSection");
+
+    section.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 }
 
 const container = document.getElementById("cardsContainer");
 
+function goToDetails(id) {
+    window.location.href = "details.html?id=" + id;
+}
+
 destinations.forEach(place => {
     const card = `
-        <div class="card">
+        <div class="card" onclick="goToDetails(${place.id})">
             <img src="${place.image}" alt="${place.name}">
             <h3>${place.name}, ${place.country}</h3>
             <p>Beautiful place to visit</p>
