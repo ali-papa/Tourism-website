@@ -1,29 +1,128 @@
 const detailsContainer = document.getElementById("detailsContainer");
 
-// Get id from URL
 const params = new URLSearchParams(window.location.search);
 const destinationId = parseInt(params.get("id"));
 
-// Find destination by id
 const destination = destinations.find(item => item.id === destinationId);
 
-// Display destination details
 if (destination) {
+    const galleryHTML = destination.gallery.map(img => `
+        <img src="${img}" alt="${destination.name}" class="gallery-image">
+    `).join("");
+
+    const highlightsHTML = destination.highlights.map(item => `
+        <li>${item}</li>
+    `).join("");
+
+    const accessibilityHTML = destination.accessibility.map(item => `
+        <li>${item}</li>
+    `).join("");
+
+    const nearbyHTML = destination.nearbyPlaces.map(place => `
+        <li>${place}</li>
+    `).join("");
+
     detailsContainer.innerHTML = `
-        <div class="details-card">
-            <img src="${destination.image}" alt="${destination.name}" class="details-image">
+        <section class="details-hero">
+            <div class="details-card">
+                <div class="details-main-image">
+                    <img src="${destination.image}" alt="${destination.name}" class="details-image">
+                </div>
 
-            <div class="details-info">
-                <h2>${destination.name}</h2>
-                <p><strong>Country:</strong> ${destination.country}</p>
-                <p><strong>Category:</strong> ${destination.category}</p>
-                <p><strong>Price:</strong> ${destination.price} EGP</p>
-                <p><strong>Rating:</strong> ${destination.rating} ⭐</p>
-                <p><strong>Description:</strong> ${destination.description}</p>
+                <div class="details-info">
+                    <h1>${destination.name}</h1>
+                    <p><strong>Country:</strong> ${destination.country}</p>
+                    <p><strong>Category:</strong> ${destination.category}</p>
+                    <p><strong>Rating:</strong> ${destination.rating} ⭐</p>
+                    <p><strong>Short Description:</strong> ${destination.shortDescription}</p>
+                    <p><strong>Description:</strong> ${destination.description}</p>
 
-                <a href="booking.html?id=${destination.id}" class="book-btn">Book Now</a>            </div>
-        </div>
+                    <div class="price-box">
+                        <h3>${destination.price} ${destination.currency}</h3>
+                        <span>avg per night</span>
+                    </div>
+
+                    <div class="details-actions">
+                        <a href="booking.html?id=${destination.id}" class="book-btn">Book Now</a>
+                        <a href="search.html" class="back-btn">Back to Search</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="details-section">
+            <h2>Gallery</h2>
+            <div class="gallery-grid">
+                ${galleryHTML}
+            </div>
+        </section>
+
+        <section class="details-section">
+            <h2>Video</h2>
+            <div class="video-box">
+                <video controls class="details-video">
+                   <source src="${destination.video}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+
+        <section class="details-section location-section">
+            <div class="location-info">
+                <h2>Location</h2>
+                <p>${destination.location.address}</p>
+                <a href="${destination.location.mapLink}" target="_blank" class="map-btn">View on Map</a>
+            </div>
+        </section>
+
+        <section class="details-section">
+            <h2>Highlights</h2>
+            <ul class="details-list">
+                ${highlightsHTML}
+            </ul>
+        </section>
+
+        <section class="details-section">
+            <h2>Accessibility</h2>
+            <ul class="details-list">
+                ${accessibilityHTML}
+            </ul>
+        </section>
+
+        <section class="details-section">
+            <h2>Policies</h2>
+            <div class="policy-grid">
+                <div class="policy-item">
+                    <h4>Check-in</h4>
+                    <p>${destination.policies.checkIn}</p>
+                </div>
+                <div class="policy-item">
+                    <h4>Check-out</h4>
+                    <p>${destination.policies.checkOut}</p>
+                </div>
+                <div class="policy-item">
+                    <h4>Pets</h4>
+                    <p>${destination.policies.pets}</p>
+                </div>
+                <div class="policy-item">
+                    <h4>Children</h4>
+                    <p>${destination.policies.children}</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="details-section">
+            <h2>Nearby Places</h2>
+            <ul class="details-list">
+                ${nearbyHTML}
+            </ul>
+        </section>
     `;
 } else {
-    detailsContainer.innerHTML = `<h2>Destination not found</h2>`;
+    detailsContainer.innerHTML = `
+        <div class="not-found">
+            <h2>Destination not found</h2>
+            <a href="search.html" class="back-btn">Back to Search</a>
+        </div>
+    `;
 }
