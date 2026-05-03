@@ -647,4 +647,5 @@ const destinations = [
             "Sugarloaf Mountain"
         ]
     }
+    
 ];

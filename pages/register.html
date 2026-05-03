@@ -3,49 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tourism Website</title>
+    <title>Register - Tourism</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Georgia, serif;
+            background-color: white;
+        }
 
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="../css/main.css">
+        .header {
+            background-color: #2e2e2e;
+            color: white;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h2 { margin: 0; font-size: 28px; }
+        .header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 18px;
+        }
+        .header nav a:hover { text-decoration: underline; }
 
-    <!-- Components (Navbar, Buttons, Cards) -->
-    <link rel="stylesheet" href="../css/components.css">
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 140px);
+            padding: 20px;
+        }
 
-    <!-- Layout -->
-    <link rel="stylesheet" href="../css/layout.css">
+        .auth-box {
+            width: 350px;
+            background: #f5f5f5;
+            padding: 25px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .auth-box h3 { margin-top: 0; font-size: 24px; margin-bottom: 15px; }
 
+        .auth-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 3px 0;
+            font-size: 16px;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: Georgia, serif;
+        }
+        .auth-box input.input-error { border-color: #cc0000; }
+
+        .auth-box button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: #2e2e2e;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: Georgia, serif;
+            margin-top: 10px;
+        }
+        .auth-box button[type="submit"]:hover { background: #000; }
+
+        /* NAME ROW */
+        .name-row { display: flex; gap: 10px; }
+        .name-row > div { flex: 1; }
+        .name-row input { width: 100%; }
+
+        /* PASSWORD TOGGLE */
+        .pw-wrap { position: relative; }
+        .pw-wrap input { padding-right: 44px; }
+        .pw-toggle {
+            position: absolute;
+            right: 10px; top: 50%;
+            transform: translateY(-70%);
+            background: none; border: none;
+            cursor: pointer; font-size: 16px;
+            color: #666; padding: 0; width: auto;
+        }
+        .pw-toggle:hover { color: #000; }
+
+        /* STRENGTH BAR */
+        .strength-bar { display: flex; gap: 4px; margin: 5px 0 2px; }
+        .s-seg { height: 4px; flex: 1; border-radius: 2px; background: #ccc; transition: background 0.3s; }
+        .s-seg.weak   { background: #cc0000; }
+        .s-seg.fair   { background: #e07800; }
+        .s-seg.strong { background: #2a7a2a; }
+        .s-label { font-size: 12px; color: #555; margin-bottom: 2px; }
+
+        /* ERRORS */
+        .field-error { font-size: 12px; color: #cc0000; margin: 0 0 4px 2px; display: none; }
+        .field-error.show { display: block; }
+
+        #error { margin-top: 12px; font-size: 14px; display: none; }
+        #error.show-error   { display: block; color: #cc0000; }
+        #error.show-success { display: block; color: #2a7a2a; }
+
+        .small { font-size: 14px; }
+
+        .footer {
+            background-color: #2e2e2e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
 </head>
-
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <h2 class="logo">Tourism</h2>
-
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="search.html">Search</a>
-            <a href="booking.html">Book</a>
-            <a href="login.html">Login</a>
-        </div>
+<div class="header">
+    <h2>Tourism</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
     </nav>
+</div>
 
+<div class="content">
+    <div class="auth-box">
+        <h3>Create Account </h3>
 
-    <!-- Main Content -->
-    <div class="container">
-        <h1>Welcome to Tourism Website</h1>
-        <p>This is the Register page</p>
+        <form id="registerForm" novalidate>
+
+            <div class="name-row">
+                <div>
+                    <input type="text" id="firstName" placeholder="First Name">
+                    <div class="field-error" id="err-firstName">Letters only, min 2.</div>
+                </div>
+                <div>
+                    <input type="text" id="lastName" placeholder="Last Name">
+                    <div class="field-error" id="err-lastName">Letters only, min 2.</div>
+                </div>
+            </div>
+
+            <input type="email" id="email" placeholder="Enter your email">
+            <div class="field-error" id="err-email">Enter a valid email.</div>
+
+            <div class="pw-wrap">
+                <input type="password" id="password" placeholder="Enter password" oninput="checkStrength(this.value)">
+                <button type="button" class="pw-toggle" onclick="togglePw('password', this)">👁</button>
+            </div>
+            <div class="strength-bar">
+                <div class="s-seg" id="s1"></div>
+                <div class="s-seg" id="s2"></div>
+                <div class="s-seg" id="s3"></div>
+                <div class="s-seg" id="s4"></div>
+            </div>
+            <div class="s-label" id="s-label"></div>
+            <div class="field-error" id="err-password">Min. 6 characters.</div>
+
+            <div class="pw-wrap">
+                <input type="password" id="confirmPassword" placeholder="Confirm password">
+                <button type="button" class="pw-toggle" onclick="togglePw('confirmPassword', this)">👁</button>
+            </div>
+            <div class="field-error" id="err-confirmPassword">Passwords do not match.</div>
+
+            <button type="submit">Register</button>
+
+            <p class="small">Already have an account? <a href="login.html">Login</a></p>
+
+        </form>
+
+        <p id="error"></p>
     </div>
+</div>
 
+<div class="footer">© 2026 Tourism Website</div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>© 2026 Tourism Website</p>
-    </footer>
+<script src="../js/users.js"></script>
+<script>
+    function togglePw(id, btn) {
+        var inp = document.getElementById(id);
+        inp.type = inp.type === 'password' ? 'text' : 'password';
+        btn.style.color = inp.type === 'text' ? '#000' : '#666';
+    }
 
+    function checkStrength(val) {
+        var segs = ['s1','s2','s3','s4'].map(function(id){ return document.getElementById(id); });
+        var label = document.getElementById('s-label');
+        var score = 0;
+        if (val.length >= 6) score++;
+        if (/[A-Z]/.test(val)) score++;
+        if (/[0-9]/.test(val)) score++;
+        if (/[^A-Za-z0-9]/.test(val)) score++;
+        var cls   = ['','weak','fair','strong','strong'];
+        var names = ['','Weak','Fair','Good','Strong'];
+        segs.forEach(function(s, i) {
+            s.className = 's-seg' + (i < score ? ' ' + cls[score] : '');
+        });
+        label.textContent = val.length ? names[score] : '';
+    }
 
-    <!-- JavaScript -->
-    <script src="../js/main.js"></script>
+    function setErr(id, show) {
+        var inp = document.getElementById(id);
+        var err = document.getElementById('err-' + id);
+        if (inp) inp.classList.toggle('input-error', show);
+        if (err) err.classList.toggle('show', show);
+    }
+
+    function showMsg(type, text) {
+        var el = document.getElementById('error');
+        el.className = type === 'success' ? 'show-success' : 'show-error';
+        el.textContent = text;
+    }
+
+    var isValidName  = function(n) { return /^[A-Za-z]{2,}$/.test(n); };
+    var isValidEmail = function(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); };
+
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var firstName       = document.getElementById('firstName').value.trim();
+        var lastName        = document.getElementById('lastName').value.trim();
+        var email           = document.getElementById('email').value.trim();
+        var password        = document.getElementById('password').value.trim();
+        var confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+        ['firstName','lastName','email','password','confirmPassword'].forEach(function(id){ setErr(id, false); });
+        var errEl = document.getElementById('error');
+        errEl.className = '';
+        errEl.textContent = '';
+
+        var valid = true;
+        if (!isValidName(firstName))      { setErr('firstName', true);       valid = false; }
+        if (!isValidName(lastName))       { setErr('lastName', true);        valid = false; }
+        if (!isValidEmail(email))         { setErr('email', true);           valid = false; }
+        if (password.length < 6)          { setErr('password', true);        valid = false; }
+        if (password !== confirmPassword) { setErr('confirmPassword', true); valid = false; }
+        if (!valid) return;
+
+        var newUser = {
+            firstName: firstName,
+            lastName:  lastName,
+            email:     email,
+            password:  password,
+            credit:    0           // ← every new user starts with 0 credit
+        };
+
+        var result = saveUser(newUser);
+
+        if (!result.success) {
+            showMsg('error', result.message);
+            return;
+        }
+
+        // save as current user so profile.html can read it immediately
+        localStorage.setItem('currentUser', JSON.stringify(newUser));
+
+        showMsg('success', 'Registered successfully  Redirecting…');
+        setTimeout(function() { window.location.href = 'profile.html'; }, 800);
+    });
+
+    // blur validation
+    document.getElementById('firstName').addEventListener('blur', function(){
+        if (this.value.trim()) setErr('firstName', !isValidName(this.value.trim()));
+    });
+    document.getElementById('lastName').addEventListener('blur', function(){
+        if (this.value.trim()) setErr('lastName', !isValidName(this.value.trim()));
+    });
+    document.getElementById('email').addEventListener('blur', function(){
+        if (this.value.trim()) setErr('email', !isValidEmail(this.value.trim()));
+    });
+    document.getElementById('confirmPassword').addEventListener('blur', function(){
+        var pw = document.getElementById('password').value;
+        if (this.value) setErr('confirmPassword', this.value !== pw);
+    });
+</script>
 
 </body>
 </html>
