@@ -265,3 +265,64 @@
     background: #000;
 }
 }
+
+.hotels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.hotel-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.hotel-image {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.hotel-info {
+    padding: 18px;
+}
+
+.hotel-info h3 {
+    margin-bottom: 10px;
+    font-size: 22px;
+    color: #111827;
+}
+
+.hotel-info p {
+    margin: 8px 0;
+    color: #444;
+}
+
+.hotel-info ul {
+    margin: 12px 0;
+    padding-left: 18px;
+}
+
+.hotel-info li {
+    margin-bottom: 6px;
+    color: #555;
+}
+
+.hotel-price {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.hotel-price h4 {
+    font-size: 24px;
+    color: #111;
+    margin: 0;
+}
+
+.hotel-price span {
+    color: #666;
+    font-size: 14px;
+}
