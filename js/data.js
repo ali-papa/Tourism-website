@@ -647,4 +647,325 @@ const destinations = [
             "Sugarloaf Mountain"
         ]
     }
+<<<<<<< HEAD
 ];
+const hotelsByDestination = {
+    1: [
+        {
+            name: "Nile View Hotel",
+            image: "../assets/images/hotel-cairo1.jpg",
+            rating: 4.6,
+            price: 120,
+            currency: "USD",
+            location: "Downtown Cairo",
+            features: ["Free WiFi", "Nile view", "Breakfast included"]
+        },
+        {
+            name: "Pyramids Palace Hotel",
+            image: "../assets/images/hotel-cairo2.jpg",
+            rating: 4.8,
+            price: 180,
+            currency: "USD",
+            location: "Giza, Cairo",
+            features: ["Near Pyramids", "Pool", "Airport shuttle"]
+        }
+    ],
+
+    2: [
+        {
+            name: "Dubai Marina Hotel",
+            image: "../assets/images/hotel-dubai1.jpg",
+            rating: 4.7,
+            price: 250,
+            currency: "USD",
+            location: "Dubai Marina",
+            features: ["Sea view", "Free WiFi", "Luxury rooms"]
+        },
+        {
+            name: "Burj View Suites",
+            image: "../assets/images/hotel-dubai2.jpg",
+            rating: 4.9,
+            price: 320,
+            currency: "USD",
+            location: "Downtown Dubai",
+            features: ["Burj Khalifa view", "Pool", "Spa"]
+        }
+    ],
+
+    3: [
+        {
+            name: "Eiffel Comfort Hotel",
+            image: "../assets/images/hotel-paris1.jpg",
+            rating: 4.8,
+            price: 210,
+            currency: "USD",
+            location: "Near Eiffel Tower",
+            features: ["City view", "Free WiFi", "Romantic rooms"]
+        },
+        {
+            name: "Paris Central Stay",
+            image: "../assets/images/hotel-paris2.jpg",
+            rating: 4.6,
+            price: 170,
+            currency: "USD",
+            location: "Central Paris",
+            features: ["Near metro", "Breakfast", "Family rooms"]
+        }
+    ],
+
+    4: [
+        {
+            name: "Colosseum Grand Hotel",
+            image: "../assets/images/hotel-rome1.jpg",
+            rating: 4.7,
+            price: 190,
+            currency: "USD",
+            location: "Near Colosseum",
+            features: ["Historic area", "Free WiFi", "Restaurant"]
+        },
+        {
+            name: "Rome Classic Inn",
+            image: "../assets/images/hotel-rome2.jpg",
+            rating: 4.5,
+            price: 150,
+            currency: "USD",
+            location: "Rome City Center",
+            features: ["Breakfast included", "City tours", "Airport shuttle"]
+        }
+    ],
+
+    5: [
+        {
+            name: "Bosphorus View Hotel",
+            image: "../assets/images/hotel-istanbul1.jpg",
+            rating: 4.7,
+            price: 140,
+            currency: "USD",
+            location: "Bosphorus, Istanbul",
+            features: ["Sea view", "Free WiFi", "Restaurant"]
+        },
+        {
+            name: "Old City Istanbul Hotel",
+            image: "../assets/images/hotel-istanbul2.jpg",
+            rating: 4.6,
+            price: 110,
+            currency: "USD",
+            location: "Sultanahmet",
+            features: ["Near Blue Mosque", "Breakfast", "Family rooms"]
+        }
+    ],
+
+    6: [
+        {
+            name: "Tokyo Grand Hotel",
+            image: "../assets/images/hotel-tokyo1.jpg",
+            rating: 4.8,
+            price: 220,
+            currency: "USD",
+            location: "Shinjuku, Tokyo",
+            features: ["Free WiFi", "Near metro station", "City view"]
+        },
+        {
+            name: "Sakura Stay Hotel",
+            image: "../assets/images/hotel-tokyo2.jpg",
+            rating: 4.6,
+            price: 180,
+            currency: "USD",
+            location: "Shibuya, Tokyo",
+            features: ["Modern rooms", "Family rooms", "Restaurant"]
+        }
+    ],
+
+    7: [
+        {
+            name: "London Royal Hotel",
+            image: "../assets/images/hotel-london1.jpg",
+            rating: 4.8,
+            price: 230,
+            currency: "USD",
+            location: "Westminster, London",
+            features: ["Near Big Ben", "Free WiFi", "Breakfast"]
+        },
+        {
+            name: "Thames River Hotel",
+            image: "../assets/images/hotel-london2.jpg",
+            rating: 4.7,
+            price: 200,
+            currency: "USD",
+            location: "Near River Thames",
+            features: ["River view", "Restaurant", "Airport shuttle"]
+        }
+    ],
+
+    8: [
+        {
+            name: "Times Square Hotel",
+            image: "../assets/images/hotel-newyork1.jpg",
+            rating: 4.8,
+            price: 260,
+            currency: "USD",
+            location: "Times Square, New York",
+            features: ["City center", "Free WiFi", "Gym"]
+        },
+        {
+            name: "Central Park Suites",
+            image: "../assets/images/hotel-newyork2.jpg",
+            rating: 4.7,
+            price: 240,
+            currency: "USD",
+            location: "Near Central Park",
+            features: ["Park view", "Family rooms", "Restaurant"]
+        }
+    ],
+
+    9: [
+        {
+            name: "Barcelona Beach Hotel",
+            image: "../assets/images/hotel-barcelona1.jpg",
+            rating: 4.7,
+            price: 190,
+            currency: "USD",
+            location: "Barceloneta Beach",
+            features: ["Beach access", "Free WiFi", "Sea view"]
+        },
+        {
+            name: "Gaudi Art Hotel",
+            image: "../assets/images/hotel-barcelona2.jpg",
+            rating: 4.6,
+            price: 160,
+            currency: "USD",
+            location: "Near Sagrada Familia",
+            features: ["City tours", "Breakfast", "Modern rooms"]
+        }
+    ],
+
+    10: [
+        {
+            name: "Acropolis View Hotel",
+            image: "../assets/images/hotel-athens1.jpg",
+            rating: 4.7,
+            price: 150,
+            currency: "USD",
+            location: "Near Acropolis",
+            features: ["Acropolis view", "Free WiFi", "Breakfast"]
+        },
+        {
+            name: "Athens Classic Stay",
+            image: "../assets/images/hotel-athens2.jpg",
+            rating: 4.5,
+            price: 130,
+            currency: "USD",
+            location: "Athens City Center",
+            features: ["Near metro", "Family rooms", "Restaurant"]
+        }
+    ],
+
+    11: [
+        {
+            name: "Amsterdam Canal Hotel",
+            image: "../assets/images/hotel-amsterdam1.jpg",
+            rating: 4.7,
+            price: 180,
+            currency: "USD",
+            location: "Canal District",
+            features: ["Canal view", "Free WiFi", "Bike rental"]
+        },
+        {
+            name: "Museum Square Hotel",
+            image: "../assets/images/hotel-amsterdam2.jpg",
+            rating: 4.6,
+            price: 160,
+            currency: "USD",
+            location: "Near Museum Square",
+            features: ["Near museums", "Breakfast", "Quiet rooms"]
+        }
+    ],
+
+    12: [
+        {
+            name: "Zurich Lake Hotel",
+            image: "../assets/images/hotel-zurich1.jpg",
+            rating: 4.8,
+            price: 300,
+            currency: "USD",
+            location: "Near Lake Zurich",
+            features: ["Lake view", "Luxury rooms", "Free WiFi"]
+        },
+        {
+            name: "Swiss Mountain Stay",
+            image: "../assets/images/hotel-zurich2.jpg",
+            rating: 4.7,
+            price: 280,
+            currency: "USD",
+            location: "Zurich Old Town",
+            features: ["Mountain view", "Breakfast", "Spa"]
+        }
+    ],
+
+    13: [
+        {
+            name: "Bangkok Palace Hotel",
+            image: "../assets/images/hotel-bangkok1.jpg",
+            rating: 4.6,
+            price: 100,
+            currency: "USD",
+            location: "Central Bangkok",
+            features: ["Free WiFi", "Pool", "Near markets"]
+        },
+        {
+            name: "Temple View Hotel",
+            image: "../assets/images/hotel-bangkok2.jpg",
+            rating: 4.5,
+            price: 90,
+            currency: "USD",
+            location: "Old Bangkok",
+            features: ["Near temples", "Breakfast", "Restaurant"]
+        }
+    ],
+
+    14: [
+        {
+            name: "Sydney Harbour Hotel",
+            image: "../assets/images/hotel-sydney1.jpg",
+            rating: 4.9,
+            price: 320,
+            currency: "USD",
+            location: "Sydney Harbour",
+            features: ["Opera House view", "Free WiFi", "Luxury rooms"]
+        },
+        {
+            name: "Bondi Beach Resort",
+            image: "../assets/images/hotel-sydney2.jpg",
+            rating: 4.7,
+            price: 260,
+            currency: "USD",
+            location: "Bondi Beach",
+            features: ["Beach access", "Pool", "Restaurant"]
+        }
+    ],
+
+    15: [
+        {
+            name: "Copacabana Beach Hotel",
+            image: "../assets/images/hotel-rio1.jpg",
+            rating: 4.8,
+            price: 230,
+            currency: "USD",
+            location: "Copacabana Beach",
+            features: ["Beach view", "Free WiFi", "Pool"]
+        },
+        {
+            name: "Rio Mountain View Hotel",
+            image: "../assets/images/hotel-rio2.jpg",
+            rating: 4.7,
+            price: 210,
+            currency: "USD",
+            location: "Near Sugarloaf Mountain",
+            features: ["Mountain view", "Breakfast", "City tours"]
+        }
+    ]
+};
+=======
+    
+];
+>>>>>>> ef6adfc1ca5bb1a6c7275627aa69d223271d7555

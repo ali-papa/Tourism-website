@@ -22,6 +22,31 @@ if (destination) {
         <li>${place}</li>
     `).join("");
 
+    const hotels = hotelsByDestination[destination.id] || [];
+
+    const hotelsHTML = hotels.map(hotel => `
+        <div class="hotel-card">
+            <img src="${hotel.image}" alt="${hotel.name}" class="hotel-image">
+
+            <div class="hotel-info">
+                <h3>${hotel.name}</h3>
+                <p><strong>Location:</strong> ${hotel.location}</p>
+                <p><strong>Rating:</strong> ${hotel.rating} ⭐</p>
+
+                <ul>
+                    ${hotel.features.map(feature => `<li>${feature}</li>`).join("")}
+                </ul>
+
+                <div class="hotel-price">
+                    <h4>${hotel.price} ${hotel.currency}</h4>
+                    <span>per night</span>
+                </div>
+
+                <a href="booking.html?id=${destination.id}" class="book-btn">Book Hotel</a>
+            </div>
+        </div>
+    `).join("");
+
     detailsContainer.innerHTML = `
         <section class="details-hero">
             <div class="details-card">
@@ -72,6 +97,13 @@ if (destination) {
                 <h2>Location</h2>
                 <p>${destination.location.address}</p>
                 <a href="${destination.location.mapLink}" target="_blank" class="map-btn">View on Map</a>
+            </div>
+        </section>
+
+        <section class="details-section">
+            <h2>Available Hotels</h2>
+            <div class="hotels-grid">
+                ${hotelsHTML}
             </div>
         </section>
 
