@@ -647,6 +647,7 @@ const destinations = [
             "Sugarloaf Mountain"
         ]
     }
+<<<<<<< HEAD
 ];
 const hotelsByDestination = {
     1: [
@@ -964,3 +965,7 @@ const hotelsByDestination = {
         }
     ]
 };
+=======
+    
+];
+>>>>>>> ef6adfc1ca5bb1a6c7275627aa69d223271d7555
