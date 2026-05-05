@@ -3,49 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tourism Website</title>
+    <title>Search Destinations – Tourism</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 
-    <!-- Main CSS -->
     <link rel="stylesheet" href="../css/main.css">
-
-    <!-- Components (Navbar, Buttons, Cards) -->
     <link rel="stylesheet" href="../css/components.css">
-
-    <!-- Layout -->
     <link rel="stylesheet" href="../css/layout.css">
-
+    <link rel="stylesheet" href="../css/pages/search.css">
 </head>
-
 <body>
 
-    <!-- Navbar -->
+    <!-- ═══════════════════════════ NAVBAR ═══════════════════════════ -->
     <nav class="navbar">
-        <h2 class="logo">Tourism</h2>
-
+        <a href="index.html" class="logo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            Tourism
+        </a>
         <div class="nav-links">
             <a href="index.html">Home</a>
-            <a href="search.html">Search</a>
+            <a href="search.html" class="active">Explore</a>
             <a href="booking.html">Book</a>
-            <a href="login.html">Login</a>
+            <a href="login.html" class="nav-cta">Sign in</a>
         </div>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
+    <!-- ══════════════════════════ SEARCH HERO ══════════════════════════ -->
+    <section class="search-hero">
+        <div class="hero-bg">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-orb hero-orb-3"></div>
+        </div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <h1>Welcome to Tourism Website</h1>
-        <p>This is the search page</p>
-    </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                Curated destinations worldwide
+            </div>
+            <h1 class="hero-title">Where do you want<br>to <span class="hero-highlight">explore</span> next?</h1>
+            <p class="hero-sub">Discover extraordinary places — from ancient ruins to tropical escapes</p>
 
+            <!-- MAIN SEARCH BAR -->
+            <div class="search-box-wrap">
+                <div class="search-box">
+                    <div class="sbox-field sbox-main">
+                        <svg class="sbox-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        <div class="sbox-inner">
+                            <label for="searchInput">Destination</label>
+                            <input type="text" id="searchInput" placeholder="City, country, or attraction..." oninput="search()" autocomplete="off">
+                        </div>
+                    </div>
 
-    <!-- Footer -->
+                    <div class="sbox-divider"></div>
+
+                    <div class="sbox-field">
+                        <svg class="sbox-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        <div class="sbox-inner">
+                            <label for="checkIn">Check in</label>
+                            <input type="date" id="checkIn">
+                        </div>
+                    </div>
+
+                    <div class="sbox-divider"></div>
+
+                    <div class="sbox-field">
+                        <svg class="sbox-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        <div class="sbox-inner">
+                            <label for="checkOut">Check out</label>
+                            <input type="date" id="checkOut">
+                        </div>
+                    </div>
+
+                    <button class="sbox-btn" onclick="search()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- QUICK CATEGORY CHIPS -->
+            <div class="quick-chips" id="quickFilters"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════ RESULTS AREA ══════════════════════════ -->
+    <main class="search-main">
+
+        <!-- FILTERS SIDEBAR -->
+        <aside class="filters-sidebar" id="filtersSidebar">
+            <div class="filters-header">
+                <h3>Filters</h3>
+                <button class="btn-clear" onclick="clearFilters()">Reset all</button>
+            </div>
+
+            <!-- Sort (mobile only in sidebar, desktop in results bar) -->
+            <div class="filter-block mobile-only">
+                <label class="filter-label" for="sortSelectMobile">Sort by</label>
+                <div class="select-wrap">
+                    <select id="sortSelectMobile" onchange="syncSort('mobile')">
+                        <option value="relevance">Relevance</option>
+                        <option value="priceAsc">Price: low → high</option>
+                        <option value="priceDesc">Price: high → low</option>
+                        <option value="ratingDesc">Rating: high → low</option>
+                        <option value="nameAsc">Name: A → Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-block">
+                <label class="filter-label" for="categorySelect">Category</label>
+                <div class="select-wrap">
+                    <select id="categorySelect" onchange="search()">
+                        <option value="all">All categories</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-block">
+                <label class="filter-label">Price range</label>
+                <div class="price-inputs">
+                    <div class="price-input-wrap">
+                        <span class="price-symbol">$</span>
+                        <input type="number" id="minPrice" placeholder="Min" oninput="search()">
+                    </div>
+                    <span class="price-dash">—</span>
+                    <div class="price-input-wrap">
+                        <span class="price-symbol">$</span>
+                        <input type="number" id="maxPrice" placeholder="Max" oninput="search()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-block">
+                <label class="filter-label" for="minRating">Minimum rating</label>
+                <div class="rating-options" id="ratingOptions">
+                    <button class="rating-btn active" data-val="0" onclick="setRating(this, '0')">Any</button>
+                    <button class="rating-btn" data-val="4" onclick="setRating(this, '4')">4.0+</button>
+                    <button class="rating-btn" data-val="4.5" onclick="setRating(this, '4.5')">4.5+</button>
+                    <button class="rating-btn" data-val="4.7" onclick="setRating(this, '4.7')">4.7+</button>
+                    <button class="rating-btn" data-val="4.9" onclick="setRating(this, '4.9')">4.9</button>
+                </div>
+                <!-- hidden input for compatibility with JS -->
+                <select id="minRating" style="display:none" onchange="search()">
+                    <option value="0">Any rating</option>
+                    <option value="4">4.0+</option>
+                    <option value="4.5">4.5+</option>
+                    <option value="4.7">4.7+</option>
+                    <option value="4.9">4.9</option>
+                </select>
+            </div>
+
+            <button class="btn-apply-filters" onclick="closeMobileFilters()">Apply filters</button>
+        </aside>
+
+        <!-- OVERLAY for mobile filters -->
+        <div class="filters-overlay" id="filtersOverlay" onclick="closeMobileFilters()"></div>
+
+        <!-- RESULTS COLUMN -->
+        <div class="results-col">
+            <!-- RESULTS TOOLBAR -->
+            <div class="results-toolbar">
+                <div class="results-toolbar-left">
+                    <button class="btn-filter-toggle desktop-hide" id="filterToggle" onclick="openMobileFilters()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+                        Filters
+                        <span class="active-filter-count" id="activeFilterCount" style="display:none">0</span>
+                    </button>
+                    <span class="results-count" id="resultsCount">Loading…</span>
+                </div>
+                <div class="results-toolbar-right desktop-show">
+                    <label for="sortSelect" class="sort-label">Sort:</label>
+                    <div class="select-wrap select-compact">
+                        <select id="sortSelect" onchange="syncSort('desktop')">
+                            <option value="relevance">Relevance</option>
+                            <option value="priceAsc">Price: low → high</option>
+                            <option value="priceDesc">Price: high → low</option>
+                            <option value="ratingDesc">Rating: high → low</option>
+                            <option value="nameAsc">Name: A → Z</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARDS GRID -->
+            <div id="results" class="results-grid"></div>
+        </div>
+    </main>
+
     <footer class="footer">
-        <p>© 2026 Tourism Website</p>
+        <p>© 2026 Tourism Website. All rights reserved.</p>
     </footer>
 
-
-    <!-- JavaScript -->
-    <script src="../js/main.js"></script>
-
+    <script src="../js/data.js"></script>
+    <script src="../js/search.js"></script>
 </body>
 </html>
