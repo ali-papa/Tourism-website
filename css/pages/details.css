@@ -1040,26 +1040,26 @@
 
 .hotel-tabs-wrapper {
     position: sticky;
-    top: 74px;
-    z-index: 500;
-    background: #fff;
+    top: 72px;
+    z-index: 400;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 8px 20px;
+    padding: 0 20px;
     border-bottom: 1px solid #ddd;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-    margin-bottom: 35px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    min-height: 58px;
 }
 
 .hotel-tabs {
     display: flex;
     align-items: center;
-    gap: 26px;
+    gap: 34px;
     margin: 0;
     padding: 0;
-    border-bottom: none;
+    border: 0;
     background: transparent;
     position: static;
 }
@@ -1068,34 +1068,78 @@
     text-decoration: none;
     color: #111;
     font-weight: 700;
-    padding: 12px 0;
-    line-height: 1;
-    border-bottom: 3px solid transparent;
     font-size: 15px;
+    padding: 20px 0 17px;
+    border-bottom: 3px solid transparent;
+    line-height: 1;
 }
 
 .hotel-tabs a.active {
     color: #0647d9;
-    border-bottom: 3px solid #0647d9;
+    border-bottom-color: #0647d9;
 }
 
 .select-room-btn {
+    display: none !important;
+}
+
+.hotel-tabs-wrapper {
+    position: sticky;
+    top: 82px;
+    z-index: 500;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 24px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    margin-bottom: 30px;
+}
+
+.hotel-tabs {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    position: static;
+}
+
+.hotel-tabs a {
+    color: #111 !important;
+    border-bottom: 3px solid transparent !important;
+}
+
+.hotel-tabs a.active {
+    color: #0647d9 !important;
+    border-bottom-color: #0647d9 !important;
+}
+
+.select-room-small {
     background: #0647d9;
     color: white !important;
     text-decoration: none;
-    padding: 10px 20px !important;
+    padding: 11px 20px;
     border-radius: 999px;
+    font-size: 15px;
     font-weight: 700;
-    line-height: 15px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
     white-space: nowrap;
-    border-bottom: none !important;
-    flex-shrink: 0;
+    line-height: 1;
 }
 
-.select-room-btn:hover {
+.select-room-small:hover {
     background: #003db8;
+}
+
+/* يمنع العنوان يتغطى لما تدوس على tab */
+#overview,
+#about,
+#rooms,
+#accessibility,
+#policies {
+    scroll-margin-top: 160px;
 }

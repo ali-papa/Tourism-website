@@ -104,16 +104,16 @@ if (destination && hotel) {
         </section>
 
         <div class="hotel-tabs-wrapper">
-            <nav class="hotel-tabs">
-                <a href="#overview" class="active">Overview</a>
-                <a href="#about">About</a>
-                <a href="#rooms">Rooms</a>
-                <a href="#accessibility">Accessibility</a>
-                <a href="#policies">Policies</a>
-            </nav>
+    <nav class="hotel-tabs" id="hotelTabs">
+        <a href="#overview" class="active">Overview</a>
+        <a href="#about">About</a>
+        <a href="#rooms">Rooms</a>
+        <a href="#accessibility">Accessibility</a>
+        <a href="#policies">Policies</a>
+    </nav>
 
-            <a href="#rooms" class="select-room-btn">Select a room</a>
-        </div>
+    <a href="#rooms" class="select-room-small">Select a room</a>
+</div>
 
         <section id="overview" class="hotel-overview-layout">
             <div class="hotel-main-content">
@@ -342,6 +342,7 @@ if (destination && hotel) {
             </div>
         </section>
     `;
+
     // Save button logic
 const saveBtn = document.getElementById("saveBtn");
 const shareBtn = document.getElementById("shareBtn");
@@ -386,33 +387,48 @@ if (shareBtn) {
 }
 
 // Active tabs on click and scroll
-const tabLinks = document.querySelectorAll(".hotel-tabs a)");
+
+const tabLinks = document.querySelectorAll("#hotelTabs a");
 const sections = document.querySelectorAll("#overview, #about, #rooms, #accessibility, #policies");
 
-tabLinks.forEach(link => {
-    link.addEventListener("click", () => {
-        tabLinks.forEach(item => item.classList.remove("active"));
-        link.classList.add("active");
-    });
-});
-
-window.addEventListener("scroll", () => {
-    let currentSectionId = "";
+function changeActiveTab() {
+    let current = "overview";
 
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - 120;
+        const sectionTop = section.offsetTop - 180;
 
         if (window.scrollY >= sectionTop) {
-            currentSectionId = section.getAttribute("id");
+            current = section.getAttribute("id");
         }
     });
 
     tabLinks.forEach(link => {
         link.classList.remove("active");
 
-        if (link.getAttribute("href") === `#${currentSectionId}`) {
+        if (link.getAttribute("href") === "#" + current) {
             link.classList.add("active");
         }
+    });
+}
+
+window.addEventListener("scroll", changeActiveTab);
+
+tabLinks.forEach(link => {
+    link.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute("href").replace("#", "");
+        const targetSection = document.getElementById(targetId);
+
+        if (targetSection) {
+            window.scrollTo({
+                top: targetSection.offsetTop - 150,
+                behavior: "smooth"
+            });
+        }
+
+        tabLinks.forEach(item => item.classList.remove("active"));
+        this.classList.add("active");
     });
 });
 
