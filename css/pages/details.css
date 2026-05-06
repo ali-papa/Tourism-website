@@ -598,22 +598,6 @@
     border-bottom: 3px solid #0647d9;
 }
 
-.select-room-btn {
-    margin-left: auto;
-    background: #0647d9;
-    color: white !important;
-    padding: 14px 26px !important;
-    border-radius: 30px;
-    border-bottom: none !important;
-    line-height: 1 !important;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 46px;
-    align-self: center;
-    white-space: nowrap;
-}
-
 .hotel-overview-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -1049,20 +1033,69 @@
     cursor: pointer;
 }
 
-.hotel-tabs {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    gap: 35px;
-    padding: 14px 0;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 35px;
-}
-
 .hotel-tabs a.select-room-btn.active {
     color: white !important;
     border-bottom: none !important;
+}
+
+.hotel-tabs-wrapper {
+    position: sticky;
+    top: 74px;
+    z-index: 500;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 8px 20px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    margin-bottom: 35px;
+}
+
+.hotel-tabs {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
+    background: transparent;
+    position: static;
+}
+
+.hotel-tabs a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 700;
+    padding: 12px 0;
+    line-height: 1;
+    border-bottom: 3px solid transparent;
+    font-size: 15px;
+}
+
+.hotel-tabs a.active {
+    color: #0647d9;
+    border-bottom: 3px solid #0647d9;
+}
+
+.select-room-btn {
+    background: #0647d9;
+    color: white !important;
+    text-decoration: none;
+    padding: 10px 20px !important;
+    border-radius: 999px;
+    font-weight: 700;
+    line-height: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    white-space: nowrap;
+    border-bottom: none !important;
+    flex-shrink: 0;
+}
+
+.select-room-btn:hover {
+    background: #003db8;
 }

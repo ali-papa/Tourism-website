@@ -103,14 +103,17 @@ if (destination && hotel) {
             <img src="${hotel.image}" alt="${hotel.name}">
         </section>
 
-        <nav class="hotel-tabs">
-            <a href="#overview" class="active">Overview</a>
-            <a href="#about">About</a>
-            <a href="#rooms">Rooms</a>
-            <a href="#accessibility">Accessibility</a>
-            <a href="#policies">Policies</a>
+        <div class="hotel-tabs-wrapper">
+            <nav class="hotel-tabs">
+                <a href="#overview" class="active">Overview</a>
+                <a href="#about">About</a>
+                <a href="#rooms">Rooms</a>
+                <a href="#accessibility">Accessibility</a>
+                <a href="#policies">Policies</a>
+            </nav>
+
             <a href="#rooms" class="select-room-btn">Select a room</a>
-        </nav>
+        </div>
 
         <section id="overview" class="hotel-overview-layout">
             <div class="hotel-main-content">
@@ -383,7 +386,7 @@ if (shareBtn) {
 }
 
 // Active tabs on click and scroll
-const tabLinks = document.querySelectorAll(".hotel-tabs a:not(.select-room-btn)");
+const tabLinks = document.querySelectorAll(".hotel-tabs a)");
 const sections = document.querySelectorAll("#overview, #about, #rooms, #accessibility, #policies");
 
 tabLinks.forEach(link => {
