@@ -7,7 +7,7 @@ const destinations = [
         name: "Cairo",
         country: "Egypt",
         category: "Historical",
-        price: 1500,
+        price: 150,
         currency: "USD",
         rating: 4.7,
         image: "../assets/images/place3.jpg",
@@ -50,7 +50,7 @@ const destinations = [
         name: "Dubai",
         country: "UAE",
         category: "City",
-        price: 4800,
+        price: 480,
         currency: "USD",
         rating: 4.8,
         image: "../assets/images/place2.jpg",
@@ -93,7 +93,7 @@ const destinations = [
         name: "Paris",
         country: "France",
         category: "Romantic",
-        price: 4000,
+        price: 400,
         currency: "USD",
         rating: 4.9,
         image: "../assets/images/place1.jpg",
@@ -137,7 +137,7 @@ const destinations = [
         country: "Italy",
         image: "../assets/images/place4.jpg",
         category: "Historical",
-        price: 4200,
+        price: 420,
         currency: "USD",
         rating: 4.7,
         shortDescription: "Ancient Roman Empire architecture.",
@@ -180,7 +180,7 @@ const destinations = [
         country: "Turkey",
         image: "../assets/images/place5.jpg",
         category: "Cultural",
-        price: 2800,
+        price: 280,
         currency: "USD",
         rating: 4.6,
         shortDescription: "A mix of Europe and Asia culture.",
@@ -223,7 +223,7 @@ const destinations = [
         country: "Japan",
         image: "../assets/images/place6.jpg",
         category: "Modern",
-        price: 6500,
+        price: 650,
         currency: "USD",
         rating: 4.9,
         shortDescription: "Technology, anime culture, and neon city.",
@@ -266,7 +266,7 @@ const destinations = [
         country: "UK",
         image: "../assets/images/place7.jpg",
         category: "Urban",
-        price: 5200,
+        price: 520,
         currency: "USD",
         rating: 4.8,
         shortDescription: "Big Ben, history, and royal culture.",
@@ -309,7 +309,7 @@ const destinations = [
         country: "USA",
         image: "../assets/images/place8.jpg",
         category: "Urban",
-        price: 6000,
+        price: 600,
         currency: "USD",
         rating: 4.9,
         shortDescription: "Times Square and Statue of Liberty.",
@@ -352,7 +352,7 @@ const destinations = [
         country: "Spain",
         image: "../assets/images/place9.jpg",
         category: "Coastal",
-        price: 4000,
+        price: 400,
         currency: "USD",
         rating: 4.7,
         shortDescription: "Beaches and unique Gaudi architecture.",
@@ -395,7 +395,7 @@ const destinations = [
         country: "Greece",
         image: "../assets/images/place10.jpg",
         category: "Historical",
-        price: 3500,
+        price: 350,
         currency: "USD",
         rating: 4.6,
         shortDescription: "Birthplace of ancient civilization.",
@@ -438,7 +438,7 @@ const destinations = [
         country: "Netherlands",
         image: "../assets/images/place11.jpg",
         category: "Cultural",
-        price: 3700,
+        price: 370,
         currency: "USD",
         rating: 4.7,
         shortDescription: "Canals, bikes, and artistic vibe.",
@@ -481,7 +481,7 @@ const destinations = [
         country: "Switzerland",
         image: "../assets/images/place12.jpg",
         category: "Nature",
-        price: 7000,
+        price: 700,
         currency: "USD",
         rating: 4.8,
         shortDescription: "Mountains, lakes, and luxury lifestyle.",
@@ -524,7 +524,7 @@ const destinations = [
         country: "Thailand",
         image: "../assets/images/place13.jpg",
         category: "Cultural",
-        price: 3200,
+        price: 320,
         currency: "USD",
         rating: 4.6,
         shortDescription: "Temples, markets, and street food.",
@@ -567,7 +567,7 @@ const destinations = [
         country: "Australia",
         image: "../assets/images/place14.jpg",
         category: "Coastal",
-        price: 8000,
+        price: 800,
         currency: "USD",
         rating: 4.9,
         shortDescription: "Opera House and beautiful beaches.",
@@ -610,7 +610,7 @@ const destinations = [
         country: "Brazil",
         image: "../assets/images/place15.jpg",
         category: "Nature",
-        price: 7500,
+        price: 750,
         currency: "USD",
         rating: 4.8,
         shortDescription: "Christ the Redeemer and carnival city.",
@@ -647,7 +647,6 @@ const destinations = [
             "Sugarloaf Mountain"
         ]
     }
-<<<<<<< HEAD
 ];
 const hotelsByDestination = {
     1: [
@@ -965,7 +964,4 @@ const hotelsByDestination = {
         }
     ]
 };
-=======
-    
-];
->>>>>>> ef6adfc1ca5bb1a6c7275627aa69d223271d7555
+

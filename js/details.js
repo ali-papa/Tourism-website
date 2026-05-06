@@ -5,6 +5,10 @@ const destinationId = parseInt(params.get("id"));
 
 const destination = destinations.find(item => item.id === destinationId);
 
+function createMapEmbed(address) {
+    return `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+}
+
 if (destination) {
     const galleryHTML = destination.gallery.map(img => `
         <img src="${img}" alt="${destination.name}" class="gallery-image">
@@ -24,28 +28,32 @@ if (destination) {
 
     const hotels = hotelsByDestination[destination.id] || [];
 
-    const hotelsHTML = hotels.map(hotel => `
-        <div class="hotel-card">
-            <img src="${hotel.image}" alt="${hotel.name}" class="hotel-image">
+const hotelsHTML = hotels.map((hotel, index) => `
+    <div class="hotel-card">
+        <img src="${hotel.image}" alt="${hotel.name}" class="hotel-image">
 
-            <div class="hotel-info">
-                <h3>${hotel.name}</h3>
-                <p><strong>Location:</strong> ${hotel.location}</p>
-                <p><strong>Rating:</strong> ${hotel.rating} ⭐</p>
+        <div class="hotel-info">
+            <h3>${hotel.name}</h3>
+            <p><strong>Location:</strong> ${hotel.location}</p>
+            <p><strong>Rating:</strong> ${hotel.rating} ⭐</p>
 
-                <ul>
-                    ${hotel.features.map(feature => `<li>${feature}</li>`).join("")}
-                </ul>
+            <ul>
+                ${hotel.features.map(feature => `<li>${feature}</li>`).join("")}
+            </ul>
 
-                <div class="hotel-price">
-                    <h4>${hotel.price} ${hotel.currency}</h4>
-                    <span>per night</span>
-                </div>
-
-                <a href="booking.html?id=${destination.id}" class="book-btn">Book Hotel</a>
+            <div class="hotel-price">
+                <h4>${hotel.price} ${hotel.currency}</h4>
+                <span>per night</span>
             </div>
+
+            <a 
+                href="hotel-details.html?destinationId=${destination.id}&hotelIndex=${index}" 
+                class="view-hotel-btn">
+                View Details
+            </a>
         </div>
-    `).join("");
+    </div>
+`).join("");
 
     detailsContainer.innerHTML = `
         <section class="details-hero">
@@ -68,7 +76,6 @@ if (destination) {
                     </div>
 
                     <div class="details-actions">
-                        <a href="booking.html?id=${destination.id}" class="book-btn">Book Now</a>
                         <a href="search.html" class="back-btn">Back to Search</a>
                     </div>
                 </div>
@@ -92,11 +99,23 @@ if (destination) {
             </div>
         </section>
 
-        <section class="details-section location-section">
-            <div class="location-info">
-                <h2>Location</h2>
-                <p>${destination.location.address}</p>
-                <a href="${destination.location.mapLink}" target="_blank" class="map-btn">View on Map</a>
+                <section class="details-section location-section">
+            <h2>Location</h2>
+
+            <div class="location-layout">
+                <div class="location-info">
+                    <p>${destination.location.address}</p>
+                    <a href="${destination.location.mapLink}" target="_blank" class="map-btn">
+                        Open in Google Maps
+                    </a>
+                </div>
+
+                <div class="map-box">
+                    <iframe
+                        src="${createMapEmbed(destination.location.address)}"
+                        loading="lazy">
+                    </iframe>
+                </div>
             </div>
         </section>
 
@@ -150,6 +169,23 @@ if (destination) {
             </ul>
         </section>
     `;
+
+    const viewHotelButtons = document.querySelectorAll(".view-hotel-btn");
+
+viewHotelButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const hotelIndex = button.getAttribute("data-hotel");
+        const detailsBox = document.getElementById(`hotelDetails-${hotelIndex}`);
+
+        detailsBox.classList.toggle("show");
+
+        if (detailsBox.classList.contains("show")) {
+            button.textContent = "Hide Details";
+        } else {
+            button.textContent = "View Details";
+        }
+    });
+});
 } else {
     detailsContainer.innerHTML = `
         <div class="not-found">
