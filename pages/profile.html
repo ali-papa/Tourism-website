@@ -1,188 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - Tourism</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Georgia, serif;
-            background-color: white;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - Tourism</title>
 
-        /* HEADER */
-        .header {
-            background-color: #2e2e2e;
-            color: white;
-            padding: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header h2 { margin: 0; font-size: 28px; }
-        .header nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 18px;
-        }
-        .header nav a:hover { text-decoration: underline; }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 
-        /* CONTENT */
-        .content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: calc(100vh - 140px);
-            padding: 20px;
-        }
-
-        /* PROFILE BOX */
-        .profile-box {
-            width: 380px;
-            background: #f5f5f5;
-            padding: 30px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .profile-box h3 {
-            margin-top: 0;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        /* AVATAR */
-        .avatar {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            background: #2e2e2e;
-            color: white;
-            font-size: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-family: Georgia, serif;
-        }
-
-        /* INFO ROWS */
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-            font-size: 16px;
-            text-align: left;
-        }
-        .info-row:last-of-type { border-bottom: none; }
-        .info-label { color: #666; font-size: 14px; }
-        .info-value { font-weight: bold; color: #2e2e2e; }
-
-        /* CREDIT BADGE */
-        .credit-badge {
-            display: inline-block;
-            background: #2e2e2e;
-            color: white;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        /* BUTTON */
-        .profile-box button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 20px;
-            border-radius: 6px;
-            border: none;
-            background: #2e2e2e;
-            color: white;
-            font-size: 16px;
-            font-family: Georgia, serif;
-            cursor: pointer;
-        }
-        .profile-box button:hover { background: #000; }
-
-        /* FOOTER */
-        .footer {
-            background-color: #2e2e2e;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-    </style>
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/pages/profile.css">
 </head>
+
 <body>
 
-<div class="header">
-    <h2>Tourism</h2>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="#" id="logoutBtn">Logout</a>
-    </nav>
-</div>
+<!-- NAVBAR (موحد مع باقي الموقع) -->
+<nav class="navbar">
+  <a href="index.html" class="logo">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+    Tourism
+  </a>
 
-<div class="content">
-    <div class="profile-box">
-        <h3>Your Profile 👤</h3>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="search.html">Explore</a>
+    <a href="booking.html">Book</a>
+    <a href="login.html" class="nav-cta">Sign in</a>
+  </div>
+</nav>
 
-        <div class="avatar" id="avatar"></div>
+<!-- CONTENT -->
+<div class="container">
+  <div class="profile-card">
 
-        <div class="info-row">
-            <span class="info-label">Full Name</span>
-            <span class="info-value" id="name"></span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Email</span>
-            <span class="info-value" id="email"></span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Credit</span>
-            <span class="credit-badge" id="credit"></span>
-        </div>
-
-        <button id="logoutBtnMain">Logout</button>
+    <!-- HEADER -->
+    <div class="profile-header">
+      <div class="avatar" id="avatar"></div>
+      <h2 id="name"></h2>
+      <p id="email"></p>
     </div>
+
+    <!-- BALANCE -->
+    <div class="balance">
+      <h3>Balance</h3>
+      <p id="balance">$0</p>
+      <button id="addBalanceBtn">Add Balance</button>
+      <button id="settingsBtn" class="settings-btn">Settings</button>
+    </div>
+
+    <!-- INFO -->
+    <div class="info">
+      <p><strong>First Name:</strong> <span id="firstName"></span></p>
+      <p><strong>Last Name:</strong> <span id="lastName"></span></p>
+    </div>
+
+    <button id="logoutBtn" class="logout">Logout</button>
+
+  </div>
 </div>
 
-<div class="footer">© 2026 Tourism Website</div>
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-box">
 
+    <!-- زرار X -->
+    <span class="modal-close" id="closeModal">&times;</span>
+
+    <h3>Add Balance</h3>
+
+    <input type="number" id="amount" placeholder="Enter amount">
+    <button id="confirmAdd">Add</button>
+
+  </div>
+</div>
+
+<div id="settingsModal" class="modal">
+  <div class="modal-box">
+
+    <!-- X -->
+    <span class="modal-close" id="closeSettings">&times;</span>
+
+    <h3>Update Profile</h3>
+
+    <input id="newFirst" placeholder="First Name">
+    <input id="newLast" placeholder="Last Name">
+
+    <!-- 🔐 OLD PASSWORD -->
+    <input id="oldPass" type="password" placeholder="Current Password">
+
+    <!-- 🆕 NEW PASSWORD -->
+    <input id="newPass" type="password" placeholder="New Password">
+
+    <button id="saveSettings">Save</button>
+
+  </div>
+</div>
+
+<!-- SCRIPTS -->
 <script src="../js/users.js"></script>
-<script>
-    var user = getCurrentUser();
-
-    // if not logged in → redirect to login
-    if (!user) {
-        window.location.href = 'login.html';
-    } else {
-        // avatar initials
-        document.getElementById('avatar').textContent =
-            user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
-
-        document.getElementById('name').textContent =
-            user.firstName + ' ' + user.lastName;
-
-        document.getElementById('email').textContent =
-            user.email;
-
-        document.getElementById('credit').textContent =
-            user.credit + ' pts';
-    }
-
-    function logout() {
-        logoutUser();
-        window.location.href = 'login.html';
-    }
-
-    document.getElementById('logoutBtnMain').onclick = logout;
-    document.getElementById('logoutBtn').onclick     = logout;
-</script>
+<script src="../js/ui.js"></script>
+<script src="../js/profile.js"></script>
+<div id="toast" class="toast"></div>
 
 </body>
 </html>
