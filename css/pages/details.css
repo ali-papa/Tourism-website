@@ -589,7 +589,8 @@
     text-decoration: none;
     color: #111;
     font-weight: 700;
-    padding-bottom: 14px;
+    padding: 12px 0;
+    line-height: 1;
 }
 
 .hotel-tabs a.active {
@@ -601,9 +602,16 @@
     margin-left: auto;
     background: #0647d9;
     color: white !important;
-    padding: 13px 22px !important;
+    padding: 14px 26px !important;
     border-radius: 30px;
     border-bottom: none !important;
+    line-height: 1 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    align-self: center;
+    white-space: nowrap;
 }
 
 .hotel-overview-layout {
@@ -1046,4 +1054,15 @@
     top: 0;
     z-index: 999;
     background: #fff;
-}   
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    padding: 14px 0;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 35px;
+}
+
+.hotel-tabs a.select-room-btn.active {
+    color: white !important;
+    border-bottom: none !important;
+}
