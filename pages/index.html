@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="stylesheet" href="../css/pages/home.css">
-    <script src="../js/ui.js"></script>
 </head>
 
 <body>
@@ -36,10 +35,11 @@
         </div>
 
         <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
-            <span></span><span></span><span></span>
-    </button>
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
-
 
     <div class="container">
 
@@ -55,13 +55,24 @@
             <a href="search.html" class="explore-btn">Search Destinations</a>
         </section>
 
+        <!-- World Map -->
+        <section class="world-map-section">
+            <div class="map-overlay"></div>
+
+            <div class="world-content">
+                <span class="world-kicker">World Explorer</span>
+                <h2>Explore Every Corner of the Planet</h2>
+                <p>
+                    From iconic cities to hidden gems,
+                    your next unforgettable journey starts here.
+                </p>
+            </div>
+        </section>
+
         <!-- Destinations -->
         <section class="destinations" id="destinationsSection">
-
             <h2 class="section-title">Popular Destinations</h2>
-
             <div class="cards" id="cardsContainer"></div>
-
         </section>
 
     </div>
@@ -72,6 +83,7 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/ui.js"></script>
 
 </body>
 </html>

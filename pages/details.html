@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Destination Details</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/layout.css">
@@ -13,35 +18,51 @@
 
 <body>
 
-    <!-- Navbar -->
+    <!-- NAVBAR -->
     <nav class="navbar">
-        <h2 class="logo">Tourism</h2>
+
+        <a href="index.html" class="logo">
+            <svg width="22" height="22" viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5">
+
+                <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+                <circle cx="12" cy="10" r="3"/>
+            </svg>
+
+            Tourism
+        </a>
 
         <div class="nav-links">
             <a href="index.html">Home</a>
-            <a href="search.html">Search</a>
+            <a href="search.html">Explore</a>
             <a href="booking.html">Book</a>
-            <a href="login.html">Login</a>
+            <a href="login.html" class="nav-cta">Sign in</a>
         </div>
+
     </nav>
 
-    <!-- Main Content -->   
+    <!-- MAIN -->
     <main class="details-page">
         <div class="container">
+
             <div id="detailsContainer" class="details-container">
-                <!-- Destination details will appear here -->
+                <!-- content -->
             </div>
+
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer class="footer">
         <p>© 2026 Tourism Website</p>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- SCRIPTS -->
     <script src="../js/data.js"></script>
     <script src="../js/details.js"></script>
+    <script src="../js/ui.js"></script>
 
 </body>
 </html>
