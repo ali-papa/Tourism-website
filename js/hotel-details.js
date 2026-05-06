@@ -35,25 +35,32 @@ if (destination && hotel) {
     const reviewText = getReviewText(reviewScore);
     const reviewCount = 48 + hotelIndex * 36;
 
-    const similarHotels = hotels
-        .filter((item, index) => index !== hotelIndex)
-        .map(item => `
-            <div class="similar-hotel-card">
-                <img src="${item.image}" alt="${item.name}">
-                <div class="similar-hotel-info">
-                    <h3>${item.name}</h3>
-                    <p>${item.location}</p>
-                    <ul>
-                        ${item.features.slice(0, 3).map(feature => `<li>✓ ${feature}</li>`).join("")}
-                    </ul>
-                    <div class="mini-rating">
-                        <span>${getReviewScore(item.rating)}</span>
-                        ${getReviewText(getReviewScore(item.rating))}
-                    </div>
-                    <h4>${item.price} ${item.currency} nightly</h4>
+   const similarHotels = hotels.map((item, index) => ({ item, index }))
+    .filter(obj => obj.index !== hotelIndex)
+    .map(obj => `
+        <a 
+            href="hotel-details.html?destinationId=${destination.id}&hotelIndex=${obj.index}" 
+            class="similar-hotel-card"
+        >
+            <img src="${obj.item.image}" alt="${obj.item.name}">
+
+            <div class="similar-hotel-info">
+                <h3>${obj.item.name}</h3>
+                <p>${obj.item.location}</p>
+
+                <ul>
+                    ${obj.item.features.slice(0, 3).map(feature => `<li>✓ ${feature}</li>`).join("")}
+                </ul>
+
+                <div class="mini-rating">
+                    <span>${getReviewScore(obj.item.rating)}</span>
+                    ${getReviewText(getReviewScore(obj.item.rating))}
                 </div>
+
+                <h4>${obj.item.price} ${obj.item.currency} nightly</h4>
             </div>
-        `).join("");
+        </a>
+    `).join("");
 
     hotelDetailsContainer.innerHTML = `
         <section class="hotel-search-bar">
@@ -208,22 +215,29 @@ if (destination && hotel) {
         <section id="rooms" class="hotel-section">
             <h2>Choose your room</h2>
 
-            <div class="rooms-search">
-            <div class="room-date-box">
-                <small>Start date</small>
-                <input type="date" id="roomCheckIn" class="hotel-input">
-            </div>
+           <div class="rooms-search">
+    <div class="room-date-box">
+        <small>Start date</small>
+        <input type="date" id="roomCheckIn" class="hotel-input">
+    </div>
 
-            <div class="room-date-box">
-                <small>End date</small>
-                <input type="date" id="roomCheckOut" class="hotel-input">
-            </div>
+    <div class="room-date-box">
+        <small>End date</small>
+        <input type="date" id="roomCheckOut" class="hotel-input">
+    </div>
 
-            <div class="room-date-box">
-                <small>Travelers</small>
-                <input type="number" id="roomTravelers" class="hotel-input" min="1" value="2">
-            </div>
-        </div>
+    <div class="room-date-box">
+        <small>Rooms</small>
+        <input type="number" id="roomCount" class="hotel-input" min="1" max="4" value="1">
+    </div>
+
+    <div class="room-date-box">
+        <small>Travelers</small>
+        <input type="number" id="roomTravelers" class="hotel-input" min="1" max="4" value="2">
+    </div>
+</div>
+
+<p id="bookingValidationMessage" class="validation-message"></p>
 
             <div class="price-message">
                 <span>↓</span>
@@ -232,23 +246,21 @@ if (destination && hotel) {
                     <p>Pay less than for similar properties on our site.</p>
                 </div>
             </div>
-
             <div class="room-cards">
-                <div class="room-card">
-                    <img src="${hotel.image}" alt="${hotel.name}">
-                    <div class="room-info">
-                        <span class="room-label">Our lowest price</span>
-                        <h3>Standard Room</h3>
-                        <p>✓ Free WiFi</p>
-                        <p>✓ Sleeps 2</p>
-                        <p>✓ 1 Double Bed</p>
-                        <div class="room-rating">
+                    <div class="room-card">
+                        <img src="${hotel.image}" alt="${hotel.name}">
+                        <div class="room-info">
+                            <span class="room-label">Our lowest price</span>
+                            <h3>Standard Room</h3>
+                            <p>✓ Free WiFi</p>
+                            <p>✓ Sleeps 2</p>
+                            <div class="room-rating">
                             <span>${reviewScore}</span>
                             ${reviewText}
                         </div>
-                        <h4>${hotel.price} ${hotel.currency} nightly</h4>
-                        <p class="total-price">${hotel.price} ${hotel.currency} total</p>
-                        <a href="booking.html?id=${destination.id}" class="reserve-btn">Reserve</a>
+                        <h4>${hotel.price} ${hotel.currency}</h4>
+                        <!-- التعديل هنا: زرار الحجز -->
+                        <button onclick="handleRoomBooking('${hotel.name} - Standard', ${hotel.price}, '${hotel.image}')" class="reserve-btn" style="border:none; cursor:pointer; width:100%;">Reserve</button>
                     </div>
                 </div>
 
@@ -257,66 +269,84 @@ if (destination && hotel) {
                     <div class="room-info">
                         <span class="room-label">Popular choice</span>
                         <h3>Deluxe Room</h3>
-                        <p>✓ Free WiFi</p>
                         <p>✓ City view</p>
-                        <p>✓ Breakfast available</p>
                         <div class="room-rating">
                             <span>${reviewScore}</span>
                             ${reviewText}
                         </div>
-                        <h4>${hotel.price + 40} ${hotel.currency} nightly</h4>
-                        <p class="total-price">${hotel.price + 40} ${hotel.currency} total</p>
-                        <a href="booking.html?id=${destination.id}" class="reserve-btn">Reserve</a>
+                        <h4>${hotel.price + 40} ${hotel.currency}</h4>
+                        <!-- التعديل هنا: زرار الحجز للغرفة الأغلى -->
+                        <button onclick="handleRoomBooking('${hotel.name} - Deluxe', ${hotel.price + 40}, '${hotel.image}')" class="reserve-btn" style="border:none; cursor:pointer; width:100%;">Reserve</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="accessibility" class="hotel-section two-column-section">
-            <div>
-                <h2>Accessibility</h2>
-                <p>
-                    If you have requests for specific accessibility needs, please contact the property using the information on the reservation confirmation received after booking.
-                </p>
-            </div>
+       <section id="accessibility" class="hotel-section">
+    <h2>Accessibility</h2>
 
-            <div>
-                <h3>Common areas</h3>
-                <p>Wheelchair accessible areas</p>
-                <p>Elevator available</p>
-                <p>Well-lit path to entrance</p>
+    <div class="hotel-info-grid">
+        <div class="info-card">
+            <h3>Common areas</h3>
+            <p>Wheelchair accessible areas</p>
+            <p>Elevator available</p>
+            <p>Well-lit path to entrance</p>
+        </div>
 
-                <h3>Rooms</h3>
-                <p>Accessible room options</p>
-                <p>Private bathroom</p>
-            </div>
-        </section>
+        <div class="info-card">
+            <h3>Rooms</h3>
+            <p>Accessible room options</p>
+            <p>Private bathroom</p>
+            <p>Comfortable room layout</p>
+        </div>
 
-        <section id="policies" class="hotel-section two-column-section">
-            <div>
-                <h2>Policies</h2>
-            </div>
+        <div class="info-card">
+            <h3>Guest support</h3>
+            <p>Guests can contact the property for accessibility requests.</p>
+            <p>Support information is provided after booking.</p>
+        </div>
+    </div>
+</section>
 
-            <div class="policy-columns">
-                <div>
-                    <h3>Check-in</h3>
-                    <p>${destination.policies.checkIn}</p>
-                    <p>Minimum check-in age: 18</p>
+        <section id="policies" class="hotel-section">
+    <h2>Policies</h2>
 
-                    <h3>Special check-in instructions</h3>
-                    <p>Guests will receive confirmation information after booking.</p>
-                </div>
+    <div class="hotel-info-grid">
+        <div class="info-card">
+            <h3>Check-in</h3>
+            <p>${destination.policies.checkIn}</p>
+            <p>Minimum check-in age: 18</p>
+        </div>
 
-                <div>
-                    <h3>Check-out</h3>
-                    <p>${destination.policies.checkOut}</p>
-                    <p>Late check-out subject to availability.</p>
+        <div class="info-card">
+            <h3>Check-out</h3>
+            <p>${destination.policies.checkOut}</p>
+            <p>Late check-out subject to availability.</p>
+        </div>
 
-                    <h3>Pets</h3>
-                    <p>${destination.policies.pets}</p>
-                </div>
-            </div>
-        </section>
+        <div class="info-card">
+            <h3>Pets</h3>
+            <p>${destination.policies.pets}</p>
+        </div>
+
+        <div class="info-card">
+            <h3>Children</h3>
+            <p>${destination.policies.children}</p>
+        </div>
+
+        <div class="info-card">
+            <h3>Special instructions</h3>
+            <p>Guests will receive confirmation information after booking.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>Payment types</h3>
+            <p>Mastercard</p>
+            <p>Visa</p>
+            <p>Cash</p>
+        </div>
+    </div>
+</section>
 
         <section class="hotel-section">
             <h2>Property payment types</h2>
@@ -342,6 +372,110 @@ if (destination && hotel) {
             </div>
         </section>
     `;
+
+    // Safe booking validation
+(function () {
+    const bookingCheckIn = document.getElementById("roomCheckIn");
+    const bookingCheckOut = document.getElementById("roomCheckOut");
+    const bookingRoomCount = document.getElementById("roomCount");
+    const bookingTravelers = document.getElementById("roomTravelers");
+    const bookingMessage = document.getElementById("bookingValidationMessage");
+    const reserveButtons = document.querySelectorAll(".reserve-btn");
+
+    if (!bookingCheckIn || !bookingCheckOut || !bookingRoomCount || !bookingTravelers || !bookingMessage) {
+        return;
+    }
+
+    function formatBookingDate(date) {
+        return date.toISOString().split("T")[0];
+    }
+
+    function addBookingDays(date, days) {
+        const newDate = new Date(date);
+        newDate.setDate(newDate.getDate() + days);
+        return newDate;
+    }
+
+    const currentDate = new Date();
+    const nextDate = addBookingDays(currentDate, 1);
+
+    bookingCheckIn.value = formatBookingDate(currentDate);
+    bookingCheckOut.value = formatBookingDate(nextDate);
+
+    bookingCheckIn.min = formatBookingDate(currentDate);
+    bookingCheckOut.min = formatBookingDate(nextDate);
+
+    function updateMaxTravelers() {
+        const rooms = parseInt(bookingRoomCount.value) || 1;
+        const maxTravelers = rooms * 4;
+
+        bookingTravelers.max = maxTravelers;
+
+        if (parseInt(bookingTravelers.value) > maxTravelers) {
+            bookingTravelers.value = maxTravelers;
+        }
+    }
+
+    function validateBooking() {
+        const checkInDate = new Date(bookingCheckIn.value);
+        const checkOutDate = new Date(bookingCheckOut.value);
+        const rooms = parseInt(bookingRoomCount.value);
+        const travelers = parseInt(bookingTravelers.value);
+        const maxTravelers = rooms * 4;
+
+        bookingMessage.textContent = "";
+
+        if (checkOutDate <= checkInDate) {
+            bookingMessage.textContent = "Check-out date must be after check-in date.";
+            return false;
+        }
+
+        if (rooms < 1 || rooms > 4) {
+            bookingMessage.textContent = "Rooms must be between 1 and 4.";
+            return false;
+        }
+
+        if (travelers < 1 || travelers > maxTravelers) {
+            bookingMessage.textContent = `Travelers must be between 1 and ${maxTravelers} for ${rooms} room(s).`;
+            return false;
+        }
+
+        return true;
+    }
+
+    bookingCheckIn.addEventListener("change", function () {
+        const checkInDate = new Date(bookingCheckIn.value);
+        const minCheckoutDate = addBookingDays(checkInDate, 1);
+
+        bookingCheckOut.min = formatBookingDate(minCheckoutDate);
+
+        if (new Date(bookingCheckOut.value) <= checkInDate) {
+            bookingCheckOut.value = formatBookingDate(minCheckoutDate);
+        }
+
+        validateBooking();
+    });
+
+    bookingCheckOut.addEventListener("change", validateBooking);
+
+    bookingRoomCount.addEventListener("input", function () {
+        updateMaxTravelers();
+        validateBooking();
+    });
+
+    bookingTravelers.addEventListener("input", validateBooking);
+
+    reserveButtons.forEach(button => {
+        button.addEventListener("click", function (e) {
+            if (!validateBooking()) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    updateMaxTravelers();
+    validateBooking();
+})();
 
     // Save button logic
 const saveBtn = document.getElementById("saveBtn");
@@ -441,19 +575,20 @@ function formatDate(date) {
     return date.toISOString().split("T")[0];
 }
 
+// Dates and travelers sync
 const topCheckIn = document.getElementById("topCheckIn");
 const topCheckOut = document.getElementById("topCheckOut");
-const topTravelers = document.getElementById("topTravelers");
+const topTravelers = document.getElementById("topTravelers");   
 
 const roomCheckIn = document.getElementById("roomCheckIn");
 const roomCheckOut = document.getElementById("roomCheckOut");
 const roomTravelers = document.getElementById("roomTravelers");
 
-topCheckIn.value = formatDate(today);
-topCheckOut.value = formatDate(tomorrow);
-roomCheckIn.value = topCheckIn.value;
-roomCheckOut.value = topCheckOut.value;
-roomTravelers.value = topTravelers.value;
+// topCheckIn.value = formatDate(today);
+// topCheckOut.value = formatDate(tomorrow);
+// roomCheckIn.value = topCheckIn.value;
+// roomCheckOut.value = topCheckOut.value;
+// roomTravelers.value = topTravelers.value;
 
 topCheckIn.addEventListener("change", () => {
     roomCheckIn.value = topCheckIn.value;
@@ -485,4 +620,19 @@ roomTravelers.addEventListener("input", () => {
             <a href="index.html" class="back-btn">Back Home</a>
         </div>
     `;
+}
+// وظيفة الربط مع نظام الحجز والخصم (المعدلة)
+function handleRoomBooking(roomName, price, image) { // أضفنا image هنا
+    // التأكد أن ملف booking.js موجود
+    if (typeof bookTrip === "function") {
+        // تنفيذ الحجز مع تمرير رابط الصورة
+        bookTrip(roomName, price, image); // أضفنا image هنا
+        
+        // الانتقال لصفحة الدفع والخصم
+        setTimeout(() => {
+            window.location.href = "booking.html";
+        }, 800);
+    } else {
+        alert("Error: booking.js is missing!");
+    }
 }
