@@ -31,3 +31,7 @@ function updateNavbar() {
 }
 
 document.addEventListener('DOMContentLoaded', updateNavbar);
+// to home page
+function goToDestination(id) {
+    window.location.href = `details.html?id=${id}`;
+}

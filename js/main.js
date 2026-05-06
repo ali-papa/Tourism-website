@@ -30,4 +30,11 @@ destinations.forEach(place => {
     `;
 
     container.innerHTML += card;
-});
+}
+
+
+
+
+
+
+);
