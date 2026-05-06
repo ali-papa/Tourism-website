@@ -575,19 +575,20 @@ function formatDate(date) {
     return date.toISOString().split("T")[0];
 }
 
+// Dates and travelers sync
 const topCheckIn = document.getElementById("topCheckIn");
 const topCheckOut = document.getElementById("topCheckOut");
-const topTravelers = document.getElementById("topTravelers");
+const topTravelers = document.getElementById("topTravelers");   
 
 const roomCheckIn = document.getElementById("roomCheckIn");
 const roomCheckOut = document.getElementById("roomCheckOut");
 const roomTravelers = document.getElementById("roomTravelers");
 
-topCheckIn.value = formatDate(today);
-topCheckOut.value = formatDate(tomorrow);
-roomCheckIn.value = topCheckIn.value;
-roomCheckOut.value = topCheckOut.value;
-roomTravelers.value = topTravelers.value;
+// topCheckIn.value = formatDate(today);
+// topCheckOut.value = formatDate(tomorrow);
+// roomCheckIn.value = topCheckIn.value;
+// roomCheckOut.value = topCheckOut.value;
+// roomTravelers.value = topTravelers.value;
 
 topCheckIn.addEventListener("change", () => {
     roomCheckIn.value = topCheckIn.value;

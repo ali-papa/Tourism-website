@@ -169,23 +169,6 @@ const hotelsHTML = hotels.map((hotel, index) => `
             </ul>
         </section>
     `;
-
-    const viewHotelButtons = document.querySelectorAll(".view-hotel-btn");
-
-viewHotelButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        const hotelIndex = button.getAttribute("data-hotel");
-        const detailsBox = document.getElementById(`hotelDetails-${hotelIndex}`);
-
-        detailsBox.classList.toggle("show");
-
-        if (detailsBox.classList.contains("show")) {
-            button.textContent = "Hide Details";
-        } else {
-            button.textContent = "View Details";
-        }
-    });
-});
 } else {
     detailsContainer.innerHTML = `
         <div class="not-found">
