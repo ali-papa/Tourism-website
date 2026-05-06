@@ -232,23 +232,21 @@ if (destination && hotel) {
                     <p>Pay less than for similar properties on our site.</p>
                 </div>
             </div>
-
             <div class="room-cards">
-                <div class="room-card">
-                    <img src="${hotel.image}" alt="${hotel.name}">
-                    <div class="room-info">
-                        <span class="room-label">Our lowest price</span>
-                        <h3>Standard Room</h3>
-                        <p>✓ Free WiFi</p>
-                        <p>✓ Sleeps 2</p>
-                        <p>✓ 1 Double Bed</p>
-                        <div class="room-rating">
+                    <div class="room-card">
+                        <img src="${hotel.image}" alt="${hotel.name}">
+                        <div class="room-info">
+                            <span class="room-label">Our lowest price</span>
+                            <h3>Standard Room</h3>
+                            <p>✓ Free WiFi</p>
+                            <p>✓ Sleeps 2</p>
+                            <div class="room-rating">
                             <span>${reviewScore}</span>
                             ${reviewText}
                         </div>
-                        <h4>${hotel.price} ${hotel.currency} nightly</h4>
-                        <p class="total-price">${hotel.price} ${hotel.currency} total</p>
-                        <a href="booking.html?id=${destination.id}" class="reserve-btn">Reserve</a>
+                        <h4>${hotel.price} ${hotel.currency}</h4>
+                        <!-- التعديل هنا: زرار الحجز -->
+                        <button onclick="handleRoomBooking('${hotel.name} - Standard', ${hotel.price}, '${hotel.image}')" class="reserve-btn" style="border:none; cursor:pointer; width:100%;">Reserve</button>
                     </div>
                 </div>
 
@@ -257,16 +255,14 @@ if (destination && hotel) {
                     <div class="room-info">
                         <span class="room-label">Popular choice</span>
                         <h3>Deluxe Room</h3>
-                        <p>✓ Free WiFi</p>
                         <p>✓ City view</p>
-                        <p>✓ Breakfast available</p>
                         <div class="room-rating">
                             <span>${reviewScore}</span>
                             ${reviewText}
                         </div>
-                        <h4>${hotel.price + 40} ${hotel.currency} nightly</h4>
-                        <p class="total-price">${hotel.price + 40} ${hotel.currency} total</p>
-                        <a href="booking.html?id=${destination.id}" class="reserve-btn">Reserve</a>
+                        <h4>${hotel.price + 40} ${hotel.currency}</h4>
+                        <!-- التعديل هنا: زرار الحجز للغرفة الأغلى -->
+                        <button onclick="handleRoomBooking('${hotel.name} - Deluxe', ${hotel.price + 40}, '${hotel.image}')" class="reserve-btn" style="border:none; cursor:pointer; width:100%;">Reserve</button>
                     </div>
                 </div>
             </div>
@@ -485,4 +481,19 @@ roomTravelers.addEventListener("input", () => {
             <a href="index.html" class="back-btn">Back Home</a>
         </div>
     `;
+}
+// وظيفة الربط مع نظام الحجز والخصم (المعدلة)
+function handleRoomBooking(roomName, price, image) { // أضفنا image هنا
+    // التأكد أن ملف booking.js موجود
+    if (typeof bookTrip === "function") {
+        // تنفيذ الحجز مع تمرير رابط الصورة
+        bookTrip(roomName, price, image); // أضفنا image هنا
+        
+        // الانتقال لصفحة الدفع والخصم
+        setTimeout(() => {
+            window.location.href = "booking.html";
+        }, 800);
+    } else {
+        alert("Error: booking.js is missing!");
+    }
 }
