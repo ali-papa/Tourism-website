@@ -1,59 +1,8 @@
-.details-info {
-    flex: 1;
-}
+/* ============================================= */
+/*      DETAILS.CSS – وجهة + فندق (منظم ونظيف)    */
+/* ============================================= */
 
-.details-info h1 {
-    margin-bottom: 15px;
-    font-size: 32px;
-}
-
-.details-info p {
-    margin: 10px 0;
-    line-height: 1.6;
-}
-
-.price-box {
-    margin: 15px 0 10px;
-    text-align: center;
-}
-
-.price-box h3 {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 700;
-    color: #111;
-}
-
-.price-box span {
-    display: block;
-    margin-top: 3px;
-    font-size: 14px;
-    color: #666;
-}
-
-.book-btn,
-.back-btn {
-    display: inline-block;
-    margin-top: 15px;
-    margin-right: 10px;
-    padding: 12px 20px;
-    background-color: #0077b6;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-.book-btn:hover,
-.back-btn:hover {
-    background-color: #023e8a;
-}
-
-.not-found {
-    text-align: center;
-    padding: 40px 20px;
-}
-
+/* ----- الأساسيات العامة للصفحة ----- */
 .details-page {
     padding: 30px 0;
     background: #f5f7fb;
@@ -65,13 +14,59 @@
     margin: 0 auto;
 }
 
+.not-found {
+    text-align: center;
+    padding: 50px 20px;
+    background: #fff;
+    border-radius: 16px;
+}
+
+/* ----- أزرار عامة ----- */
+.book-btn,
+.back-btn,
+.map-btn,
+.view-hotel-btn,
+.reserve-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background: #0066ff;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.book-btn:hover,
+.back-btn:hover,
+.map-btn:hover,
+.view-hotel-btn:hover,
+.reserve-btn:hover {
+    background: #004ecc;
+}
+
+.reserve-btn {
+    width: 100%;
+    background: #0647d9;
+    border-radius: 30px;
+}
+
+/* ============================================= */
+/*         🧳 تفاصيل الوجهة (Destination)        */
+/* ============================================= */
+
+/* البطاقة الرئيسية */
 .details-card {
     display: flex;
     gap: 30px;
     background: #fff;
     border-radius: 16px;
     padding: 25px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     align-items: center;
     margin-bottom: 30px;
 }
@@ -86,7 +81,7 @@
     height: 320px;
     object-fit: cover;
     border-radius: 14px;
-    display: block;
+    background-color: #f1f5f9;
 }
 
 .details-info {
@@ -129,58 +124,19 @@
     margin-top: 20px;
 }
 
-.book-btn,
-.back-btn,
-.map-btn {
-    display: inline-block;
-    padding: 12px 20px;
-    margin-right: 10px;
-    margin-top: 10px;
-    background: #0066ff;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    transition: 0.3s;
-}
-
-.book-btn:hover,
-.back-btn:hover,
-.map-btn:hover {
-    background: #004ecc;
-}
-
+/* الأقسام العامة */
 .details-section {
     background: #fff;
     border-radius: 16px;
     padding: 25px;
     margin-bottom: 25px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
 }
 
 .details-section h2 {
     margin-bottom: 18px;
     color: #1f2937;
     font-size: 28px;
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-}
-
-.gallery-image {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.details-video {
-    width: 100%;
-    max-height: 450px;
-    border-radius: 14px;
-    background: #000;
 }
 
 .details-list {
@@ -210,41 +166,121 @@
     color: #111827;
 }
 
-.location-section p {
+/* سلايدر المعرض */
+.slider-container {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.4s ease;
+}
+
+.slide {
+    min-width: 100%;
+    display: none;
+}
+
+.slide:first-child {
+    display: block;
+}
+
+.slide img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    background-color: #f1f5f9;
+    border-radius: 14px;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.8);
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 50%;
+    color: #111;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.prev { left: 12px; }
+.next { right: 12px; }
+
+.prev:hover, .next:hover {
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.dots {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.dot.active {
+    background: #0066ff;
+    width: 16px;
+    border-radius: 8px;
+}
+
+/* الفيديو */
+.video-box {
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.details-video {
+    width: 100%;
+    max-height: 450px;
+    background: #000;
+}
+
+/* الموقع والخريطة */
+.location-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.location-info p {
     margin-bottom: 15px;
     color: #444;
 }
 
-.not-found {
-    text-align: center;
-    padding: 50px 20px;
-    background: #fff;
-    border-radius: 16px;
-}
-
-@media (max-width: 768px) {
-    .details-card {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .details-image {
-        max-width: 100%;
-        height: 260px;
-    }
-
-    .details-info h1 {
-        font-size: 30px;
-    }
-
-    .details-video {
+.map-box {
     width: 100%;
-    max-height: 450px;
+    height: 300px;
     border-radius: 14px;
-    background: #000;
-}
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
 }
 
+.map-box iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* كروت الفنادق المختصرة */
 .hotels-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -256,7 +292,7 @@
     border: 1px solid #e5e7eb;
     border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
 
 .hotel-image {
@@ -306,174 +342,11 @@
     font-size: 14px;
 }
 
-.old-price {
-    text-decoration: line-through;
-    color: #777;
-    margin: 0;
-}
+/* ============================================= */
+/*       🏨 تفاصيل الفندق (Hotel Details)        */
+/* ============================================= */
 
-.discount-text {
-    color: #008000;
-    font-size: 14px;
-    margin-top: 6px;
-}
-
-.view-hotel-btn {
-    display: inline-block;
-    padding: 12px 20px;
-    margin-top: 12px;
-    background: #0066ff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.view-hotel-btn:hover {
-    background: #004ecc;
-}
-
-.hotel-details-box {
-    display: none;
-    margin-top: 18px;
-    padding: 16px;
-    background: #f8fafc;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-}
-
-.hotel-details-box.show {
-    display: block;
-}
-
-.hotel-details-box h4 {
-    margin: 12px 0 8px;
-    color: #111827;
-}
-
-.hotel-details-box p {
-    margin: 7px 0;
-}
-
-.location-layout {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 20px;
-    align-items: stretch;
-}
-
-.map-box {
-    width: 100%;
-    height: 300px;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid #e5e7eb;
-}
-
-.map-box iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-@media (max-width: 768px) {
-    .location-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .map-box {
-        height: 250px;
-    }
-}
-
-.hotel-details-page {
-    margin-bottom: 25px;
-}
-
-.hotel-details-card {
-    display: flex;
-    gap: 30px;
-    background: #fff;
-    border-radius: 16px;
-    padding: 25px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    align-items: center;
-}
-
-.hotel-details-image {
-    width: 50%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 14px;
-}
-
-.hotel-details-info {
-    flex: 1;
-}
-
-.hotel-details-info h1 {
-    font-size: 36px;
-    margin-bottom: 15px;
-    color: #111827;
-}
-
-.hotel-details-info p {
-    margin: 10px 0;
-    color: #444;
-    line-height: 1.6;
-}
-
-.hotel-details-price {
-    margin: 20px 0;
-    padding: 18px;
-    background: #f8fafc;
-    border-radius: 12px;
-}
-
-.hotel-details-price h2 {
-    margin: 0;
-    font-size: 32px;
-    color: #111;
-}
-
-.hotel-details-price span {
-    color: #666;
-}
-
-.view-hotel-btn {
-    display: inline-block;
-    padding: 12px 20px;
-    margin-top: 12px;
-    background: #0066ff;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.view-hotel-btn:hover {
-    background: #004ecc;
-}
-
-@media (max-width: 768px) {
-    .hotel-details-card {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .hotel-details-image {
-        width: 100%;
-        height: 260px;
-    }
-
-    .hotel-details-info h1 {
-        font-size: 28px;
-    }
-}
-
+/* شريط البحث العلوي */
 .hotel-search-bar {
     display: grid;
     grid-template-columns: 1.2fr 1.2fr 1.2fr auto;
@@ -503,17 +376,17 @@
     font-weight: 600;
 }
 
-.hotel-search-btn {
-    background: #0647d9;
-    color: white;
+.hotel-input {
+    width: 100%;
     border: none;
-    border-radius: 40px;
-    padding: 0 28px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    background: transparent;
+    margin-top: 4px;
 }
 
+/* أعلى الصفحة (أزرار المشاركة والحفظ) */
 .hotel-top-actions {
     display: flex;
     justify-content: space-between;
@@ -537,6 +410,13 @@
     margin-left: 8px;
 }
 
+.outline-btn.saved {
+    color: #d90429;
+    border-color: #d90429;
+    background: #fff0f3;
+}
+
+/* الصورة الرئيسية للفندق */
 .hotel-main-photo {
     width: 100%;
     height: 430px;
@@ -551,6 +431,65 @@
     object-fit: cover;
 }
 
+/* التبويبات اللاصقة */
+.hotel-tabs-wrapper {
+    position: sticky;
+    top: 70px;
+    z-index: 999;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 10px 24px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    justify-content: space-between;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+
+.hotel-tabs {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.hotel-tabs a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 700;
+    padding: 20px 0 17px;
+    border-bottom: 3px solid transparent;
+    transition: 0.2s;
+}
+
+.hotel-tabs a.active {
+    color: #0647d9 !important;
+    border-bottom-color: #0647d9 !important;
+}
+
+.select-room-small {
+    background: #0647d9;
+    color: white !important;
+    text-decoration: none;
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* تنسيق الأقسام عند التمرير */
+#overview,
+#about,
+#rooms,
+#accessibility,
+#policies {
+    scroll-margin-top: 160px;
+}
+
+/* التخطيط العام لنظرة عامة */
 .hotel-overview-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -630,6 +569,7 @@
     line-height: 1.6;
 }
 
+/* الخريطة الجانبية */
 .hotel-side-map {
     background: #fff;
     border: 1px solid #e5e7eb;
@@ -679,6 +619,7 @@
     white-space: nowrap;
 }
 
+/* الأقسام العامة داخل الفندق */
 .hotel-section {
     background: #fff;
     padding: 35px 0;
@@ -697,6 +638,7 @@
     color: #222;
 }
 
+/* بانر التوفير (لغير المسجلين) */
 .saving-banner {
     background: #080e2f;
     color: white;
@@ -709,9 +651,10 @@
     font-size: 22px;
 }
 
-.saving-banner button {
+.sign-in-banner-btn {
     background: #0b75ff;
     color: white;
+    text-decoration: none;
     border: none;
     padding: 12px 26px;
     border-radius: 30px;
@@ -719,6 +662,7 @@
     cursor: pointer;
 }
 
+/* قسم الغرف */
 .rooms-search {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -734,11 +678,6 @@
 
 .room-date-box small {
     color: #555;
-}
-
-.room-date-box p {
-    font-size: 24px;
-    margin: 5px 0 0;
 }
 
 .price-message {
@@ -828,44 +767,34 @@
     margin: 20px 0 5px;
 }
 
-.total-price {
-    color: #555;
-}
-
-.reserve-btn {
-    display: inline-block;
-    margin-top: 15px;
-    background: #0647d9;
-    color: white;
-    text-decoration: none;
-    padding: 12px 22px;
-    border-radius: 30px;
-    font-weight: bold;
-}
-
-.two-column-section {
+/* Accessibility & Policies Grid */
+.hotel-info-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 45px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
 }
 
-.two-column-section p {
-    font-size: 18px;
-    line-height: 1.7;
+.info-card {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
 
-.policy-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 35px;
+.info-card h3 {
+    margin-bottom: 14px;
+    font-size: 22px;
+    color: #111827;
 }
 
-.policy-columns h3,
-.two-column-section h3 {
-    margin-top: 0;
-    font-size: 24px;
+.info-card p {
+    margin: 8px 0;
+    color: #444;
+    line-height: 1.6;
 }
 
+/* طرق الدفع */
 .payment-types {
     display: flex;
     gap: 15px;
@@ -885,6 +814,7 @@
     font-size: 18px;
 }
 
+/* فنادق مشابهة */
 .similar-hotels-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -896,6 +826,15 @@
     border-radius: 16px;
     overflow: hidden;
     background: #fff;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: 0.3s;
+}
+
+.similar-hotel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
 .similar-hotel-card img {
@@ -924,6 +863,38 @@
     margin-right: 8px;
 }
 
+/* مراجعات (تُرك المكان فارغاً لكن التنسيق جاهز) */
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.review-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid #eee;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+/* رسالة التحقق */
+.validation-message {
+    color: #d90429;
+    font-weight: 600;
+    margin: 10px 0 20px;
+}
+
+/* ============================================= */
+/*               📱 تجاوب الشاشات                 */
+/* ============================================= */
 @media (max-width: 900px) {
     .hotel-search-bar,
     .hotel-overview-layout,
@@ -947,11 +918,6 @@
         gap: 22px;
     }
 
-    .select-room-btn {
-        margin-left: 0;
-        white-space: nowrap;
-    }
-
     .saving-banner {
         flex-direction: column;
         gap: 15px;
@@ -959,228 +925,76 @@
     }
 }
 
-.hotel-input {
+@media (max-width: 768px) {
+    .details-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .details-image {
+        max-width: 100%;
+        height: 260px;
+    }
+
+    .details-info h1 {
+        font-size: 30px;
+    }
+
+    .location-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .map-box {
+        height: 250px;
+    }
+
+    .slide img {
+        height: 250px;
+    }
+}
+
+.slide {
+    position: relative;
+}
+.slide-caption {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
     width: 100%;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    font-weight: 600;
-    background: transparent;
-    margin-top: 4px;
-}
-
-.outline-btn.saved {
-    color: #d90429;
-    border-color: #d90429;
-    background: #fff0f3;
-}
-
-.sign-in-banner-btn {
-    background: #0b75ff;
+    text-align: center;
     color: white;
-    text-decoration: none;
-    border: none;
-    padding: 12px 26px;
-    border-radius: 30px;
-    font-weight: bold;
-    cursor: pointer;
+    background: rgba(0,0,0,0.5);
+    padding: 5px;
+    font-size: 14px;
 }
 
-.hotel-tabs a.select-room-btn.active {
-    color: white !important;
-    border-bottom: none !important;
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.comparison-table th, .comparison-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+}
+.comparison-table th {
+    background: #f1f5f9;
+    font-size: 18px;
+}
+.comparison-table td {
+    font-size: 16px;
 }
 
-.hotel-tabs-wrapper {
-    position: sticky;
-    top: 72px;
-    z-index: 400;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    margin-bottom: 30px;
-    min-height: 58px;
+.view-hotel-btn, .reserve-btn, .back-btn {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.view-hotel-btn:hover, .reserve-btn:hover, .back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.hotel-tabs {
-    display: flex;
-    align-items: center;
-    gap: 34px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    position: static;
-}
-
-.hotel-tabs a {
-    text-decoration: none;
-    color: #111;
-    font-weight: 700;
-    font-size: 15px;
-    padding: 20px 0 17px;
-    border-bottom: 3px solid transparent;
-    line-height: 1;
-}
-
-.select-room-btn {
-    display: none !important;
-}
-
-.hotel-tabs-wrapper {
-    position: sticky;
-    top: 82px;
-    z-index: 500;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 10px 24px;
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-    margin-bottom: 30px;
-}
-
-.hotel-tabs {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    position: static;
-}
-
-.hotel-tabs a {
-    color: #111 !important;
-    border-bottom: 3px solid transparent !important;
-}
-
-.hotel-tabs a.active {
-    color: #0647d9 !important;
-    border-bottom-color: #0647d9 !important;
-}
-
-.select-room-small {
-    background: #0647d9;
-    color: white !important;
-    text-decoration: none;
-    padding: 11px 20px;
-    border-radius: 999px;
-    font-size: 15px;
-    font-weight: 700;
-    white-space: nowrap;
-    line-height: 1;
-}
-
-.select-room-small:hover {
-    background: #003db8;
-}
-
-/* يمنع العنوان يتغطى لما تدوس على tab */
-#overview,
-#about,
-#rooms,
-#accessibility,
-#policies {
-    scroll-margin-top: 160px;
-}
-
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.hotel-tabs-wrapper {
-    position: sticky;
-    top: 70px;
-    z-index: 999;
-    margin-top: 0 !important;
-    margin-bottom: 25px;
-    background: #fff;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #ddd;
-}
-
-.hotel-tabs {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    position: static;
-}
-
-.hotel-tabs a {
-    color: #111 !important;
-    border-bottom: 3px solid transparent !important;
-}
-
-.hotel-tabs a.active {
-    color: #0647d9 !important;
-    border-bottom-color: #0647d9 !important;
-}
-
-.validation-message {
-    color: #d90429;
-    font-weight: 600;
-    margin: 10px 0 20px;
-}
-
-.gallery-image,
-.hotel-image,
-.hotel-details-image,
-.hotel-main-photo img,
-.room-card img,
-.similar-hotel-card img,
-.details-image {
-    object-fit: cover !important;
-    background-color: #f1f5f9;
-}
-
-.similar-hotel-card {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-
-.similar-hotel-card:hover {
-    transform: translateY(-4px);
-    transition: 0.3s;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-}
-
-.hotel-info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 22px;
-}
-
-.info-card {
-    background: #f8fafc;
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
-
-.info-card h3 {
-    margin-bottom: 14px;
-    font-size: 22px;
-    color: #111827;
-}
-
-.info-card p {
-    margin: 8px 0;
-    color: #444;
-    line-height: 1.6;
+.hotel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
 }
