@@ -26,7 +26,6 @@
     </svg>
     Tourism
   </a>
-
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="search.html">Explore</a>
@@ -35,78 +34,265 @@
   </div>
 </nav>
 
-<!-- CONTENT -->
-<div class="container">
-  <div class="profile-card">
+<!-- ===== PROFILE PAGE ===== -->
+<div class="profile-page">
 
-    <!-- HEADER -->
-    <div class="profile-header">
-      <div class="avatar" id="avatar"></div>
-      <h2 id="name"></h2>
-      <p id="email"></p>
+  <!-- HERO SECTION -->
+  <div class="profile-hero">
+    <div class="hero-bg-decor">
+      <span class="decor-circle c1"></span>
+      <span class="decor-circle c2"></span>
+      <span class="decor-circle c3"></span>
+    </div>
+    <div class="hero-content">
+      <div class="hero-avatar" id="avatar"></div>
+      <div class="hero-text">
+        <h1 id="name">Loading...</h1>
+        <p id="email" class="hero-email"></p>
+        <span class="hero-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+          Tourism Member
+        </span>
+      </div>
+      <button id="logoutBtn" class="hero-logout-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD GRID -->
+  <div class="profile-grid">
+
+    <!-- ===== LEFT SIDEBAR ===== -->
+    <aside class="profile-sidebar">
+
+      <!-- Account Overview Card -->
+      <div class="pcard account-overview">
+        <div class="pcard-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+          <h3>Account Overview</h3>
+        </div>
+        <ul class="overview-list">
+          <li>
+            <span class="ov-label">Email</span>
+            <span class="ov-value" id="ov-email">—</span>
+          </li>
+          <li>
+            <span class="ov-label">Gender</span>
+            <span class="ov-value" id="ov-gender">—</span>
+          </li>
+          <li>
+            <span class="ov-label">Country</span>
+            <span class="ov-value" id="ov-country">—</span>
+          </li>
+          <li>
+            <span class="ov-label">Balance</span>
+            <span class="ov-value balance-value" id="ov-balance">$0</span>
+          </li>
+        </ul>
+        <button class="add-balance-btn" id="addBalanceBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Add Balance
+        </button>
+      </div>
+
+      <!-- Profile Completion Card -->
+      <div class="pcard completion-card">
+        <div class="pcard-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <h3>Profile Completion</h3>
+        </div>
+        <div class="completion-pct-row">
+          <span class="completion-pct" id="completionPct">0%</span>
+          <span class="completion-label" id="completionLabel">Incomplete</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+        </div>
+        <ul class="completion-checklist" id="completionChecklist">
+          <li class="check-item" data-key="name">
+            <span class="check-dot"></span> Full name set
+          </li>
+          <li class="check-item" data-key="gender">
+            <span class="check-dot"></span> Gender selected
+          </li>
+          <li class="check-item" data-key="country">
+            <span class="check-dot"></span> Country selected
+          </li>
+          <li class="check-item" data-key="password">
+            <span class="check-dot"></span> Password updated
+          </li>
+        </ul>
+      </div>
+
+      <!-- Quick Stats Card -->
+      <div class="pcard quick-stats">
+        <div class="pcard-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <h3>Quick Stats</h3>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-num" id="stat-balance">$0</span>
+            <span class="stat-lbl">Balance</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num" id="stat-trips">0</span>
+            <span class="stat-lbl">Trips</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num" id="stat-completion">0%</span>
+            <span class="stat-lbl">Complete</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num" id="stat-status">Free</span>
+            <span class="stat-lbl">Plan</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ===== MAIN EDIT SECTION ===== -->
+    <main class="profile-main">
+
+      <div class="pcard edit-card">
+        <div class="pcard-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <h3>Edit Profile</h3>
+        </div>
+
+        <div class="edit-form">
+
+          <div class="form-row two-col">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="firstName" readonly class="input-readonly" />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="lastName" readonly class="input-readonly" />
+            </div>
+          </div>
+
+          <div class="form-row two-col">
+            <div class="form-group">
+              <label>Gender</label>
+              <select id="genderSelect" class="form-select">
+                <option value="">Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Country</label>
+              <select id="countrySelect" class="form-select">
+                <option value="">Select country</option>
+                <option value="EG">Egypt</option>
+                <option value="US">United States</option>
+                <option value="GB">United Kingdom</option>
+                <option value="AE">UAE</option>
+                <option value="SA">Saudi Arabia</option>
+                <option value="FR">France</option>
+                <option value="DE">Germany</option>
+                <option value="IT">Italy</option>
+                <option value="ES">Spain</option>
+                <option value="TR">Turkey</option>
+                <option value="JP">Japan</option>
+                <option value="AU">Australia</option>
+                <option value="CA">Canada</option>
+                <option value="BR">Brazil</option>
+                <option value="IN">India</option>
+                <option value="MX">Mexico</option>
+                <option value="ZA">South Africa</option>
+                <option value="NG">Nigeria</option>
+                <option value="MA">Morocco</option>
+                <option value="TN">Tunisia</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-divider">
+            <span>Password Settings</span>
+          </div>
+
+          <div class="form-row two-col">
+            <div class="form-group">
+              <label>Current Password</label>
+              <div class="input-icon-wrap">
+                <input type="password" id="oldPass" placeholder="Enter current password" />
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>New Password</label>
+              <div class="input-icon-wrap">
+                <input type="password" id="newPass" placeholder="Enter new password" />
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn-save" id="saveProfileBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+              Save Changes
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div><!-- end .profile-grid -->
+</div><!-- end .profile-page -->
+
+
+<!-- ===== ADD BALANCE MODAL ===== -->
+<div id="balanceModal" class="pmodal-overlay">
+  <div class="pmodal-box">
+    <button class="pmodal-close" id="closeBalanceModal">&times;</button>
+
+    <!-- Step 1: Access Code -->
+    <div id="stepCode" class="modal-step active">
+      <div class="modal-icon blue">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+      </div>
+      <h3>Access Required</h3>
+      <p class="modal-sub">Enter your secret access code to add balance</p>
+      <div class="modal-input-group">
+        <input type="text" id="accessCode" placeholder="Enter access code" autocomplete="off" />
+      </div>
+      <button class="modal-btn-primary" id="verifyCodeBtn">Verify Code</button>
     </div>
 
-    <!-- BALANCE -->
-    <div class="balance">
-      <h3>Balance</h3>
-      <p id="balance">$0</p>
-      <button id="addBalanceBtn">Add Balance</button>
-      <button id="settingsBtn" class="settings-btn">Settings</button>
+    <!-- Step 2: Amount -->
+    <div id="stepAmount" class="modal-step">
+      <div class="modal-icon green">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <h3>Add Balance</h3>
+      <p class="modal-sub">Enter the amount you'd like to add</p>
+      <div class="modal-input-group">
+        <span class="input-prefix">$</span>
+        <input type="number" id="amount" placeholder="0.00" min="1" />
+      </div>
+      <button class="modal-btn-primary green" id="confirmAdd">Add Balance</button>
     </div>
-
-    <!-- INFO -->
-    <div class="info">
-      <p><strong>First Name:</strong> <span id="firstName"></span></p>
-      <p><strong>Last Name:</strong> <span id="lastName"></span></p>
-    </div>
-
-    <button id="logoutBtn" class="logout">Logout</button>
 
   </div>
 </div>
 
-<!-- MODAL -->
-<div id="modal" class="modal">
-  <div class="modal-box">
-
-    <!-- زرار X -->
-    <span class="modal-close" id="closeModal">&times;</span>
-
-    <h3>Add Balance</h3>
-
-    <input type="number" id="amount" placeholder="Enter amount">
-    <button id="confirmAdd">Add</button>
-
-  </div>
-</div>
-
-<div id="settingsModal" class="modal">
-  <div class="modal-box">
-
-    <!-- X -->
-    <span class="modal-close" id="closeSettings">&times;</span>
-
-    <h3>Update Profile</h3>
-
-    <input id="newFirst" placeholder="First Name">
-    <input id="newLast" placeholder="Last Name">
-
-    <!-- 🔐 OLD PASSWORD -->
-    <input id="oldPass" type="password" placeholder="Current Password">
-
-    <!-- 🆕 NEW PASSWORD -->
-    <input id="newPass" type="password" placeholder="New Password">
-
-    <button id="saveSettings">Save</button>
-
-  </div>
-</div>
+<!-- Toast -->
+<div id="toast" class="ptoast"></div>
 
 <!-- SCRIPTS -->
 <script src="../js/users.js"></script>
 <script src="../js/ui.js"></script>
 <script src="../js/profile.js"></script>
-<div id="toast" class="toast"></div>
 
 </body>
 </html>

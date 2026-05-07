@@ -1,176 +1,288 @@
+/* ============================================
+   PROFILE PAGE — profile.js
+   Premium Tourism Dashboard
+   ============================================ */
+
+// ===== TOAST =====
 function showToast(type, message) {
-    const toast = document.getElementById('toast');
-
-    toast.textContent = message;
-    toast.className = `toast show ${type}`;
-
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 2500);
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = `ptoast show ${type}`;
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => {
+    toast.className = 'ptoast';
+  }, 2800);
 }
 
-
-const settingsModal = document.getElementById('settingsModal');
-const settingsBtn = document.getElementById('settingsBtn');
-const saveSettings = document.getElementById('saveSettings');
-const closeSettings = document.getElementById('closeSettings');
-
-// open
-settingsBtn.onclick = () => {
-    settingsModal.classList.add('show');
-};
-
-// close X
-closeSettings.onclick = () => {
-    settingsModal.classList.remove('show');
-};
-
-// close outside
-settingsModal.onclick = (e) => {
-    if (e.target === settingsModal) {
-        settingsModal.classList.remove('show');
-    }
-};
-
-// save
-saveSettings.onclick = () => {
-
-    const newFirst = document.getElementById('newFirst').value.trim();
-    const newLast = document.getElementById('newLast').value.trim();
-    const oldPass = document.getElementById('oldPass').value.trim();
-    const newPass = document.getElementById('newPass').value.trim();
-
-    // ✨ تغيير الاسم
-    if (newFirst) user.firstName = newFirst;
-    if (newLast) user.lastName = newLast;
-
-    // 🔐 تغيير الباسورد
-    if (newPass) {
-
-        if (!oldPass) {
-            showToast("error", "Enter current password first");
-            return;
-        }
-
-        if (oldPass !== user.password) {
-            showToast("error", "Wrong current password");
-            return;
-        }
-
-        if (newPass.length < 6) {
-            showToast("error", "Password must be at least 6 characters");
-            return;
-        }
-
-        user.password = newPass;
-    }
-
-    // update users
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-
-    users = users.map(u => {
-        if (u.email === user.email) return user;
-        return u;
-    });
-
-    localStorage.setItem('users', JSON.stringify(users));
-    localStorage.setItem('currentUser', JSON.stringify(user));
-
-    showToast("success", "Profile updated successfully");
-
-    settingsModal.classList.remove('show');
-
-    setTimeout(() => location.reload(), 600);
-};
-
 // ===== GET USER =====
-const user = JSON.parse(localStorage.getItem('currentUser'));
+let user = JSON.parse(localStorage.getItem('currentUser'));
 
-// لو مش مسجل دخول
 if (!user) {
-    window.location.href = "login.html";
+  window.location.href = 'login.html';
 }
 
 // ===== ELEMENTS =====
-const nameEl = document.getElementById('name');
-const emailEl = document.getElementById('email');
-const firstNameEl = document.getElementById('firstName');
-const lastNameEl = document.getElementById('lastName');
-const avatarEl = document.getElementById('avatar');
-const balanceEl = document.getElementById('balance');
+const nameEl        = document.getElementById('name');
+const emailEl       = document.getElementById('email');
+const avatarEl      = document.getElementById('avatar');
 
-// ===== FILL DATA =====
-nameEl.textContent = user.firstName + " " + user.lastName;
-emailEl.textContent = user.email;
+const firstNameEl   = document.getElementById('firstName');
+const lastNameEl    = document.getElementById('lastName');
+const genderSelect  = document.getElementById('genderSelect');
+const countrySelect = document.getElementById('countrySelect');
+const oldPassEl     = document.getElementById('oldPass');
+const newPassEl     = document.getElementById('newPass');
 
-firstNameEl.textContent = user.firstName;
-lastNameEl.textContent = user.lastName;
+const ovEmail       = document.getElementById('ov-email');
+const ovGender      = document.getElementById('ov-gender');
+const ovCountry     = document.getElementById('ov-country');
+const ovBalance     = document.getElementById('ov-balance');
 
+const completionPctEl  = document.getElementById('completionPct');
+const completionLblEl  = document.getElementById('completionLabel');
+const progressFillEl   = document.getElementById('progressFill');
 
-const first = user.firstName.charAt(0);
-const last = user.lastName.charAt(0);
+const statBalance    = document.getElementById('stat-balance');
+const statCompletion = document.getElementById('stat-completion');
 
-avatarEl.textContent = (first + last).toUpperCase();
-// ===== BALANCE =====
-function updateBalance() {
-    balanceEl.textContent = "$" + (user.credit || 0);
+// ===== FILL PROFILE DATA =====
+function fillProfile() {
+  const fullName = user.firstName + ' ' + user.lastName;
+
+  // Hero
+  nameEl.textContent  = fullName;
+  emailEl.textContent = user.email;
+
+  // Avatar initials
+  const initials = (
+    (user.firstName?.charAt(0) || '') +
+    (user.lastName?.charAt(0)  || '')
+  ).toUpperCase();
+  avatarEl.textContent = initials;
+
+  // Edit form — readonly inputs auto-filled
+  firstNameEl.value = user.firstName || '';
+  lastNameEl.value  = user.lastName  || '';
+
+  // Pre-select gender
+  if (user.gender) {
+    genderSelect.value = user.gender;
+  }
+
+  // Pre-select country
+  if (user.country) {
+    countrySelect.value = user.country;
+  }
+
+  // Overview card
+  ovEmail.textContent   = user.email || '—';
+  ovGender.textContent  = user.gender  ? capitalize(user.gender) : '—';
+  ovCountry.textContent = user.country ? getCountryName(user.country) : 'Incomplete';
+  if (!user.country) {
+    ovCountry.style.color = '#ef4444';
+  }
+
+  updateBalanceDisplay();
+  updateCompletion();
 }
 
-updateBalance();
+// ===== BALANCE DISPLAY =====
+function updateBalanceDisplay() {
+  const bal = user.credit || 0;
+  ovBalance.textContent  = '$' + bal;
+  statBalance.textContent = '$' + bal;
 
-// ===== MODAL =====
-const modal = document.getElementById('modal');
-const addBtn = document.getElementById('addBalanceBtn');
-const confirmBtn = document.getElementById('confirmAdd');
-const amountInput = document.getElementById('amount');
+  // legacy support — if old balance element exists
+  const legacyBalance = document.getElementById('balance');
+  if (legacyBalance) legacyBalance.textContent = '$' + bal;
+}
 
-addBtn.onclick = () => {
-    modal.classList.add('show');
-};
+// ===== PROFILE COMPLETION =====
+function updateCompletion() {
+  const criteria = {
+    name:     !!(user.firstName && user.lastName),
+    gender:   !!user.gender,
+    country:  !!user.country,
+    password: !!(user.passwordUpdated),
+  };
 
-confirmBtn.onclick = () => {
-    const amount = Number(amountInput.value);
+  const done  = Object.values(criteria).filter(Boolean).length;
+  const total = Object.keys(criteria).length;
+  const pct   = Math.round((done / total) * 100);
 
-    if (!amount || amount <= 0) {
-        showToast("error", "Amount must be greater than 0");
-        return;
+  completionPctEl.textContent  = pct + '%';
+  statCompletion.textContent   = pct + '%';
+  progressFillEl.style.width   = pct + '%';
+
+  if (pct === 100) {
+    completionLblEl.textContent = 'Complete';
+    completionLblEl.className   = 'completion-label complete';
+  } else {
+    completionLblEl.textContent = 'Incomplete';
+    completionLblEl.className   = 'completion-label';
+  }
+
+  // checklist items
+  document.querySelectorAll('.check-item').forEach(item => {
+    const key = item.dataset.key;
+    if (criteria[key]) {
+      item.classList.add('done');
+    } else {
+      item.classList.remove('done');
     }
+  });
+}
 
-    user.credit = (user.credit || 0) + amount;
+// ===== SAVE PROFILE =====
+document.getElementById('saveProfileBtn').addEventListener('click', () => {
+  const selectedGender  = genderSelect.value;
+  const selectedCountry = countrySelect.value;
+  const oldPass         = oldPassEl.value.trim();
+  const newPass         = newPassEl.value.trim();
 
-    // update users list
-    let users = JSON.parse(localStorage.getItem('users')) || [];
+  // Update gender & country
+  if (selectedGender)  user.gender  = selectedGender;
+  if (selectedCountry) user.country = selectedCountry;
 
-    users = users.map(u => {
-        if (u.email === user.email) {
-            return user;
-        }
-        return u;
-    });
+  // Handle password change
+  if (newPass) {
+    if (!oldPass) {
+      showToast('error', 'Enter your current password first');
+      return;
+    }
+    if (oldPass !== user.password) {
+      showToast('error', 'Wrong current password');
+      return;
+    }
+    if (newPass.length < 6) {
+      showToast('error', 'Password must be at least 6 characters');
+      return;
+    }
+    user.password        = newPass;
+    user.passwordUpdated = true;
 
-    localStorage.setItem('users', JSON.stringify(users));
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    // Clear inputs
+    oldPassEl.value = '';
+    newPassEl.value = '';
+  }
 
-    updateBalance();
-    modal.classList.remove('show');
-    amountInput.value = "";
-};
+  persistUser();
+  fillProfile();
+  showToast('success', 'Profile updated successfully ✓');
+});
 
 // ===== LOGOUT =====
-document.getElementById('logoutBtn').onclick = () => {
-    localStorage.removeItem('currentUser');
-    window.location.href = "login.html";
-};
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem('currentUser');
+  window.location.href = 'login.html';
+});
 
-const closeModal = document.getElementById('closeModal');
+// ===== ADD BALANCE MODAL =====
+const balanceModal       = document.getElementById('balanceModal');
+const stepCode           = document.getElementById('stepCode');
+const stepAmount         = document.getElementById('stepAmount');
+const accessCodeInput    = document.getElementById('accessCode');
+const amountInput        = document.getElementById('amount');
 
-closeModal.onclick = () => {
-    modal.classList.remove('show');
-};
+const SECRET_CODE = 'teamX';
 
-// كمان تقفل لما تدوس بره
-modal.onclick = (e) => {
-    if (e.target === modal) {
-        modal.classList.remove('show');
-    }
-};
+// Open modal
+document.getElementById('addBalanceBtn').addEventListener('click', () => {
+  // Reset to step 1
+  stepCode.classList.add('active');
+  stepAmount.classList.remove('active');
+  accessCodeInput.value = '';
+  amountInput.value     = '';
+
+  balanceModal.classList.add('show');
+  setTimeout(() => accessCodeInput.focus(), 100);
+});
+
+// Close modal
+document.getElementById('closeBalanceModal').addEventListener('click', () => {
+  balanceModal.classList.remove('show');
+});
+balanceModal.addEventListener('click', (e) => {
+  if (e.target === balanceModal) balanceModal.classList.remove('show');
+});
+
+// Verify access code
+document.getElementById('verifyCodeBtn').addEventListener('click', () => {
+  const code = accessCodeInput.value.trim();
+
+  if (!code) {
+    showToast('error', 'Please enter the access code');
+    return;
+  }
+  if (code !== SECRET_CODE) {
+    showToast('error', 'Access code is incorrect');
+    accessCodeInput.value = '';
+    accessCodeInput.focus();
+    return;
+  }
+
+  // Move to step 2
+  stepCode.classList.remove('active');
+  stepAmount.classList.add('active');
+  setTimeout(() => amountInput.focus(), 100);
+});
+
+// Allow pressing Enter on access code input
+accessCodeInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('verifyCodeBtn').click();
+});
+
+// Confirm balance add
+document.getElementById('confirmAdd').addEventListener('click', () => {
+  const amount = Number(amountInput.value);
+
+  if (!amount || amount <= 0) {
+    showToast('error', 'Amount must be greater than 0');
+    return;
+  }
+
+  user.credit = (user.credit || 0) + amount;
+
+  persistUser();
+  updateBalanceDisplay();
+  updateCompletion();
+
+  balanceModal.classList.remove('show');
+  amountInput.value = '';
+
+  showToast('success', `$${amount} added to your balance 🎉`);
+});
+
+// Allow pressing Enter on amount input
+amountInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('confirmAdd').click();
+});
+
+// ===== PERSIST USER =====
+function persistUser() {
+  let users = JSON.parse(localStorage.getItem('users')) || [];
+  users = users.map(u => (u.email === user.email ? user : u));
+  localStorage.setItem('users', JSON.stringify(users));
+  localStorage.setItem('currentUser', JSON.stringify(user));
+}
+
+// ===== HELPERS =====
+function capitalize(str) {
+  if (!str) return '—';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function getCountryName(code) {
+  const countries = {
+    EG: 'Egypt', US: 'United States', GB: 'United Kingdom',
+    AE: 'UAE', SA: 'Saudi Arabia', FR: 'France', DE: 'Germany',
+    IT: 'Italy', ES: 'Spain', TR: 'Turkey', JP: 'Japan',
+    AU: 'Australia', CA: 'Canada', BR: 'Brazil', IN: 'India',
+    MX: 'Mexico', ZA: 'South Africa', NG: 'Nigeria',
+    MA: 'Morocco', TN: 'Tunisia',
+  };
+  return countries[code] || code;
+}
+
+// ===== INIT =====
+fillProfile();

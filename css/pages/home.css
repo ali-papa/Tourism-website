@@ -263,3 +263,117 @@ html {
         font-size: 0.98rem;
     }
 }
+
+/* ── FEATURED LANDMARK ───────────────────────────────── */
+.featured-landmark {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-top: 32px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.featured-landmark:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.landmark-img-wrap {
+    position: relative;
+    height: 320px;
+    overflow: hidden;
+}
+
+.landmark-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.featured-landmark:hover .landmark-img-wrap img {
+    transform: scale(1.05);
+}
+
+.landmark-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 60%, rgba(10,22,40,0.15));
+}
+
+.landmark-content {
+    background: var(--surface);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+}
+
+.landmark-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 999px;
+    width: fit-content;
+}
+
+.landmark-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.landmark-desc {
+    font-size: 0.97rem;
+    color: var(--text-2);
+    line-height: 1.65;
+    margin: 0;
+}
+
+.landmark-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--brand);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: var(--radius-xl);
+    width: fit-content;
+    margin-top: 6px;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.featured-landmark:hover .landmark-cta {
+    background: var(--brand-dark);
+    transform: translateX(3px);
+}
+
+@media (max-width: 768px) {
+    .featured-landmark {
+        grid-template-columns: 1fr;
+    }
+    .landmark-img-wrap { height: 220px; }
+    .landmark-content { padding: 24px 20px; }
+}

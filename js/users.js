@@ -22,7 +22,7 @@ function loginUser(email, password) {
 
     let user = users.find(
         u => u.email.trim() === email.trim() &&
-             u.password === password
+            u.password === password
     );
 
     if (!user) {
