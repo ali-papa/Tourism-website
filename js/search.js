@@ -218,8 +218,10 @@ function renderResults(results) {
                     <div class="card-price">
                         <span class="card-price-label">From</span>
                         <span class="card-price-value">
-                            ${item.price.toLocaleString()}
-                            <span class="card-price-currency">${item.currency || "USD"}</span>
+                            <span data-price-usd="${item.price}">
+                                ${getCurrencySymbol()} ${convertPrice(item.price).toLocaleString()}
+                            </span>
+                            <span class="card-price-currency">${getSelectedCurrency()}</span>
                         </span>
                     </div>
                     <button class="card-cta" tabindex="-1">View deal →</button>

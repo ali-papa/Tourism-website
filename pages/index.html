@@ -31,6 +31,20 @@
             <a href="index.html" class="active">Home</a>
             <a href="search.html">Explore</a>
             <a href="booking.html">Book</a>
+
+            <!-- Currency Selector هنا مباشرة -->
+            <div class="currency-selector" id="currencyContainer">
+                <span class="currency-icon">💱</span>
+                <select id="globalCurrencySelect" onchange="handleCurrencyChange(this.value)">
+                    <option value="USD">USD</option>
+                    <option value="EGP">EGP</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                    <option value="AED">AED</option>
+                    <option value="SAR">SAR</option>
+                </select>
+            </div>
+
             <a href="login.html" class="nav-cta">Sign in</a>
         </div>
 
@@ -47,18 +61,15 @@
         <section class="hero">
             <h1>Discover the World</h1>
             <p>Explore amazing places inside and outside Egypt</p>
-
             <button class="explore-main-btn" onclick="scrollToDestinations()">
                 ✈ Explore Now
             </button>
-
             <a href="search.html" class="explore-btn">Search Destinations</a>
         </section>
 
         <!-- World Map -->
         <section class="world-map-section">
             <div class="map-overlay"></div>
-
             <div class="world-content">
                 <span class="world-kicker">World Explorer</span>
                 <h2>Explore Every Corner of the Planet</h2>
@@ -71,25 +82,25 @@
 
         <!-- Featured Landmark -->
         <section class="featured-landmark" onclick="goToDestination(6)">
-    <div class="landmark-img-wrap">
-        <img src="../assets/images/universal.jpg" alt="Universal Studios Japan" />
-        <div class="landmark-img-overlay"></div>
-    </div>
-    <div class="landmark-content">
-        <span class="landmark-badge">⭐ Featured Landmark</span>
-        <h2 class="landmark-title">Universal Studios Japan</h2>
-        <p class="landmark-desc">
-            One of the world's most iconic theme parks — home to the legendary
-            USJ Globe in the heart of Osaka, Japan.
-        </p>
-        <span class="landmark-cta">
-            Explore Tokyo & Japan
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-        </span>
-    </div>
-</section>
+            <div class="landmark-img-wrap">
+                <img src="../assets/images/universal.jpg" alt="Universal Studios Japan" />
+                <div class="landmark-img-overlay"></div>
+            </div>
+            <div class="landmark-content">
+                <span class="landmark-badge">⭐ Featured Landmark</span>
+                <h2 class="landmark-title">Universal Studios Japan</h2>
+                <p class="landmark-desc">
+                    One of the world's most iconic theme parks — home to the legendary
+                    USJ Globe in the heart of Osaka, Japan.
+                </p>
+                <span class="landmark-cta">
+                    Explore Tokyo & Japan
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </span>
+            </div>
+        </section>
 
         <!-- Destinations -->
         <section class="destinations" id="destinationsSection">
@@ -104,6 +115,7 @@
     </footer>
 
     <script src="../js/data.js"></script>
+    <script src="../js/currency.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/ui.js"></script>
 

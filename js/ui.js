@@ -1,10 +1,13 @@
+// ============================
+// UI.JS - SHARED UI LOGIC
+// ============================
+
 function getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser'));
 }
 
 function updateNavbar() {
     const user = getCurrentUser();
-
     const signBtn = document.querySelector('.nav-cta');
 
     if (!signBtn) return;
@@ -12,26 +15,34 @@ function updateNavbar() {
     if (user) {
         signBtn.textContent = user.firstName;
         signBtn.href = "profile.html";
-
-        // remove hover issue
         signBtn.classList.remove('active');
 
-        // add logout button (اختياري)
-        let logout = document.createElement('a');
-        logout.textContent = "Logout";
-        logout.href = "#";
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks && !document.getElementById('logoutBtn')) {
+            let logout = document.createElement('a');
+            logout.id = 'logoutBtn';
+            logout.textContent = "Logout";
+            logout.href = "#";
+            logout.addEventListener('click', function () {
+                localStorage.removeItem('currentUser');
+                location.reload();
+            });
+            navLinks.appendChild(logout);
+        }
+    }
 
-        logout.addEventListener('click', function() {
-            localStorage.removeItem('currentUser');
-            location.reload();
-        });
-
-        document.querySelector('.nav-links').appendChild(logout);
+    // حط الـ Currency Selector في الـ Navbar
+    const navbar = document.querySelector('.nav-links') || document.querySelector('nav');
+    if (navbar && !document.getElementById('currencyContainer')) {
+        const currencyDiv = document.createElement('div');
+        currencyDiv.id = 'currencyContainer';
+        navbar.appendChild(currencyDiv);
     }
 }
 
-document.addEventListener('DOMContentLoaded', updateNavbar);
-// to home page
+// to details page
 function goToDestination(id) {
     window.location.href = `details.html?id=${id}`;
 }
+
+document.addEventListener('DOMContentLoaded', updateNavbar);

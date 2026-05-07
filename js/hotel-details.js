@@ -137,7 +137,9 @@ if (destination && hotel) {
                     ${getReviewText(getReviewScore(obj.item.rating))}
                 </div>
 
-                <h4>${obj.item.price} ${obj.item.currency} nightly</h4>
+                <h4 data-price-usd="${obj.item.price}">
+                    ${getCurrencySymbol()} ${convertPrice(obj.item.price).toLocaleString()} nightly
+                </h4>   
             </div>
         </a>
     `).join("");
@@ -338,7 +340,9 @@ if (destination && hotel) {
                             <span>${reviewScore}</span>
                             ${reviewText}
                         </div>
-                        <h4>${hotel.price} ${hotel.currency}</h4>
+                        <h4 data-price-usd="${hotel.price}">
+                            ${getCurrencySymbol()} ${convertPrice(hotel.price).toLocaleString()}
+                        </h4>
                         <!-- التعديل هنا: زرار الحجز -->
                         <button onclick="handleRoomBooking('${hotel.name} - Standard', ${hotel.price}, '${hotel.image}')" class="reserve-btn" style="border:none; cursor:pointer; width:100%;">Reserve</button>
                     </div>
@@ -354,7 +358,9 @@ if (destination && hotel) {
                             <span>${reviewScore}</span>
                             ${reviewText}
                         </div>
-                        <h4>${hotel.price + 40} ${hotel.currency}</h4>
+                        <h4 data-price-usd="${hotel.price + 40}">
+                            ${getCurrencySymbol()} ${convertPrice(hotel.price + 40).toLocaleString()}
+                        </h4>
                         <!-- التعديل هنا: زرار الحجز للغرفة الأغلى -->
                         <button onclick="handleRoomBooking('${hotel.name} - Deluxe', ${hotel.price + 40}, '${hotel.image}')" class="reserve-btn" style="border:none; cursor:pointer; width:100%;">Reserve</button>
                     </div>
@@ -375,9 +381,12 @@ if (destination && hotel) {
         <tbody>
             <tr>
                 <td>Price</td>
-                <td>${hotel.price} ${hotel.currency}</td>
-                <td>${hotel.price + 40} ${hotel.currency}</td>
-            </tr>
+                <td data-price-usd="${hotel.price}">
+                    ${getCurrencySymbol()} ${convertPrice(hotel.price).toLocaleString()}
+                </td>
+<td data-price-usd="${hotel.price + 40}">
+    ${getCurrencySymbol()} ${convertPrice(hotel.price + 40).toLocaleString()}
+</td>
             <tr>
                 <td>Free WiFi</td>
                 <td>✓</td>

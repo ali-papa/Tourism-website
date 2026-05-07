@@ -1,4 +1,4 @@
-// details.js (Clean – No Wishlist, No Reviews)
+// details.js
 
 const detailsContainer = document.getElementById("detailsContainer");
 
@@ -6,12 +6,10 @@ const params = new URLSearchParams(window.location.search);
 const destinationId = parseInt(params.get("id"));
 const destination = destinations.find(item => item.id === destinationId);
 
-// ---------- create map embed ----------
 function createMapEmbed(address) {
     return `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 }
 
-// ---------- main render function ----------
 function renderDetails() {
     if (!destination) {
         detailsContainer.innerHTML = `
@@ -23,15 +21,15 @@ function renderDetails() {
     }
 
     const gallerySlides = destination.gallery.map((img, idx) => `
-    <div class="slide">
-        <img src="${img}" alt="${destination.name} - Image ${idx+1}">
-        <p class="slide-caption">${destination.name} - ${idx+1}</p>
-    </div>
-`).join("");
+        <div class="slide">
+            <img src="${img}" alt="${destination.name} - Image ${idx+1}">
+            <p class="slide-caption">${destination.name} - ${idx+1}</p>
+        </div>
+    `).join("");
 
-    const highlightsHTML = destination.highlights.map(item => `<li>${item}</li>`).join("");
+    const highlightsHTML    = destination.highlights.map(item => `<li>${item}</li>`).join("");
     const accessibilityHTML = destination.accessibility.map(item => `<li>${item}</li>`).join("");
-    const nearbyHTML = destination.nearbyPlaces.map(place => `<li>${place}</li>`).join("");
+    const nearbyHTML        = destination.nearbyPlaces.map(place => `<li>${place}</li>`).join("");
 
     const hotels = hotelsByDestination[destination.id] || [];
     let hotelsHTML = "";
@@ -45,7 +43,9 @@ function renderDetails() {
                     <p>⭐ ${hotel.rating}</p>
                     <ul>${hotel.features.map(f => `<li>${f}</li>`).join("")}</ul>
                     <div class="hotel-price">
-                        <h4>${hotel.price} ${hotel.currency}</h4>
+                        <h4 data-price-usd="${hotel.price}">
+                            ${getCurrencySymbol()} ${convertPrice(hotel.price).toLocaleString()}
+                        </h4>
                         <span>per night</span>
                     </div>
                     <a href="hotel-details.html?destinationId=${destination.id}&hotelIndex=${index}" class="view-hotel-btn">
@@ -58,7 +58,6 @@ function renderDetails() {
     }
 
     detailsContainer.innerHTML = `
-        <!-- Hero Section -->
         <section class="details-hero">
             <div class="details-card">
                 <div class="details-main-image">
@@ -73,7 +72,9 @@ function renderDetails() {
                     <p>${destination.description}</p>
 
                     <div class="price-box">
-                        <h3>${destination.price} ${destination.currency}</h3>
+                        <h3 data-price-usd="${destination.price}">
+                            ${getCurrencySymbol()} ${convertPrice(destination.price).toLocaleString()}
+                        </h3>
                         <span>avg per night</span>
                     </div>
 
@@ -84,7 +85,6 @@ function renderDetails() {
             </div>
         </section>
 
-        <!-- Gallery Slider -->
         <section class="details-section">
             <h2>📷 Gallery</h2>
             <div class="slider-container" id="gallerySlider">
@@ -95,7 +95,6 @@ function renderDetails() {
             </div>
         </section>
 
-        <!-- Video -->
         <section class="details-section">
             <h2>🎥 Video</h2>
             <div class="video-box">
@@ -106,7 +105,6 @@ function renderDetails() {
             </div>
         </section>
 
-        <!-- Location -->
         <section class="details-section location-section">
             <h2>📍 Location</h2>
             <div class="location-layout">
@@ -123,25 +121,21 @@ function renderDetails() {
             </div>
         </section>
 
-        <!-- Hotels -->
         <section class="details-section">
             <h2>🏨 Available Hotels</h2>
             <div class="hotels-grid">${hotelsHTML}</div>
         </section>
 
-        <!-- Highlights -->
         <section class="details-section">
             <h2>✨ Highlights</h2>
             <ul class="details-list">${highlightsHTML}</ul>
         </section>
 
-        <!-- Accessibility -->
         <section class="details-section">
             <h2>♿ Accessibility</h2>
             <ul class="details-list">${accessibilityHTML}</ul>
         </section>
 
-        <!-- Policies -->
         <section class="details-section">
             <h2>📋 Policies</h2>
             <div class="policy-grid">
@@ -152,25 +146,22 @@ function renderDetails() {
             </div>
         </section>
 
-        <!-- Nearby Places -->
         <section class="details-section">
             <h2>📍 Nearby Places</h2>
             <ul class="details-list">${nearbyHTML}</ul>
         </section>
     `;
 
-    // Setup slider after inserting HTML
     setupSlider();
 }
 
-// ---------- simple slider logic ----------
 let currentSlide = 0;
+
 function setupSlider() {
     const slides = document.querySelectorAll("#gallerySlider .slide");
     const dotsContainer = document.getElementById("sliderDots");
     if (!slides.length || !dotsContainer) return;
 
-    // Create dots
     dotsContainer.innerHTML = "";
     slides.forEach((_, i) => {
         const dot = document.createElement("span");
@@ -185,13 +176,9 @@ function setupSlider() {
 
 function updateSliderView() {
     const slides = document.querySelectorAll("#gallerySlider .slide");
-    const dots = document.querySelectorAll("#gallerySlider .dot");
-    slides.forEach((slide, i) => {
-        slide.style.display = i === currentSlide ? "block" : "none";
-    });
-    dots.forEach((dot, i) => {
-        dot.classList.toggle("active", i === currentSlide);
-    });
+    const dots   = document.querySelectorAll("#gallerySlider .dot");
+    slides.forEach((slide, i) => slide.style.display = i === currentSlide ? "block" : "none");
+    dots.forEach((dot, i) => dot.classList.toggle("active", i === currentSlide));
 }
 
 function changeSlide(n) {
@@ -206,5 +193,4 @@ function goToSlide(index) {
     updateSliderView();
 }
 
-// Initial render
 renderDetails();

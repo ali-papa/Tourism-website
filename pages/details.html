@@ -20,28 +20,34 @@
 
     <!-- NAVBAR -->
     <nav class="navbar">
+    <a href="index.html" class="logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+            <circle cx="12" cy="10" r="3"/>
+        </svg>
+        Tourism
+    </a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="search.html">Explore</a>
+        <a href="booking.html">Book</a>
 
-        <a href="index.html" class="logo">
-            <svg width="22" height="22" viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5">
-
-                <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
-                <circle cx="12" cy="10" r="3"/>
-            </svg>
-
-            Tourism
-        </a>
-
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="search.html">Explore</a>
-            <a href="booking.html">Book</a>
-            <a href="login.html" class="nav-cta">Sign in</a>
+        <!-- Currency Selector -->
+        <div class="currency-selector" id="currencyContainer">
+            <span class="currency-icon">💱</span>
+            <select id="globalCurrencySelect" onchange="handleCurrencyChange(this.value)">
+                <option value="USD">USD</option>
+                <option value="EGP">EGP</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="AED">AED</option>
+                <option value="SAR">SAR</option>
+            </select>
         </div>
 
-    </nav>
+        <a href="login.html" class="nav-cta">Sign in</a>
+    </div>
+</nav>
 
     <!-- MAIN -->
     <main class="details-page">
@@ -61,6 +67,7 @@
 
     <!-- SCRIPTS -->
     <script src="../js/data.js"></script>
+    <script src="../js/currency.js"></script>
     <script src="../js/details.js"></script>
     <script src="../js/ui.js"></script>
 
