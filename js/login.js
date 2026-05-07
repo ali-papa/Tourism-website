@@ -1,6 +1,6 @@
-
 function showToast(type, message) {
     const toast = document.getElementById('toast');
+    if (!toast) return;
 
     toast.textContent = message;
     toast.className = `toast show ${type}`;
@@ -9,9 +9,8 @@ function showToast(type, message) {
         toast.classList.remove('show');
     }, 2500);
 }
-// handle login form
-document.addEventListener('DOMContentLoaded', function () {
 
+document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('loginForm');
     if (!form) return;
 
@@ -20,24 +19,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
+        const errorEl = document.getElementById('error');
 
         const result = loginUser(email, password);
 
-        const errorEl = document.getElementById('error');
-
         if (!result.success) {
-            showToast("error", "Wrong email or password");
-            errorEl.style.color = "red";
+            showToast("error", result.message || "Wrong email or password");
+            if (errorEl) {
+                errorEl.textContent = "Wrong email or password";
+                errorEl.style.color = "red";
+            }
             return;
         }
 
         showToast("success", "Logged in successfully");
-        errorEl.style.color = "green";
 
-        // redirect
+        if (errorEl) {
+            errorEl.textContent = "Logged in successfully";
+            errorEl.style.color = "green";
+        }
+
         setTimeout(() => {
-            window.location.href = "index.html";
+            if (result.role === "admin") {
+                window.location.href = "admin-dashboard.html";
+            } else {
+                window.location.href = "profile.html";
+            }
         }, 700);
     });
-
 });

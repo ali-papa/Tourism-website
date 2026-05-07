@@ -5,31 +5,59 @@ function getUsers() {
 function saveUser(user) {
     let users = getUsers();
 
-    // check email exists
     if (users.find(u => u.email === user.email)) {
         return { success: false, message: "Email already exists" };
     }
 
-    users.push(user);
+    const normalizedUser = {
+        ...user,
+        role: user.role || "user"
+    };
 
+    users.push(normalizedUser);
     localStorage.setItem('users', JSON.stringify(users));
 
-    return { success: true };
+    return { success: true, user: normalizedUser };
 }
 
 function loginUser(email, password) {
-    let users = getUsers();
+    const identifier = email.trim();
+    const pass = password.trim();
 
-    let user = users.find(
-        u => u.email.trim() === email.trim() &&
-            u.password === password
+    // Admin login
+    if (identifier.toLowerCase() === "admin" && pass === "teamX") {
+        const adminUser = {
+            firstName: "Admin",
+            name: "Admin",
+            email: "Admin",
+            role: "admin"
+        };
+
+        localStorage.setItem('currentUser', JSON.stringify(adminUser));
+        localStorage.setItem('userRole', 'admin');
+
+        return { success: true, user: adminUser, role: "admin" };
+    }
+
+    // Normal users
+    const users = getUsers();
+
+    const user = users.find(
+        u => u.email.trim().toLowerCase() === identifier.toLowerCase() &&
+             u.password === pass
     );
 
     if (!user) {
         return { success: false, message: "Wrong email or password" };
     }
 
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    const currentUser = {
+        ...user,
+        role: user.role || "user"
+    };
 
-    return { success: true, user };
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    localStorage.setItem('userRole', 'user');
+
+    return { success: true, user: currentUser, role: "user" };
 }

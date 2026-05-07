@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Tourism</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/layout.css">
+<!-- profile.css MUST come before admin-dashboard.css — admin reuses all base classes -->
+<link rel="stylesheet" href="../css/pages/profile.css">
+<link rel="stylesheet" href="../css/pages/admin-dashboard.css">
+</head>
+
+<body>
+
+<!-- ===== NAVBAR (same structure as profile.html) ===== -->
+<nav class="navbar">
+  <a href="index.html" class="logo">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+    Tourism
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="search.html">Explore</a>
+    <a href="booking.html">Book</a>
+    <a href="admin-dashboard.html" class="nav-cta active">Admin</a>
+  </div>
+</nav>
+
+<!-- ===== ADMIN DASHBOARD PAGE ===== -->
+<div class="profile-page">
+
+  <!-- HERO SECTION (mirrors profile hero) -->
+  <div class="profile-hero admin-hero">
+    <div class="hero-bg-decor">
+      <span class="decor-circle c1"></span>
+      <span class="decor-circle c2"></span>
+      <span class="decor-circle c3"></span>
+      <!-- Extra admin decorative elements -->
+      <span class="decor-circle c4"></span>
+    </div>
+    <div class="hero-content">
+      <div class="hero-avatar admin-avatar" id="adminAvatar">A</div>
+      <div class="hero-text">
+        <h1 id="adminHeroName">Admin</h1>
+        <p class="hero-email">admin@tourism.com</p>
+        <span class="hero-badge admin-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          Administrator
+        </span>
+      </div>
+      <!-- Logout INSIDE hero section — same position as profile page -->
+      <button id="adminLogoutBtn" class="hero-logout-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD GRID (same grid structure as profile page) -->
+  <div class="profile-grid">
+
+    <!-- ===== LEFT SIDEBAR ===== -->
+    <aside class="profile-sidebar">
+
+      <!-- Platform Overview Card -->
+      <div class="pcard account-overview">
+        <div class="pcard-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          <h3>Platform Overview</h3>
+        </div>
+        <ul class="overview-list">
+          <li>
+            <span class="ov-label">Total Users</span>
+            <span class="ov-value" id="ov-users">—</span>
+          </li>
+          <li>
+            <span class="ov-label">Total Bookings</span>
+            <span class="ov-value" id="ov-bookings">—</span>
+          </li>
+          <li>
+            <span class="ov-label">Total Hotels</span>
+            <span class="ov-value" id="ov-hotels">—</span>
+          </li>
+          <li>
+            <span class="ov-label">Revenue</span>
+            <span class="ov-value balance-value" id="ov-revenue">$0</span>
+          </li>
+        </ul>
+        <button class="add-balance-btn" id="refreshStatsBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="23 4 23 10 17 10"/>
+            <polyline points="1 20 1 14 7 14"/>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+          Refresh Stats
+        </button>
+      </div>
+
+      <!-- Quick Stats Card (mirrors profile completion card style) -->
+      <div class="pcard completion-card">
+        <div class="pcard-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <h3>System Health</h3>
+        </div>
+        <div class="completion-pct-row">
+          <span class="completion-pct" id="healthPct">100%</span>
+          <span class="completion-label" id="healthLabel">Operational</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill admin-progress" id="healthFill" style="width:100%"></div>
+        </div>
+        <ul class="completion-checklist" id="systemChecklist">
+          <li class="check-item done" data-key="users">
+            <span class="check-dot"></span> Users module active
+          </li>
+          <li class="check-item done" data-key="bookings">
+            <span class="check-dot"></span> Bookings module active
+          </li>
+          <li class="check-item done" data-key="hotels">
+            <span class="check-dot"></span> Hotels module active
+          </li>
+          <li class="check-item done" data-key="reports">
+            <span class="check-dot"></span> Reports module active
+          </li>
+        </ul>
+      </div>
+
+      <!-- Quick Actions Card (mirrors quick stats card) -->
+      <div class="pcard quick-stats">
+        <div class="pcard-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <h3>Quick Actions</h3>
+        </div>
+        <div class="admin-actions-list">
+          <button class="admin-action-btn" onclick="adminScrollTo('users-section')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Manage Users
+          </button>
+          <button class="admin-action-btn" onclick="adminScrollTo('bookings-section')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            View Bookings
+          </button>
+          <button class="admin-action-btn" onclick="adminScrollTo('hotels-section')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            View Hotels
+          </button>
+          <button class="admin-action-btn" onclick="adminScrollTo('reports-section')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            View Reports
+          </button>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ===== MAIN ADMIN AREA (mirrors profile main) ===== -->
+    <main class="profile-main">
+
+      <!-- ===== QUICK STATS ROW ===== -->
+      <div class="pcard stats-row-card">
+        <div class="stats-grid admin-stats-grid">
+          <div class="stat-box">
+            <span class="stat-num" id="stat-users">0</span>
+            <span class="stat-lbl">Users</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num" id="stat-bookings">0</span>
+            <span class="stat-lbl">Bookings</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num" id="stat-hotels">0</span>
+            <span class="stat-lbl">Hotels</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num" id="stat-revenue">$0</span>
+            <span class="stat-lbl">Revenue</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== USER MANAGEMENT ===== -->
+      <div class="pcard edit-card" id="users-section">
+        <div class="pcard-header section-header-row">
+          <div class="pcard-header-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <h3>User Management</h3>
+          </div>
+          <span class="section-count" id="users-count-badge">0 users</span>
+        </div>
+
+        <div class="admin-search-bar">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="userSearchInput" placeholder="Search users by name or email…" />
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="usersTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Country</th>
+                <th>Balance</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <tr>
+                <td colspan="6" class="table-empty">No users found.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== BOOKING MANAGEMENT ===== -->
+      <div class="pcard edit-card" id="bookings-section">
+        <div class="pcard-header section-header-row">
+          <div class="pcard-header-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <h3>Booking Management</h3>
+          </div>
+          <span class="section-count" id="bookings-count-badge">0 bookings</span>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="bookingsTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>User</th>
+                <th>Hotel</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="bookingsTableBody">
+              <tr>
+                <td colspan="6" class="table-empty">No bookings found.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== HOTEL MANAGEMENT ===== -->
+      <div class="pcard edit-card" id="hotels-section">
+        <div class="pcard-header section-header-row">
+          <div class="pcard-header-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <h3>Hotel Management</h3>
+          </div>
+          <span class="section-count" id="hotels-count-badge">0 hotels</span>
+        </div>
+
+        <div class="hotels-grid" id="hotelsGrid">
+          <div class="hotel-empty-state">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <p>No hotels in the system yet.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== REPORTS ===== -->
+      <div class="pcard edit-card" id="reports-section">
+        <div class="pcard-header section-header-row">
+          <div class="pcard-header-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+            <h3>Reports & Analytics</h3>
+          </div>
+          <span class="section-count">Live data</span>
+        </div>
+
+        <div class="reports-grid">
+          <div class="report-card">
+            <div class="report-icon r-blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="report-info">
+              <span class="report-num" id="report-users">0</span>
+              <span class="report-label">Registered Users</span>
+            </div>
+            <div class="report-trend up" id="report-users-trend">↑ Active</div>
+          </div>
+
+          <div class="report-card">
+            <div class="report-icon r-green">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div class="report-info">
+              <span class="report-num" id="report-revenue">$0</span>
+              <span class="report-label">Total Balance Pool</span>
+            </div>
+            <div class="report-trend up">↑ Growing</div>
+          </div>
+
+          <div class="report-card">
+            <div class="report-icon r-orange">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div class="report-info">
+              <span class="report-num" id="report-bookings">0</span>
+              <span class="report-label">Total Bookings</span>
+            </div>
+            <div class="report-trend neutral" id="report-bookings-trend">— No data</div>
+          </div>
+
+          <div class="report-card">
+            <div class="report-icon r-purple">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 11 12 14 22 4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+            </div>
+            <div class="report-info">
+              <span class="report-num" id="report-completion">0%</span>
+              <span class="report-label">Avg Profile Completion</span>
+            </div>
+            <div class="report-trend" id="report-completion-trend">Calculating…</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div><!-- end .profile-grid -->
+</div><!-- end .profile-page -->
+
+<!-- ===== DELETE USER CONFIRM MODAL ===== -->
+<div id="deleteModal" class="pmodal-overlay">
+  <div class="pmodal-box">
+    <button class="pmodal-close" id="closeDeleteModal">&times;</button>
+    <div class="modal-step active" id="stepDelete">
+      <div class="modal-icon" style="background: rgba(239,68,68,.12); color:#ef4444;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+          <path d="M10 11v6"/><path d="M14 11v6"/>
+          <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+        </svg>
+      </div>
+      <h3>Delete User</h3>
+      <p class="modal-sub" id="deleteModalMsg">Are you sure you want to delete this user?</p>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:8px;">
+        <button class="modal-btn-secondary" id="cancelDeleteBtn">Cancel</button>
+        <button class="modal-btn-primary" id="confirmDeleteBtn" style="background:linear-gradient(135deg,#ef4444,#dc2626);">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EDIT USER MODAL ===== -->
+<div id="editUserModal" class="pmodal-overlay">
+  <div class="pmodal-box pmodal-wide">
+    <button class="pmodal-close" id="closeEditModal">&times;</button>
+    <div class="modal-step active">
+      <div class="modal-icon blue">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+      </div>
+      <h3>Edit User</h3>
+      <p class="modal-sub" id="editModalSub">Editing user details</p>
+      <input type="hidden" id="editUserEmail" />
+      <div class="modal-input-group" style="margin-bottom:10px;">
+        <input type="text" id="editFirstName" placeholder="First Name" />
+      </div>
+      <div class="modal-input-group" style="margin-bottom:10px;">
+        <input type="text" id="editLastName" placeholder="Last Name" />
+      </div>
+      <div class="modal-input-group" style="margin-bottom:10px;">
+        <input type="number" id="editBalance" placeholder="Balance ($)" min="0" step="0.01" />
+      </div>
+      <button class="modal-btn-primary green" id="confirmEditBtn">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="ptoast"></div>
+
+<!-- SCRIPTS -->
+<script src="../js/users.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/admin-dashboard.js"></script>
+
+</body>
+</html>
