@@ -1,5 +1,5 @@
 /* ============================================= */
-/*      DETAILS.CSS – وجهة + فندق (منظم ونظيف)    */
+/*      DETAILS.CSS – وجهة + فندق (مدمج نهائي)    */
 /* ============================================= */
 
 /* ----- الأساسيات العامة للصفحة ----- */
@@ -293,6 +293,12 @@
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hotel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
 }
 
 .hotel-image {
@@ -722,16 +728,23 @@
     border-radius: 18px;
     overflow: hidden;
     background: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 460px;            /* يضمن طول موحد */
 }
 
 .room-card img {
     width: 100%;
-    height: 240px;
-    object-fit: cover;
+    height: 250px;
+    object-fit: cover;            /* يملأ المساحة بشكل مستطيل */
 }
 
 .room-info {
-    padding: 22px;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .room-label {
@@ -863,7 +876,7 @@
     margin-right: 8px;
 }
 
-/* مراجعات (تُرك المكان فارغاً لكن التنسيق جاهز) */
+/* مراجعات (عام) */
 .reviews-container {
     display: flex;
     flex-direction: column;
@@ -872,17 +885,23 @@
 
 .review-card {
     background: #f8fafc;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
     padding: 18px;
-    border: 1px solid #eee;
 }
 
 .review-header {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
     margin-bottom: 10px;
-    color: #444;
+    color: #334155;
+}
+
+.review-header time {
+    margin-left: auto;
+    font-size: 14px;
+    color: #64748b;
 }
 
 /* رسالة التحقق */
@@ -890,6 +909,68 @@
     color: #d90429;
     font-weight: 600;
     margin: 10px 0 20px;
+}
+
+/* ====== الطقس ====== */
+.weather-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #e0f2fe;
+    padding: 20px;
+    border-radius: 16px;
+}
+.weather-widget span {
+    font-size: 42px;
+    font-weight: 700;
+    color: #0369a1;
+}
+.weather-widget p {
+    font-size: 22px;
+    margin-top: 8px;
+    color: #0c4a6e;
+}
+
+/* ====== تأثيرات إضافية ====== */
+.slide {
+    position: relative;
+}
+.slide-caption {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    background: rgba(0,0,0,0.5);
+    padding: 5px;
+    font-size: 14px;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.comparison-table th, .comparison-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+}
+.comparison-table th {
+    background: #f1f5f9;
+    font-size: 18px;
+}
+.comparison-table td {
+    font-size: 16px;
+}
+
+.view-hotel-btn, .reserve-btn, .back-btn {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.view-hotel-btn:hover, .reserve-btn:hover, .back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 /* ============================================= */
@@ -951,50 +1032,4 @@
     .slide img {
         height: 250px;
     }
-}
-
-.slide {
-    position: relative;
-}
-.slide-caption {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    color: white;
-    background: rgba(0,0,0,0.5);
-    padding: 5px;
-    font-size: 14px;
-}
-
-.comparison-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-.comparison-table th, .comparison-table td {
-    border: 1px solid #ccc;
-    padding: 12px;
-    text-align: center;
-}
-.comparison-table th {
-    background: #f1f5f9;
-    font-size: 18px;
-}
-.comparison-table td {
-    font-size: 16px;
-}
-
-.view-hotel-btn, .reserve-btn, .back-btn {
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.view-hotel-btn:hover, .reserve-btn:hover, .back-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-.hotel-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
 }

@@ -1,3 +1,6 @@
+// hotel-details.js – Full Merged Version (Offers + Currency + Reviews + Travelers Limitation)
+// Place this entire content in your hotel-details.js file
+
 // ========== قاعدة صور الغرف (60 غرفة – 30 فندق × 2 نوع غرفة) ==========
 // كل غرفة مفتاحها: "destinationId-hotelIndex-standard" أو "-deluxe"
 const roomImages = {
@@ -78,13 +81,19 @@ const roomImages = {
     "15-1-deluxe":   "https://www.riolasvegas.com/wp-content/uploads/2023/08/20230921_Rio_1321_Doubles_Suite_v1-4-scaled-1.jpg",
 };
 
+const roomOffers = {
+    "1-0-standard": 20,
+    "1-0-deluxe": 25,
+    "2-1-deluxe": 15,
+    "5-0-standard": 10,
+    "8-1-deluxe": 25,
+    "13-0-standard": 30
+};
+
 const hotelDetailsContainer = document.getElementById("hotelDetailsContainer");
-
 const params = new URLSearchParams(window.location.search);
-
 const destinationId = parseInt(params.get("destinationId"));
 const hotelIndex = parseInt(params.get("hotelIndex"));
-
 const destination = destinations.find(item => item.id === destinationId);
 const hotels = hotelsByDestination[destinationId] || [];
 const hotel = hotels[hotelIndex];
@@ -92,22 +101,39 @@ const hotel = hotels[hotelIndex];
 function createMapEmbed(address) {
     return `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 }
-
 function getReviewScore(rating) {
     return (rating * 2).toFixed(1);
 }
-
 function getReviewText(score) {
     if (score >= 9) return "Exceptional";
     if (score >= 8.5) return "Excellent";
     if (score >= 8) return "Very Good";
     return "Good";
 }
-
 function isUserLoggedIn() {
     return localStorage.getItem("loggedInUser") ||
            localStorage.getItem("currentUser") ||
            localStorage.getItem("isLoggedIn") === "true";
+}
+function generateHotelReviews(hotelName) {
+    const reviewers = ["Fatima", "Omar", "Layla", "Khaled", "Nour"];
+    const comments = [
+        "Excellent service and clean rooms.",
+        "The view was stunning, breakfast was delicious.",
+        "Spacious room, very comfortable bed.",
+        "Great location, near all attractions.",
+        "Staff were helpful and friendly."
+    ];
+    const reviews = [];
+    for (let i = 0; i < 4; i++) {
+        reviews.push({
+            user: reviewers[i],
+            rating: (4 + i * 0.3).toFixed(1),
+            comment: comments[i],
+            date: "2026-0" + (Math.floor(Math.random()*5)+1) + "-" + (Math.floor(Math.random()*28)+1)
+        });
+    }
+    return reviews;
 }
 
 if (destination && hotel) {
@@ -115,377 +141,169 @@ if (destination && hotel) {
     const reviewText = getReviewText(reviewScore);
     const reviewCount = 48 + hotelIndex * 36;
 
-   const similarHotels = hotels.map((item, index) => ({ item, index }))
-    .filter(obj => obj.index !== hotelIndex)
-    .map(obj => `
-        <a 
-            href="hotel-details.html?destinationId=${destination.id}&hotelIndex=${obj.index}" 
-            class="similar-hotel-card"
-        >
-            <img src="${obj.item.image}" alt="${obj.item.name}">
-
-            <div class="similar-hotel-info">
-                <h3>${obj.item.name}</h3>
-                <p>${obj.item.location}</p>
-
-                <ul>
-                    ${obj.item.features.slice(0, 3).map(feature => `<li>✓ ${feature}</li>`).join("")}
-                </ul>
-
-                <div class="mini-rating">
-                    <span>${getReviewScore(obj.item.rating)}</span>
-                    ${getReviewText(getReviewScore(obj.item.rating))}
+    const similarHotels = hotels.map((item, index) => ({ item, index }))
+        .filter(obj => obj.index !== hotelIndex)
+        .map(obj => `
+            <a href="hotel-details.html?destinationId=${destination.id}&hotelIndex=${obj.index}" class="similar-hotel-card">
+                <img src="${obj.item.image}" alt="${obj.item.name}">
+                <div class="similar-hotel-info">
+                    <h3>${obj.item.name}</h3>
+                    <p>${obj.item.location}</p>
+                    <ul>${obj.item.features.slice(0, 3).map(f => `<li>✓ ${f}</li>`).join("")}</ul>
+                    <div class="mini-rating"><span>${getReviewScore(obj.item.rating)}</span> ${getReviewText(getReviewScore(obj.item.rating))}</div>
+                    <h4 data-price-usd="${obj.item.price}">${getCurrencySymbol()} ${convertPrice(obj.item.price).toLocaleString()} nightly</h4>
                 </div>
+            </a>
+        `).join("");
 
-                <h4 data-price-usd="${obj.item.price}">
-                    ${getCurrencySymbol()} ${convertPrice(obj.item.price).toLocaleString()} nightly
-                </h4>   
-            </div>
-        </a>
-    `).join("");
+    const stdOfferKey = `${destination.id}-${hotelIndex}-standard`;
+    const dlxOfferKey = `${destination.id}-${hotelIndex}-deluxe`;
+    const stdDiscount = roomOffers[stdOfferKey] || null;
+    const dlxDiscount = roomOffers[dlxOfferKey] || null;
+    const stdOriginalUSD = hotel.price;
+    const dlxOriginalUSD = hotel.price + 40;
+    const stdFinalUSD = stdDiscount ? (stdOriginalUSD * (1 - stdDiscount / 100)).toFixed(0) : stdOriginalUSD;
+    const dlxFinalUSD = dlxDiscount ? (dlxOriginalUSD * (1 - dlxDiscount / 100)).toFixed(0) : dlxOriginalUSD;
 
     hotelDetailsContainer.innerHTML = `
         <section class="hotel-search-bar">
-        <div class="search-box">
-            <span>📍</span>
-            <div>
-                <small>Where to?</small>
-                <p>${destination.name}, ${destination.country}</p>
-            </div>
-        </div>
-
-        <div class="search-box">
-            <span>📅</span>
-            <div>
-                <small>Check-in</small>
-                <input type="date" id="topCheckIn" class="hotel-input">
-            </div>
-        </div>
-
-        <div class="search-box">
-            <span>📅</span>
-            <div>
-                <small>Check-out</small>
-                <input type="date" id="topCheckOut" class="hotel-input">
-            </div>
-        </div>
-
-        <div class="search-box">
-            <span>👤</span>
-            <div>
-                <small>Travelers</small>
-                <input type="number" id="topTravelers" class="hotel-input" min="1" value="2">
-            </div>
-        </div>
-    </section>
-
+            <div class="search-box"><span>📍</span><div><small>Where to?</small><p>${destination.name}, ${destination.country}</p></div></div>
+            <div class="search-box"><span>📅</span><div><small>Check-in</small><input type="date" id="topCheckIn" class="hotel-input"></div></div>
+            <div class="search-box"><span>📅</span><div><small>Check-out</small><input type="date" id="topCheckOut" class="hotel-input"></div></div>
+            <div class="search-box"><span>👤</span><div><small>Travelers</small><input type="number" id="topTravelers" class="hotel-input" min="1" value="2"></div></div>
+        </section>
         <section class="hotel-top-actions">
             <a href="details.html?id=${destination.id}" class="see-all-link">← See all properties</a>
-
             <div>
                 <button class="outline-btn" id="shareBtn">Share</button>
                 <button class="outline-btn" id="saveBtn">♡ Save</button>
             </div>
         </section>
-
-        <section class="hotel-main-photo">
-            <img src="${hotel.image}" alt="${hotel.name}">
-        </section>
-
+        <section class="hotel-main-photo"><img src="${hotel.image}" alt="${hotel.name}"></section>
         <div class="hotel-tabs-wrapper">
-    <nav class="hotel-tabs" id="hotelTabs">
-        <a href="#overview" class="active">Overview</a>
-        <a href="#about">About</a>
-        <a href="#rooms">Rooms</a>
-        <a href="#accessibility">Accessibility</a>
-        <a href="#policies">Policies</a>
-    </nav>
-
-    <a href="#rooms" class="select-room-small">Select a room</a>
-</div>
-
+            <nav class="hotel-tabs" id="hotelTabs">
+                <a href="#overview" class="active">Overview</a>
+                <a href="#about">About</a>
+                <a href="#rooms">Rooms</a>
+                <a href="#accessibility">Accessibility</a>
+                <a href="#policies">Policies</a>
+            </nav>
+            <a href="#rooms" class="select-room-small">Select a room</a>
+        </div>
         <section id="overview" class="hotel-overview-layout">
             <div class="hotel-main-content">
                 <h1>${hotel.name}</h1>
-
                 <div class="stars">★ ★ ★</div>
-
-                <div class="review-row">
-                    <span class="score-box">${reviewScore}</span>
-                    <strong>${reviewText}</strong>
-                </div>
-
+                <div class="review-row"><span class="score-box">${reviewScore}</span><strong>${reviewText}</strong></div>
                 <p class="reviews-link">See all ${reviewCount} reviews ›</p>
-
                 <h2>Highlights for your 1-night trip</h2>
-
                 <div class="highlights-list">
-                    <div class="highlight-item">
-                        <div class="highlight-icon">🏆</div>
-                        <div>
-                            <h3>Highly rated by travelers</h3>
-                            <p>This property received multiple high ratings from guests.</p>
-                        </div>
-                    </div>
-
-                    <div class="highlight-item">
-                        <div class="highlight-icon">🤝</div>
-                        <div>
-                            <h3>Exceptional service & staff</h3>
-                            <p>The top-rated staff and service will ensure you feel welcome.</p>
-                        </div>
-                    </div>
-
-                    <div class="highlight-item">
-                        <div class="highlight-icon">📍</div>
-                        <div>
-                            <h3>Great location</h3>
-                            <p>Guests value the location for making travel plans effortless.</p>
-                        </div>
-                    </div>
+                    <div class="highlight-item"><div class="highlight-icon">🏆</div><div><h3>Highly rated by travelers</h3><p>This property received multiple high ratings from guests.</p></div></div>
+                    <div class="highlight-item"><div class="highlight-icon">🤝</div><div><h3>Exceptional service & staff</h3><p>The top-rated staff and service will ensure you feel welcome.</p></div></div>
+                    <div class="highlight-item"><div class="highlight-icon">📍</div><div><h3>Great location</h3><p>Guests value the location for making travel plans effortless.</p></div></div>
                 </div>
             </div>
-
             <aside class="hotel-side-map">
                 <h2>Explore the area</h2>
-
-                <div class="small-map">
-                    <iframe src="${createMapEmbed(hotel.location)}" loading="lazy"></iframe>
-                </div>
-
+                <div class="small-map"><iframe src="${createMapEmbed(hotel.location)}" loading="lazy"></iframe></div>
                 <p>${hotel.location}</p>
-                <a href="https://www.google.com/maps?q=${encodeURIComponent(hotel.location)}" target="_blank">
-                    View in a map ›
-                </a>
-
-                <ul class="nearby-list">
-                    ${destination.nearbyPlaces.map((place, index) => `
-                        <li>
-                            <span>📍 ${place}</span>
-                            <small>${(index + 1) * 5} min away</small>
-                        </li>
-                    `).join("")}
-                </ul>
+                <a href="https://www.google.com/maps?q=${encodeURIComponent(hotel.location)}" target="_blank">View in a map ›</a>
+                <ul class="nearby-list">${destination.nearbyPlaces.map((place, i) => `<li><span>📍 ${place}</span><small>${(i+1)*5} min away</small></li>`).join("")}</ul>
             </aside>
         </section>
-
         <section id="about" class="hotel-section">
             <h2>About this property</h2>
-
             <div class="features-grid">
-                ${hotel.features.map(feature => `
-                    <div class="feature-item">✓ ${feature}</div>
-                `).join("")}
+                ${hotel.features.map(f => `<div class="feature-item">✓ ${f}</div>`).join("")}
                 <div class="feature-item">✓ Comfortable rooms</div>
                 <div class="feature-item">✓ Business facilities</div>
                 <div class="feature-item">✓ Restaurant</div>
                 <div class="feature-item">✓ Great location</div>
             </div>
         </section>
-
-        ${
-    isUserLoggedIn()
-    ? ""
-    : `
+        ${!isUserLoggedIn() ? `
         <section class="saving-banner">
             <strong>Get instant savings on this stay when you sign in and book!</strong>
             <a href="login.html" class="sign-in-banner-btn">Sign in</a>
-        </section>
-    `
-}
-
+        </section>` : ""}
         <section id="rooms" class="hotel-section">
             <h2>Choose your room</h2>
-
-           <div class="rooms-search">
-    <div class="room-date-box">
-        <small>Start date</small>
-        <input type="date" id="roomCheckIn" class="hotel-input">
-    </div>
-
-    <div class="room-date-box">
-        <small>End date</small>
-        <input type="date" id="roomCheckOut" class="hotel-input">
-    </div>
-
-    <div class="room-date-box">
-        <small>Rooms</small>
-        <input type="number" id="roomCount" class="hotel-input" min="1" max="4" value="1">
-    </div>
-
-    <div class="room-date-box">
-        <small>Travelers</small>
-        <input type="number" id="roomTravelers" class="hotel-input" min="1" max="4" value="2">
-    </div>
-</div>
-
-<p id="bookingValidationMessage" class="validation-message"></p>
-
-            <div class="price-message">
-                <span>↓</span>
-                <div>
-                    <h3>Price is lower than usual</h3>
-                    <p>Pay less than for similar properties on our site.</p>
-                </div>
+            <div class="rooms-search">
+                <div class="room-date-box"><small>Start date</small><input type="date" id="roomCheckIn" class="hotel-input"></div>
+                <div class="room-date-box"><small>End date</small><input type="date" id="roomCheckOut" class="hotel-input"></div>
+                <div class="room-date-box"><small>Rooms</small><input type="number" id="roomCount" class="hotel-input" min="1" max="4" value="1"></div>
+                <div class="room-date-box"><small>Travelers</small><input type="number" id="roomTravelers" class="hotel-input" min="1" max="4" value="2"></div>
             </div>
+            <p id="bookingValidationMessage" class="validation-message"></p>
+            <div class="price-message"><span>↓</span><div><h3>Price is lower than usual</h3><p>Pay less than for similar properties on our site.</p></div></div>
             <div class="room-cards">
-                    <div class="room-card">
-                        <img src="${roomImages[`${destination.id}-${hotelIndex}-standard`] || hotel.image}" alt="Standard Room">
+                <div class="room-card">
+                    <img src="${roomImages[stdOfferKey] || hotel.image}" alt="Standard Room">
                     <div class="room-info">
-                            <span class="room-label">Our lowest price</span>
-                            <h3>Standard Room</h3>
-                            <p>✓ Free WiFi</p>
-                            <p>✓ Sleeps 2</p>
-                            <div class="room-rating">
-                            <span>${reviewScore}</span>
-                            ${reviewText}
-                        </div>
-                        <h4 data-price-usd="${hotel.price}">
-                            ${getCurrencySymbol()} ${convertPrice(hotel.price).toLocaleString()}
+                        <span class="room-label">${stdDiscount ? '🔥 Special Offer' : 'Our lowest price'}</span>
+                        <h3>Standard Room</h3>
+                        <p>✓ Free WiFi</p><p>✓ Sleeps 2</p>
+                        <div class="room-rating"><span>${reviewScore}</span> ${reviewText}</div>
+                        <h4 data-price-usd="${stdFinalUSD}">
+                            ${stdDiscount ? `<s style="color:#999; margin-right:6px;">${getCurrencySymbol()} ${convertPrice(stdOriginalUSD).toLocaleString()}</s>` : ''}
+                            ${getCurrencySymbol()} ${convertPrice(stdFinalUSD).toLocaleString()}
+                            ${stdDiscount ? `<span style="color:green; font-size:16px;"> (${stdDiscount}% OFF)</span>` : ''}
                         </h4>
-                        <!-- التعديل هنا: زرار الحجز -->
-                        <button onclick="handleRoomBooking('${hotel.name} - Standard', ${hotel.price}, '${hotel.image}')" class="reserve-btn" style="border:none; cursor:pointer; width:100%;">Reserve</button>
+                        <button onclick="handleRoomBooking('${hotel.name} - Standard', ${stdFinalUSD}, '${roomImages[stdOfferKey] || hotel.image}')" class="reserve-btn">Reserve</button>
                     </div>
                 </div>
-
                 <div class="room-card">
-                    <img src="${roomImages[`${destination.id}-${hotelIndex}-deluxe`] || hotel.image}" alt="Deluxe Room">
+                    <img src="${roomImages[dlxOfferKey] || hotel.image}" alt="Deluxe Room">
                     <div class="room-info">
-                        <span class="room-label">Popular choice</span>
+                        <span class="room-label">${dlxDiscount ? '🔥 Special Offer' : 'Popular choice'}</span>
                         <h3>Deluxe Room</h3>
                         <p>✓ City view</p>
-                        <div class="room-rating">
-                            <span>${reviewScore}</span>
-                            ${reviewText}
-                        </div>
-                        <h4 data-price-usd="${hotel.price + 40}">
-                            ${getCurrencySymbol()} ${convertPrice(hotel.price + 40).toLocaleString()}
+                        <div class="room-rating"><span>${reviewScore}</span> ${reviewText}</div>
+                        <h4 data-price-usd="${dlxFinalUSD}">
+                            ${dlxDiscount ? `<s style="color:#999; margin-right:6px;">${getCurrencySymbol()} ${convertPrice(dlxOriginalUSD).toLocaleString()}</s>` : ''}
+                            ${getCurrencySymbol()} ${convertPrice(dlxFinalUSD).toLocaleString()}
+                            ${dlxDiscount ? `<span style="color:green; font-size:16px;"> (${dlxDiscount}% OFF)</span>` : ''}
                         </h4>
-                        <!-- التعديل هنا: زرار الحجز للغرفة الأغلى -->
-                        <button onclick="handleRoomBooking('${hotel.name} - Deluxe', ${hotel.price + 40}, '${hotel.image}')" class="reserve-btn" style="border:none; cursor:pointer; width:100%;">Reserve</button>
+                        <button onclick="handleRoomBooking('${hotel.name} - Deluxe', ${dlxFinalUSD}, '${roomImages[dlxOfferKey] || hotel.image}')" class="reserve-btn">Reserve</button>
                     </div>
                 </div>
             </div>
         </section>
-
-<section id="roomComparison" class="hotel-section">
-    <h2>📊 Room Comparison</h2>
-    <table class="comparison-table">
-        <thead>
-            <tr>
-                <th>Feature</th>
-                <th>Standard Room</th>
-                <th>Deluxe Room</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Price</td>
-                <td data-price-usd="${hotel.price}">
-                    ${getCurrencySymbol()} ${convertPrice(hotel.price).toLocaleString()}
-                </td>
-<td data-price-usd="${hotel.price + 40}">
-    ${getCurrencySymbol()} ${convertPrice(hotel.price + 40).toLocaleString()}
-</td>
-            <tr>
-                <td>Free WiFi</td>
-                <td>✓</td>
-                <td>✓</td>
-            </tr>
-            <tr>
-                <td>City View</td>
-                <td>✗</td>
-                <td>✓</td>
-            </tr>
-            <tr>
-                <td>Sleeps</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td>Rating</td>
-                <td>${hotel.rating} ⭐</td>
-                <td>${hotel.rating} ⭐</td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-
-       <section id="accessibility" class="hotel-section">
-    <h2>Accessibility</h2>
-
-    <div class="hotel-info-grid">
-        <div class="info-card">
-            <h3>Common areas</h3>
-            <p>Wheelchair accessible areas</p>
-            <p>Elevator available</p>
-            <p>Well-lit path to entrance</p>
-        </div>
-
-        <div class="info-card">
-            <h3>Rooms</h3>
-            <p>Accessible room options</p>
-            <p>Private bathroom</p>
-            <p>Comfortable room layout</p>
-        </div>
-
-        <div class="info-card">
-            <h3>Guest support</h3>
-            <p>Guests can contact the property for accessibility requests.</p>
-            <p>Support information is provided after booking.</p>
-        </div>
-    </div>
-</section>
-
+        <section id="roomComparison" class="hotel-section">
+            <h2>📊 Room Comparison</h2>
+            <table class="comparison-table">
+                <thead><tr><th>Feature</th><th>Standard Room</th><th>Deluxe Room</th></tr></thead>
+                <tbody>
+                    <tr><td>Price</td><td data-price-usd="${stdOriginalUSD}">${getCurrencySymbol()} ${convertPrice(stdOriginalUSD).toLocaleString()}</td><td data-price-usd="${dlxOriginalUSD}">${getCurrencySymbol()} ${convertPrice(dlxOriginalUSD).toLocaleString()}</td></tr>
+                    <tr><td>Free WiFi</td><td>✓</td><td>✓</td></tr>
+                    <tr><td>City View</td><td>✗</td><td>✓</td></tr>
+                    <tr><td>Sleeps</td><td>2</td><td>2</td></tr>
+                    <tr><td>Rating</td><td>${hotel.rating} ⭐</td><td>${hotel.rating} ⭐</td></tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="accessibility" class="hotel-section">
+            <h2>Accessibility</h2>
+            <div class="hotel-info-grid">
+                <div class="info-card"><h3>Common areas</h3><p>Wheelchair accessible areas</p><p>Elevator available</p><p>Well-lit path to entrance</p></div>
+                <div class="info-card"><h3>Rooms</h3><p>Accessible room options</p><p>Private bathroom</p><p>Comfortable room layout</p></div>
+                <div class="info-card"><h3>Guest support</h3><p>Guests can contact the property for accessibility requests.</p><p>Support information is provided after booking.</p></div>
+            </div>
+        </section>
         <section id="policies" class="hotel-section">
-    <h2>Policies</h2>
-
-    <div class="hotel-info-grid">
-        <div class="info-card">
-            <h3>Check-in</h3>
-            <p>${destination.policies.checkIn}</p>
-            <p>Minimum check-in age: 18</p>
-        </div>
-
-        <div class="info-card">
-            <h3>Check-out</h3>
-            <p>${destination.policies.checkOut}</p>
-            <p>Late check-out subject to availability.</p>
-        </div>
-
-        <div class="info-card">
-            <h3>Pets</h3>
-            <p>${destination.policies.pets}</p>
-        </div>
-
-        <div class="info-card">
-            <h3>Children</h3>
-            <p>${destination.policies.children}</p>
-        </div>
-
-        <div class="info-card">
-            <h3>Special instructions</h3>
-            <p>Guests will receive confirmation information after booking.</p>
-        </div>
-
-        <div class="info-card">
-            <h3>Payment types</h3>
-            <p>Mastercard</p>
-            <p>Visa</p>
-            <p>Cash</p>
-        </div>
-    </div>
-</section>
-
+            <h2>Policies</h2>
+            <div class="hotel-info-grid">
+                <div class="info-card"><h3>Check-in</h3><p>${destination.policies.checkIn}</p><p>Minimum check-in age: 18</p></div>
+                <div class="info-card"><h3>Check-out</h3><p>${destination.policies.checkOut}</p><p>Late check-out subject to availability.</p></div>
+                <div class="info-card"><h3>Pets</h3><p>${destination.policies.pets}</p></div>
+                <div class="info-card"><h3>Children</h3><p>${destination.policies.children}</p></div>
+                <div class="info-card"><h3>Special instructions</h3><p>Guests will receive confirmation information after booking.</p></div>
+                <div class="info-card"><h3>Payment types</h3><p>Mastercard</p><p>Visa</p><p>Cash</p></div>
+            </div>
+        </section>
         <section class="hotel-section">
             <h2>Property payment types</h2>
-
-            <div class="payment-types">
-                <span>Mastercard</span>
-                <span>Visa</span>
-                <span>Cash</span>
-            </div>
-
+            <div class="payment-types"><span>Mastercard</span><span>Visa</span><span>Cash</span></div>
             <h2>Important information</h2>
             <ul class="info-list">
                 <li>Extra-person charges may apply depending on property policy.</li>
@@ -493,288 +311,211 @@ if (destination && hotel) {
                 <li>Special requests are subject to availability.</li>
             </ul>
         </section>
-
         <section class="hotel-section">
             <h2>Similar properties to ${hotel.name}</h2>
-            <div class="similar-hotels-row">
-                ${similarHotels || "<p>No similar hotels available.</p>"}
+            <div class="similar-hotels-row">${similarHotels || "<p>No similar hotels available.</p>"}</div>
+        </section>
+        <section class="hotel-section">
+            <h2>💬 Guest Reviews for ${hotel.name}</h2>
+            <div class="reviews-container">
+                ${generateHotelReviews(hotel.name).map(r => `
+                    <div class="review-card">
+                        <div class="review-header"><strong>${r.user}</strong><span>⭐ ${r.rating}</span><time>${r.date}</time></div>
+                        <p>${r.comment}</p>
+                    </div>
+                `).join("")}
             </div>
         </section>
     `;
 
-    // Safe booking validation
-(function () {
-    const bookingCheckIn = document.getElementById("roomCheckIn");
-    const bookingCheckOut = document.getElementById("roomCheckOut");
-    const bookingRoomCount = document.getElementById("roomCount");
-    const bookingTravelers = document.getElementById("roomTravelers");
+    // --------------------- Logic ---------------------
+    const topCheckIn = document.getElementById("topCheckIn");
+    const topCheckOut = document.getElementById("topCheckOut");
+    const topTravelers = document.getElementById("topTravelers");
+    const roomCheckIn = document.getElementById("roomCheckIn");
+    const roomCheckOut = document.getElementById("roomCheckOut");
+    const roomCount = document.getElementById("roomCount");
+    const roomTravelers = document.getElementById("roomTravelers");
     const bookingMessage = document.getElementById("bookingValidationMessage");
     const reserveButtons = document.querySelectorAll(".reserve-btn");
 
-    if (!bookingCheckIn || !bookingCheckOut || !bookingRoomCount || !bookingTravelers || !bookingMessage) {
-        return;
+    function getLocalDateString(date) {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
     }
 
-    function formatBookingDate(date) {
-        return date.toISOString().split("T")[0];
-    }
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
 
-    function addBookingDays(date, days) {
-        const newDate = new Date(date);
-        newDate.setDate(newDate.getDate() + days);
-        return newDate;
-    }
+    if (topCheckIn && topCheckOut && roomCheckIn && roomCheckOut) {
+        topCheckIn.value = getLocalDateString(today);
+        topCheckOut.value = getLocalDateString(tomorrow);
+        topCheckIn.min = getLocalDateString(today);
+        topCheckOut.min = getLocalDateString(tomorrow);
+        roomCheckIn.value = topCheckIn.value;
+        roomCheckOut.value = topCheckOut.value;
 
-    const currentDate = new Date();
-    const nextDate = addBookingDays(currentDate, 1);
-
-    bookingCheckIn.value = formatBookingDate(currentDate);
-    bookingCheckOut.value = formatBookingDate(nextDate);
-
-    bookingCheckIn.min = formatBookingDate(currentDate);
-    bookingCheckOut.min = formatBookingDate(nextDate);
-
-    function updateMaxTravelers() {
-        const rooms = parseInt(bookingRoomCount.value) || 1;
-        const maxTravelers = rooms * 4;
-
-        bookingTravelers.max = maxTravelers;
-
-        if (parseInt(bookingTravelers.value) > maxTravelers) {
-            bookingTravelers.value = maxTravelers;
+        function updateTopCheckoutMin() {
+            const val = topCheckIn.value;
+            if (!val) return;
+            const checkInDate = new Date(val + "T00:00:00");
+            if (isNaN(checkInDate)) return;
+            const nextDay = new Date(checkInDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+            const minCheckout = getLocalDateString(nextDay);
+            topCheckOut.min = minCheckout;
+            if (new Date(topCheckOut.value) <= checkInDate) {
+                topCheckOut.value = minCheckout;
+                roomCheckOut.value = minCheckout;
+            }
         }
+
+        topCheckIn.addEventListener("change", () => {
+            updateTopCheckoutMin();
+            roomCheckIn.value = topCheckIn.value;
+        });
+        topCheckOut.addEventListener("change", () => { roomCheckOut.value = topCheckOut.value; });
+        roomCheckIn.addEventListener("change", () => {
+            topCheckIn.value = roomCheckIn.value;
+            updateTopCheckoutMin();
+        });
+        roomCheckOut.addEventListener("change", () => { topCheckOut.value = roomCheckOut.value; });
+        updateTopCheckoutMin();
+    }
+
+    if (roomCount && roomTravelers) {
+        roomCount.value = 1;
+        roomTravelers.value = 2;
+
+        function updateMaxTravelers() {
+            const rooms = parseInt(roomCount.value) || 1;
+            const max = rooms * 4;
+            roomTravelers.max = max;
+            if (parseInt(roomTravelers.value) > max) roomTravelers.value = max;
+            if (topTravelers) {
+                topTravelers.max = max;
+                if (parseInt(topTravelers.value) > max) topTravelers.value = max;
+            }
+        }
+
+        function clampTravelers(value, max) {
+            const num = parseInt(value) || 1;
+            return Math.min(Math.max(num, 1), max);
+        }
+
+        roomCount.addEventListener("input", () => {
+            if (parseInt(roomCount.value) < 1) roomCount.value = 1;
+            if (parseInt(roomCount.value) > 4) roomCount.value = 4;
+            updateMaxTravelers();
+        });
+
+        roomTravelers.addEventListener("input", () => {
+            const max = parseInt(roomTravelers.max) || 4;
+            roomTravelers.value = clampTravelers(roomTravelers.value, max);
+            if (topTravelers) topTravelers.value = roomTravelers.value;
+        });
+
+        if (topTravelers) {
+            topTravelers.addEventListener("input", () => {
+                const max = parseInt(topTravelers.max) || 16;
+                topTravelers.value = clampTravelers(topTravelers.value, max);
+                roomTravelers.value = topTravelers.value;
+            });
+            topTravelers.value = roomTravelers.value;
+            topTravelers.max = roomTravelers.max;
+        }
+
+        updateMaxTravelers();
     }
 
     function validateBooking() {
-        const checkInDate = new Date(bookingCheckIn.value);
-        const checkOutDate = new Date(bookingCheckOut.value);
-        const rooms = parseInt(bookingRoomCount.value);
-        const travelers = parseInt(bookingTravelers.value);
-        const maxTravelers = rooms * 4;
-
+        if (!roomCheckIn || !roomCheckOut || !roomCount || !roomTravelers || !bookingMessage) return false;
+        const checkIn = new Date(roomCheckIn.value);
+        const checkOut = new Date(roomCheckOut.value);
+        const rooms = parseInt(roomCount.value);
+        const travelers = parseInt(roomTravelers.value);
         bookingMessage.textContent = "";
-
-        if (checkOutDate <= checkInDate) {
+        if (checkOut <= checkIn) {
             bookingMessage.textContent = "Check-out date must be after check-in date.";
             return false;
         }
-
         if (rooms < 1 || rooms > 4) {
             bookingMessage.textContent = "Rooms must be between 1 and 4.";
             return false;
         }
-
-        if (travelers < 1 || travelers > maxTravelers) {
-            bookingMessage.textContent = `Travelers must be between 1 and ${maxTravelers} for ${rooms} room(s).`;
+        if (travelers < 1 || travelers > rooms * 4) {
+            bookingMessage.textContent = `Travelers must be between 1 and ${rooms * 4} for ${rooms} room(s).`;
             return false;
         }
-
         return true;
     }
 
-    bookingCheckIn.addEventListener("change", function () {
-        const checkInDate = new Date(bookingCheckIn.value);
-        const minCheckoutDate = addBookingDays(checkInDate, 1);
+    reserveButtons.forEach(btn => {
+        btn.addEventListener("click", function (e) {
+            if (!validateBooking()) e.preventDefault();
+        });
+    });
+    validateBooking();
 
-        bookingCheckOut.min = formatBookingDate(minCheckoutDate);
-
-        if (new Date(bookingCheckOut.value) <= checkInDate) {
-            bookingCheckOut.value = formatBookingDate(minCheckoutDate);
+    // Save & Share
+    const saveBtn = document.getElementById("saveBtn");
+    const shareBtn = document.getElementById("shareBtn");
+    const savedHotelKey = `savedHotel-${destination.id}-${hotelIndex}`;
+    if (saveBtn) {
+        if (localStorage.getItem(savedHotelKey) === "true") {
+            saveBtn.classList.add("saved");
+            saveBtn.textContent = "♥ Saved";
         }
-
-        validateBooking();
-    });
-
-    bookingCheckOut.addEventListener("change", validateBooking);
-
-    bookingRoomCount.addEventListener("input", function () {
-        updateMaxTravelers();
-        validateBooking();
-    });
-
-    bookingTravelers.addEventListener("input", validateBooking);
-
-    reserveButtons.forEach(button => {
-        button.addEventListener("click", function (e) {
-            if (!validateBooking()) {
-                e.preventDefault();
+        saveBtn.addEventListener("click", () => {
+            const isSaved = saveBtn.classList.toggle("saved");
+            if (isSaved) {
+                saveBtn.textContent = "♥ Saved";
+                localStorage.setItem(savedHotelKey, "true");
+            } else {
+                saveBtn.textContent = "♡ Save";
+                localStorage.removeItem(savedHotelKey);
             }
+        });
+    }
+    if (shareBtn) {
+        shareBtn.addEventListener("click", async () => {
+            const url = window.location.href;
+            if (navigator.share) {
+                await navigator.share({ title: hotel.name, text: `Check this hotel: ${hotel.name}`, url });
+            } else {
+                navigator.clipboard.writeText(url);
+                alert("Hotel link copied!");
+            }
+        });
+    }
+
+    // Tabs
+    const tabLinks = document.querySelectorAll("#hotelTabs a");
+    const sections = document.querySelectorAll("#overview, #about, #rooms, #accessibility, #policies");
+    function changeActiveTab() {
+        let current = "overview";
+        sections.forEach(section => {
+            if (window.scrollY >= section.offsetTop - 180) current = section.getAttribute("id");
+        });
+        tabLinks.forEach(link => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === "#" + current) link.classList.add("active");
+        });
+    }
+    window.addEventListener("scroll", changeActiveTab);
+    tabLinks.forEach(link => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.getElementById(this.getAttribute("href").replace("#", ""));
+            if (target) window.scrollTo({ top: target.offsetTop - 150, behavior: "smooth" });
+            tabLinks.forEach(l => l.classList.remove("active"));
+            this.classList.add("active");
         });
     });
 
-    updateMaxTravelers();
-    validateBooking();
-})();
-
-    // Save button logic
-const saveBtn = document.getElementById("saveBtn");
-const shareBtn = document.getElementById("shareBtn");
-
-const savedHotelKey = `savedHotel-${destination.id}-${hotelIndex}`;
-
-if (saveBtn) {
-    if (localStorage.getItem(savedHotelKey) === "true") {
-        saveBtn.classList.add("saved");
-        saveBtn.textContent = "♥ Saved";
-    }
-
-    saveBtn.addEventListener("click", () => {
-        const isSaved = saveBtn.classList.toggle("saved");
-
-        if (isSaved) {
-            saveBtn.textContent = "♥ Saved";
-            localStorage.setItem(savedHotelKey, "true");
-        } else {
-            saveBtn.textContent = "♡ Save";
-            localStorage.removeItem(savedHotelKey);
-        }
-    });
-}
-
-// Share button logic
-if (shareBtn) {
-    shareBtn.addEventListener("click", async () => {
-        const pageUrl = window.location.href;
-
-        if (navigator.share) {
-            await navigator.share({
-                title: hotel.name,
-                text: `Check this hotel: ${hotel.name}`,
-                url: pageUrl
-            });
-        } else {
-            navigator.clipboard.writeText(pageUrl);
-            alert("Hotel link copied!");
-        }
-    });
-}
-
-// Active tabs on click and scroll
-
-const tabLinks = document.querySelectorAll("#hotelTabs a");
-const sections = document.querySelectorAll("#overview, #about, #rooms, #accessibility, #policies");
-
-function changeActiveTab() {
-    let current = "overview";
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 180;
-
-        if (window.scrollY >= sectionTop) {
-            current = section.getAttribute("id");
-        }
-    });
-
-    tabLinks.forEach(link => {
-        link.classList.remove("active");
-
-        if (link.getAttribute("href") === "#" + current) {
-            link.classList.add("active");
-        }
-    });
-}
-
-window.addEventListener("scroll", changeActiveTab);
-
-tabLinks.forEach(link => {
-    link.addEventListener("click", function(e) {
-        e.preventDefault();
-
-        const targetId = this.getAttribute("href").replace("#", "");
-        const targetSection = document.getElementById(targetId);
-
-        if (targetSection) {
-            window.scrollTo({
-                top: targetSection.offsetTop - 150,
-                behavior: "smooth"
-            });
-        }
-
-        tabLinks.forEach(item => item.classList.remove("active"));
-        this.classList.add("active");
-    });
-});
-
-// ---------- تواريخ محلية (لا تعتمد على UTC) ----------
-function getLocalDateString(date) {
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
-}
-
-const today = new Date();
-const tomorrow = new Date();
-tomorrow.setDate(today.getDate() + 1);
-
-// القيم الابتدائية للحقول العلوية
-if (topCheckIn && topCheckOut) {
-    topCheckIn.value = getLocalDateString(today);
-    topCheckOut.value = getLocalDateString(tomorrow);
-    topCheckIn.min = getLocalDateString(today);
-    topCheckOut.min = getLocalDateString(tomorrow);
-}
-
-// تحديث الحد الأدنى للحقل العلوي Check‑out كلما تغير Check‑in
-function updateTopCheckoutMin() {
-    if (!topCheckIn || !topCheckOut) return;
-    const val = topCheckIn.value;
-    if (!val) return;
-    const checkInDate = new Date(val + "T00:00:00");
-    if (isNaN(checkInDate)) return;
-    
-    const nextDay = new Date(checkInDate);
-    nextDay.setDate(nextDay.getDate() + 1);
-    const minCheckout = getLocalDateString(nextDay);
-    
-    topCheckOut.min = minCheckout;
-    
-    if (topCheckOut.value && new Date(topCheckOut.value) <= checkInDate) {
-        topCheckOut.value = minCheckout;
-    }
-}
-
-if (topCheckIn && topCheckOut) {
-    updateTopCheckoutMin();
-}
-
-// مزامنة الأحداث العلوية ↔ السفلية
-if (topCheckIn && roomCheckIn) {
-    topCheckIn.addEventListener("change", () => {
-        updateTopCheckoutMin();
-        roomCheckIn.value = topCheckIn.value;
-    });
-}
-if (topCheckOut && roomCheckOut) {
-    topCheckOut.addEventListener("change", () => {
-        roomCheckOut.value = topCheckOut.value;
-    });
-}
-if (roomCheckIn && topCheckIn) {
-    roomCheckIn.addEventListener("change", () => {
-        topCheckIn.value = roomCheckIn.value;
-        updateTopCheckoutMin();
-    });
-}
-if (roomCheckOut && topCheckOut) {
-    roomCheckOut.addEventListener("change", () => {
-        topCheckOut.value = roomCheckOut.value;
-    });
-}
-
-// القيم السفلية الابتدائية تطابق العلوية
-if (roomCheckIn && topCheckIn) roomCheckIn.value = topCheckIn.value;
-if (roomCheckOut && topCheckOut) roomCheckOut.value = topCheckOut.value;
-
-// مزامنة عدد المسافرين
-if (topTravelers && roomTravelers) {
-    topTravelers.addEventListener("input", () => {
-        roomTravelers.value = topTravelers.value;
-    });
-    roomTravelers.addEventListener("input", () => {
-        topTravelers.value = roomTravelers.value;
-    });
-};
 } else {
     hotelDetailsContainer.innerHTML = `
         <div class="not-found">
@@ -783,17 +524,11 @@ if (topTravelers && roomTravelers) {
         </div>
     `;
 }
-// وظيفة الربط مع نظام الحجز والخصم (المعدلة)
-function handleRoomBooking(roomName, price, image) { // أضفنا image هنا
-    // التأكد أن ملف booking.js موجود
+
+function handleRoomBooking(roomName, price, image) {
     if (typeof bookTrip === "function") {
-        // تنفيذ الحجز مع تمرير رابط الصورة
-        bookTrip(roomName, price, image); // أضفنا image هنا
-        
-        // الانتقال لصفحة الدفع والخصم
-        setTimeout(() => {
-            window.location.href = "booking.html";
-        }, 800);
+        bookTrip(roomName, price, image);
+        setTimeout(() => { window.location.href = "booking.html"; }, 800);
     } else {
         alert("Error: booking.js is missing!");
     }

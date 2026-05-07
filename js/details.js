@@ -1,6 +1,58 @@
-// details.js
+// details.js – merged with currency converter, offers, weather, reviews
 
 const detailsContainer = document.getElementById("detailsContainer");
+
+// ========== عروض خاصة على غرف ==========
+const roomOffers = {
+    "1-0-standard": 20,   // Cairo, hotel 0 → 20% OFF
+    "1-0-deluxe": 25,     // Cairo, hotel 0, deluxe → 25% OFF
+    "2-1-deluxe": 15,     // Dubai, hotel 1
+    "5-0-standard": 10,   // Istanbul, hotel 0 → 10% OFF
+    "8-1-deluxe": 25,     // New York, hotel 1
+    "13-0-standard": 30   // Bangkok, hotel 0 → 30% OFF
+};
+
+// ========== بيانات الطقس الوهمية ==========
+const weatherData = {
+    "Cairo": { temp: "32°C", condition: "Sunny" },
+    "Dubai": { temp: "38°C", condition: "Hot" },
+    "Paris": { temp: "18°C", condition: "Cloudy" },
+    "Rome": { temp: "24°C", condition: "Partly Cloudy" },
+    "Istanbul": { temp: "22°C", condition: "Windy" },
+    "Tokyo": { temp: "28°C", condition: "Rainy" },
+    "London": { temp: "15°C", condition: "Foggy" },
+    "New York": { temp: "20°C", condition: "Clear" },
+    "Barcelona": { temp: "26°C", condition: "Sunny" },
+    "Athens": { temp: "30°C", condition: "Sunny" },
+    "Amsterdam": { temp: "17°C", condition: "Breezy" },
+    "Zurich": { temp: "13°C", condition: "Snow" },
+    "Bangkok": { temp: "35°C", condition: "Humid" },
+    "Sydney": { temp: "27°C", condition: "Warm" },
+    "Rio de Janeiro": { temp: "33°C", condition: "Tropical" }
+};
+
+// ========== توليد مراجعات وهمية للمدينة ==========
+function generateCityReviews(cityName) {
+    const reviewers = ["Ahmed", "Mona", "Carlos", "Sara", "John"];
+    const comments = [
+        "Amazing city with rich culture!",
+        "I loved the atmosphere and the friendly people.",
+        "A must-visit destination, highly recommended.",
+        "Great historical sites and delicious food.",
+        "Wonderful experience, will come back again."
+    ];
+    const reviews = [];
+    for (let i = 0; i < 3; i++) {
+        reviews.push({
+            user: reviewers[i],
+            rating: (4 + i * 0.5).toFixed(1),
+            comment: comments[i],
+            date: new Date(2026, Math.floor(Math.random() * 5), Math.floor(Math.random() * 28) + 1)
+                .toISOString().split('T')[0]
+        });
+    }
+    return reviews;
+}
 
 const params = new URLSearchParams(window.location.search);
 const destinationId = parseInt(params.get("id"));
@@ -34,25 +86,55 @@ function renderDetails() {
     const hotels = hotelsByDestination[destination.id] || [];
     let hotelsHTML = "";
     if (hotels.length > 0) {
-        hotelsHTML = hotels.map((hotel, index) => `
-            <div class="hotel-card">
-                <img src="${hotel.image}" alt="${hotel.name}" class="hotel-image">
-                <div class="hotel-info">
-                    <h3>${hotel.name}</h3>
-                    <p><strong>📍 ${hotel.location}</strong></p>
-                    <p>⭐ ${hotel.rating}</p>
-                    <ul>${hotel.features.map(f => `<li>${f}</li>`).join("")}</ul>
-                    <div class="hotel-price">
-                        <h4 data-price-usd="${hotel.price}">
-                            ${getCurrencySymbol()} ${convertPrice(hotel.price).toLocaleString()}
-                        </h4>
-                        <span>per night</span>
+        hotelsHTML = hotels.map((hotel, index) => {
+            const keyStandard = `${destination.id}-${index}-standard`;
+            const keyDeluxe = `${destination.id}-${index}-deluxe`;
+
+            const discountStd = roomOffers[keyStandard] || null;
+            const discountDlx = roomOffers[keyDeluxe] || null;
+
+            const priceStd = hotel.price;
+            const priceDlx = hotel.price + 40;
+
+            const finalStd = discountStd ? (priceStd * (1 - discountStd / 100)).toFixed(0) : priceStd;
+            const finalDlx = discountDlx ? (priceDlx * (1 - discountDlx / 100)).toFixed(0) : priceDlx;
+
+            const hasOffer = discountStd || discountDlx;
+            const displayPriceUSD = Math.min(Number(finalStd), Number(finalDlx));
+            const displayDiscount = discountStd !== null && discountDlx !== null
+                ? Math.max(discountStd, discountDlx)
+                : discountStd || discountDlx;
+
+            // currency conversion
+            const convertedPrice = convertPrice(displayPriceUSD).toLocaleString();
+            const symbol = getCurrencySymbol();
+
+            let priceHTML = '';
+            if (hasOffer) {
+                const originalConverted = convertPrice(hotel.price).toLocaleString();
+                priceHTML = `<s style="color:#999;">From ${symbol} ${originalConverted}</s><br>
+                             <h4 data-price-usd="${displayPriceUSD}">${symbol} ${convertedPrice}</h4>
+                             <span style="color:green;">(${displayDiscount}% OFF on select room)</span>`;
+            } else {
+                priceHTML = `<h4 data-price-usd="${displayPriceUSD}">${symbol} ${convertedPrice}</h4>
+                             <span>per night</span>`;
+            }
+
+            return `
+                <div class="hotel-card">
+                    <img src="${hotel.image}" alt="${hotel.name}" class="hotel-image">
+                    <div class="hotel-info">
+                        <h3>${hotel.name} ${hasOffer ? '🔥' : ''}</h3>
+                        <p><strong>📍 ${hotel.location}</strong></p>
+                        <p>⭐ ${hotel.rating}</p>
+                        <ul>${hotel.features.map(f => `<li>${f}</li>`).join("")}</ul>
+                        <div class="hotel-price">
+                            ${priceHTML}
+                        </div>
+                        <a href="hotel-details.html?destinationId=${destination.id}&hotelIndex=${index}" class="view-hotel-btn">View Details</a>
                     </div>
-                    <a href="hotel-details.html?destinationId=${destination.id}&hotelIndex=${index}" class="view-hotel-btn">
-                        View Details
-                    </a>
-                </div>
-            </div>`).join("");
+                </div>`;
+        }).join("");
     } else {
         hotelsHTML = `<p class="no-data">No hotels available for this destination.</p>`;
     }
@@ -150,6 +232,32 @@ function renderDetails() {
             <h2>📍 Nearby Places</h2>
             <ul class="details-list">${nearbyHTML}</ul>
         </section>
+
+        <!-- Weather -->
+        <section class="details-section weather-section">
+            <h2>🌤️ Current Weather</h2>
+            <div class="weather-widget">
+                <span>${weatherData[destination.name] ? weatherData[destination.name].temp : "N/A"}</span>
+                <p>${weatherData[destination.name] ? weatherData[destination.name].condition : "No data"}</p>
+            </div>
+        </section>
+
+        <!-- City Reviews -->
+        <section class="details-section reviews-section">
+            <h2>💬 Guest Reviews about ${destination.name}</h2>
+            <div class="reviews-container">
+                ${generateCityReviews(destination.name).map(r => `
+                    <div class="review-card">
+                        <div class="review-header">
+                            <strong>${r.user}</strong>
+                            <span>⭐ ${r.rating}</span>
+                            <time>${r.date}</time>
+                        </div>
+                        <p>${r.comment}</p>
+                    </div>
+                `).join("")}
+            </div>
+        </section>
     `;
 
     setupSlider();
@@ -193,4 +301,5 @@ function goToSlide(index) {
     updateSliderView();
 }
 
+// Initial render
 renderDetails();
