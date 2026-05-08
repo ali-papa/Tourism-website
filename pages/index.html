@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Apply theme before page render to prevent flash -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        // Apply lang/dir before CSS loads to prevent flash of wrong direction
+        const savedLang = localStorage.getItem('lang') || 'en';
+        document.documentElement.setAttribute('dir', savedLang === 'ar' ? 'rtl' : 'ltr');
+        document.documentElement.setAttribute('lang', savedLang);
+    </script>
+    
     <title>Tourism Website</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +22,11 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/themes/light.css">
+    <link rel="stylesheet" href="../css/themes/dark.css">
     <link rel="stylesheet" href="../css/pages/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/responsive.css">
 </head>
 
 <body>
@@ -28,9 +42,9 @@
         </a>
 
         <div class="nav-links">
-            <a href="index.html" class="active">Home</a>
-            <a href="search.html">Explore</a>
-            <a href="booking.html">Book</a>
+            <a href="index.html" class="active" data-lang="home">Home</a>
+            <a href="search.html" data-lang="explore">Explore</a>
+            <a href="booking.html" data-lang="book">Book</a>
 
             <!-- Currency Selector هنا مباشرة -->
             <div class="currency-selector" id="currencyContainer">
@@ -45,7 +59,9 @@
                 </select>
             </div>
 
-            <a href="login.html" class="nav-cta">Sign in</a>
+                        <button class="lang-toggle-btn" id="langToggle" aria-label="Toggle language">AR</button>
+            <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
+            <a href="login.html" class="nav-cta" data-lang="signin">Sign in</a>
         </div>
 
         <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
@@ -59,20 +75,20 @@
 
         <!-- Hero -->
         <section class="hero">
-            <h1>Discover the World</h1>
-            <p>Explore amazing places inside and outside Egypt</p>
-            <button class="explore-main-btn" onclick="scrollToDestinations()">
+            <h1 data-lang="hero_title">Discover the World</h1>
+            <p data-lang="hero_subtitle">Explore amazing places inside and outside Egypt</p>
+            <button class="explore-main-btn" data-lang="hero_btn" onclick="scrollToDestinations()">
                 ✈ Explore Now
             </button>
-            <a href="search.html" class="explore-btn">Search Destinations</a>
+            <a href="search.html" class="explore-btn" data-lang="hero_search">Search Destinations</a>
         </section>
 
         <!-- World Map -->
         <section class="world-map-section">
             <div class="map-overlay"></div>
             <div class="world-content">
-                <span class="world-kicker">World Explorer</span>
-                <h2>Explore Every Corner of the Planet</h2>
+                <span class="world-kicker" data-lang="world_kicker">World Explorer</span>
+                <h2 data-lang="world_title">Explore Every Corner of the Planet</h2>
                 <p>
                     From iconic cities to hidden gems,
                     your next unforgettable journey starts here.
@@ -87,8 +103,8 @@
                 <div class="landmark-img-overlay"></div>
             </div>
             <div class="landmark-content">
-                <span class="landmark-badge">⭐ Featured Landmark</span>
-                <h2 class="landmark-title">Universal Studios Japan</h2>
+                <span class="landmark-badge" data-lang="landmark_badge">⭐ Featured Landmark</span>
+                <h2 class="landmark-title" data-lang="landmark_title">Universal Studios Japan</h2>
                 <p class="landmark-desc">
                     One of the world's most iconic theme parks — home to the legendary
                     USJ Globe in the heart of Osaka, Japan.
@@ -104,14 +120,43 @@
 
         <!-- Destinations -->
         <section class="destinations" id="destinationsSection">
-            <h2 class="section-title">Popular Destinations</h2>
+            <h2 class="section-title" data-lang="destinations_title">Popular Destinations</h2>
             <div class="cards" id="cardsContainer"></div>
         </section>
 
     </div>
 
-    <footer class="footer">
-        <p>© 2026 Tourism Website</p>
+        <footer class="main-footer">
+     <div class="footer-container">
+        <div class="footer-section about">
+            <h2 class="footer-logo">Tourism</h2>
+            <p>Discover the world's most beautiful destinations with us. Your journey starts here.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-section links">
+            <h3 data-lang="quick_links">Quick Links</h3>
+            <ul>
+                <li><a href="index.html" data-lang="home">Home</a></li>
+                <li><a href="search.html" data-lang="explore">Explore</a></li>
+                <li><a href="booking.html">Book Now</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section contact">
+            <h3 data-lang="contact_us">Contact Us</h3>
+            <p><i class="fas fa-envelope"></i> support@tourism.com</p>
+            <p><i class="fas fa-phone"></i> +20 123 456 789</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2026 Tourism Website | Designed with ❤️
+    </div>
     </footer>
 
     <script src="../js/data.js"></script>
@@ -119,5 +164,8 @@
     <script src="../js/main.js"></script>
     <script src="../js/ui.js"></script>
 
+    <script src="../js/translations.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/chat.js"></script>
 </body>
 </html>

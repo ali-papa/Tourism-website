@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Apply theme before page render to prevent flash -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        // Apply lang/dir before CSS loads to prevent flash of wrong direction
+        const savedLang = localStorage.getItem('lang') || 'en';
+        document.documentElement.setAttribute('dir', savedLang === 'ar' ? 'rtl' : 'ltr');
+        document.documentElement.setAttribute('lang', savedLang);
+    </script>
+    
     <title>Hotel Details</title>
 
     <!-- Fonts -->
@@ -14,7 +24,11 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/themes/light.css">
+    <link rel="stylesheet" href="../css/themes/dark.css">
     <link rel="stylesheet" href="../css/pages/details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/responsive.css">
 </head>
 
 <body>
@@ -29,9 +43,9 @@
         Tourism
     </a>
     <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="search.html">Explore</a>
-        <a href="booking.html">Book</a>
+        <a href="index.html" data-lang="home">Home</a>
+        <a href="search.html" data-lang="explore">Explore</a>
+        <a href="booking.html" data-lang="book">Book</a>
 
         <!-- Currency Selector -->
         <div class="currency-selector" id="currencyContainer">
@@ -46,7 +60,9 @@
             </select>
         </div>
 
-        <a href="login.html" class="nav-cta">Sign in</a>
+                    <button class="lang-toggle-btn" id="langToggle" aria-label="Toggle language">AR</button>
+            <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
+            <a href="login.html" class="nav-cta" data-lang="signin">Sign in</a>
     </div>
 </nav>
 
@@ -61,8 +77,37 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="footer">
-        <p>©️ 2026 Tourism Website - IT Project</p>
+        <footer class="main-footer">
+     <div class="footer-container">
+        <div class="footer-section about">
+            <h2 class="footer-logo">Tourism</h2>
+            <p>Discover the world's most beautiful destinations with us. Your journey starts here.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-section links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html" data-lang="home">Home</a></li>
+                <li><a href="search.html" data-lang="explore">Explore</a></li>
+                <li><a href="booking.html">Book Now</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section contact">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-envelope"></i> support@tourism.com</p>
+            <p><i class="fas fa-phone"></i> +20 123 456 789</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2026 Tourism Website | Designed with ❤️
+    </div>
     </footer>
 
     <!-- JS SCRIPTS -->
@@ -78,5 +123,8 @@
     
     <script src="../js/ui.js"></script>
 
+    <script src="../js/translations.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/chat.js"></script>
 </body>
 </html>

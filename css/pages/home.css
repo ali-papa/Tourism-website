@@ -308,7 +308,7 @@ html {
 }
 
 .landmark-content {
-    background: var(--surface);
+    background: var(--bg-card, #fff);
     padding: 40px 36px;
     display: flex;
     flex-direction: column;
@@ -376,4 +376,28 @@ html {
     }
     .landmark-img-wrap { height: 220px; }
     .landmark-content { padding: 24px 20px; }
+}
+/* ── RTL SUPPORT ─────────────────────────────────────── */
+[dir="rtl"] .hero {
+  text-align: right;
+}
+
+[dir="rtl"] .section-title {
+  text-align: right;
+}
+
+[dir="rtl"] .cards {
+  direction: rtl;
+}
+
+[dir="rtl"] .card {
+  text-align: right;
+}
+
+[dir="rtl"] .card-footer {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .world-content {
+  text-align: right;
 }
