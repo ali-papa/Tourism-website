@@ -1,46 +1,61 @@
+// SVG icons for theme toggle
+const ICON_SUN = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="5"/>
+  <line x1="12" y1="1" x2="12" y2="3"/>
+  <line x1="12" y1="21" x2="12" y2="23"/>
+  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+  <line x1="1" y1="12" x2="3" y2="12"/>
+  <line x1="21" y1="12" x2="23" y2="12"/>
+  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+</svg>`;
+
+const ICON_MOON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+</svg>`;
+
 document.addEventListener("DOMContentLoaded", () => {
-  const header = document.getElementById("site-header");
-  const footer = document.getElementById("site-footer");
-  const page = document.body.dataset.page || "home";
+  // 1. استرجاع الثيم المحفوظ
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
 
-  if (header) {
-    header.innerHTML = `
-      <nav class="navbar">
-        <a href="index.html" class="logo">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-          Tourism
-        </a>
+  // 2. حقن الأيقونة في زرار الثيم الموجود في الـ HTML
+  const themeBtn = document.getElementById("themeToggle");
+  if (themeBtn) {
+    themeBtn.innerHTML = savedTheme === 'dark' ? ICON_SUN : ICON_MOON;
 
-        <div class="nav-links">
-          <a href="index.html" class="${page === 'home' ? 'active' : ''}">Home</a>
-          <a href="search.html" class="${page === 'search' ? 'active' : ''}">Explore</a>
-          <a href="booking.html" class="${page === 'booking' ? 'active' : ''}">Book</a>
-          <a href="login.html" class="nav-cta">Sign in</a>
-        </div>
+    themeBtn.addEventListener("click", () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-        <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
-          <span></span><span></span><span></span>
-        </button>
-      </nav>
-    `;
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeBtn.innerHTML = newTheme === 'dark' ? ICON_SUN : ICON_MOON;
+    });
   }
 
-  if (footer) {
-    footer.innerHTML = `
-      <div class="footer">
-        <p>© 2026 Tourism Website</p>
-      </div>
-    `;
+  // 3. منطق اللغة
+  const langBtn = document.getElementById("langToggle");
+  if (langBtn) {
+    // Set correct label on load
+    const currentLang = (typeof getLang === 'function') ? getLang() : (localStorage.getItem('lang') || 'en');
+    langBtn.textContent = currentLang === 'ar' ? 'EN' : 'AR';
+
+    langBtn.addEventListener("click", () => {
+      if (typeof setLang === 'function') {
+        const newLang = getLang() === 'ar' ? 'en' : 'ar';
+        setLang(newLang);
+        langBtn.textContent = newLang === 'ar' ? 'EN' : 'AR';
+      }
+    });
   }
 
-  const btn = document.getElementById("navHamburger");
+  // 4. منطق الموبايل منيو
+  const hamburger = document.getElementById("navHamburger");
   const links = document.querySelector(".nav-links");
-
-  if (btn && links) {
-    btn.addEventListener("click", () => {
+  if (hamburger && links) {
+    hamburger.addEventListener("click", () => {
       links.classList.toggle("open");
     });
   }

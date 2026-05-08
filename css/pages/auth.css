@@ -94,3 +94,11 @@ body {
     text-align: center;
     padding: 20px;
 }
+/* ── RTL SUPPORT ─────────────────────────────────────── */
+[dir="rtl"] .auth-card {
+  text-align: right;
+}
+
+[dir="rtl"] .auth-footer {
+  text-align: right;
+}

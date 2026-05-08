@@ -932,3 +932,121 @@
 .destination-card {
     animation: cardIn 0.28s ease both;
 }
+/* ═══════════════════════════════════════════════════════
+   DARK MODE OVERRIDES — search.css
+   Fixes --surface / --surface-2 vars that were hardcoded
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  --surface:   var(--bg-card);
+  --surface-2: var(--bg-surface);
+  --border:    #333333;
+  --text-1:    #eeeeee;
+  --text-2:    #b0b0b0;
+  --text-3:    #757575;
+}
+
+[data-theme="dark"] .search-box {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+}
+
+[data-theme="dark"] .sbox-inner input {
+  color: var(--text-1) !important;
+  background: transparent !important;
+}
+
+[data-theme="dark"] .sbox-inner label {
+  color: var(--text-3) !important;
+}
+
+[data-theme="dark"] .skeleton-img,
+[data-theme="dark"] .skeleton-line {
+  background: linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%);
+  background-size: 600px 100%;
+}
+
+[data-theme="dark"] .card-badge-cat {
+  background: rgba(255,255,255,0.15) !important;
+  color: #fff !important;
+}
+
+[data-theme="dark"] .btn-filter-toggle {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+  color: var(--text-1) !important;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RTL SUPPORT — search.css
+   ═══════════════════════════════════════════════════════ */
+
+[dir="rtl"] .search-hero {
+  text-align: right;
+}
+
+[dir="rtl"] .hero-badge {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .search-box {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .sbox-field {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .sbox-inner {
+  text-align: right;
+}
+
+[dir="rtl"] .sbox-btn {
+  flex-direction: row-reverse;
+  order: -1;
+}
+
+[dir="rtl"] .quick-chips {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .results-toolbar {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .results-toolbar-left {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .results-toolbar-right {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .filters-sidebar {
+  text-align: right;
+}
+
+[dir="rtl"] .filters-header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .destination-card {
+  text-align: right;
+}
+
+[dir="rtl"] .card-meta {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .card-footer {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .card-price {
+  text-align: left;
+}
+
+[dir="rtl"] .card-rating {
+  flex-direction: row-reverse;
+}

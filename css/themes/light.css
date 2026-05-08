@@ -1,0 +1,30 @@
+:root,
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg-base:        #ffffff;
+  --bg-surface:     #f8fafc;
+  --bg-surface-2:   #f1f5f9;
+  --bg-card:        #ffffff;
+  --bg-input:       #ffffff;
+  --bg-navbar:      rgba(255, 255, 255, 0.95);
+
+  /* Borders */
+  --border:         #e2e8f0;
+  --border-input:   #cbd5e1;
+
+  /* Text */
+  --text-1:         #0f172a;
+  --text-2:         #475569;
+  --text-3:         #94a3b8;
+
+  /* Shadows */
+  --shadow-card:    0 2px 12px rgba(15, 23, 42, .07), 0 8px 24px rgba(15, 23, 42, .05);
+  --shadow-hover:   0 8px 32px rgba(15, 23, 42, .14);
+  --shadow-navbar:  0 1px 0 #e2e8f0;
+
+  /* Theme toggle button */
+  --toggle-bg:      #e2e8f0;
+  --toggle-color:   #475569;
+  --toggle-hover:   #cbd5e1;
+}
+

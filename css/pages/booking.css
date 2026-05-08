@@ -173,3 +173,68 @@ body {
 }
 
 .footer { text-align: center; padding: 40px; margin-top: 50px; border-top: 1px solid #eee; }
+/* ═══════════════════════════════════════════════════════
+   DARK MODE OVERRIDES — booking.css
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  --bg-color:   var(--bg-base);
+  --text-dark:  var(--text-1);
+  --text-muted: var(--text-2);
+}
+
+[data-theme="dark"] .tabs-container {
+  border-bottom-color: var(--border, #333) !important;
+}
+
+[data-theme="dark"] .tab-btn {
+  color: var(--text-2, #b0b0b0) !important;
+}
+
+[data-theme="dark"] .tab-btn.active {
+  color: var(--brand, #0057B7) !important;
+}
+
+[data-theme="dark"] .location-text {
+  color: var(--text-2, #b0b0b0) !important;
+}
+
+[data-theme="dark"] .custom-modal {
+  background: var(--bg-card, #1a1a1a) !important;
+  color: var(--text-1, #eee) !important;
+}
+
+[data-theme="dark"] .footer {
+  border-top-color: var(--border, #333) !important;
+  background: var(--bg-surface, #1e1e1e) !important;
+  color: var(--text-3, #757575) !important;
+}
+
+[data-theme="dark"] .header-section h1,
+[data-theme="dark"] .header-section h2,
+[data-theme="dark"] .header-section p {
+  color: var(--text-1, #eee) !important;
+}
+
+[data-theme="dark"] .card-body p,
+[data-theme="dark"] .card-body span,
+[data-theme="dark"] .card-body h3 {
+  color: var(--text-1, #eee) !important;
+}
+
+/* ── RTL SUPPORT ─────────────────────────────────────── */
+[dir="rtl"] .tabs-container {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .booking-card {
+  text-align: right;
+}
+
+[dir="rtl"] .card-body {
+  text-align: right;
+}
+
+[dir="rtl"] .section-header {
+  flex-direction: row-reverse;
+}
