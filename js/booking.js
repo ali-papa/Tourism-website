@@ -1,3 +1,7 @@
+// ============================
+// BOOKING.JS
+// ============================
+
 // وظيفة عرض الحجوزات (My Bookings)
 function displayMyBookings() {
     const user = JSON.parse(localStorage.getItem('currentUser'));
@@ -11,16 +15,22 @@ function displayMyBookings() {
 
     myBookings.forEach(book => {
         let imgPath = book.image;
-        if (imgPath && !imgPath.startsWith('../') && !imgPath.startsWith('http')) {
-            imgPath = '../' + imgPath;
+        if (imgPath && !imgPath.startsWith('../') && !imgPath.startsWith('http') && !imgPath.startsWith('data:')) {
+        imgPath = '../' + imgPath;
         }
+        const symbol = (typeof CURRENCY_SYMBOLS !== 'undefined' && book.currency)
+            ? (CURRENCY_SYMBOLS[book.currency] || book.currency)
+            : 'EGP';
 
         container.innerHTML += `
             <div class="booking-card">
                 <img src="${imgPath}" alt="${book.tripName}" onerror="this.src='../assets/images/placeholder.jpg'">
                 <div class="card-body">
                     <h3>${book.tripName}</h3>
-                    <p>Price: <strong>${book.price} EGP</strong></p>
+                    <p>Price: <strong>${symbol} ${Number(book.price).toLocaleString()}</strong></p>
+                    ${book.rooms ? `<p>Rooms: <strong>${book.rooms}</strong></p>` : ""}
+                    ${book.checkIn ? `<p>Check-in: <strong>${book.checkIn}</strong></p>` : ""}
+                    ${book.checkOut ? `<p>Check-out: <strong>${book.checkOut}</strong></p>` : ""}
                     <span class="status-badge ${book.status === 'Pending' ? 'status-pending' : 'status-completed'}">
                         ${book.status === 'Pending' ? 'Pending Confirmation' : '✅ Paid'}
                     </span>
@@ -35,8 +45,8 @@ function displayMyBookings() {
     });
 }
 
-// وظيفة الحجز الصامتة
-function bookTrip(name, price, image) {
+// وظيفة الحجز
+function bookTrip(name, price, image, checkIn = "", checkOut = "", rooms = 1) {
     const user = JSON.parse(localStorage.getItem('currentUser')) || 
                  JSON.parse(localStorage.getItem('isLoggedIn'));
 
@@ -46,6 +56,10 @@ function bookTrip(name, price, image) {
         return;
     }
 
+    const selectedCurrency = (typeof getSelectedCurrency === 'function')
+        ? getSelectedCurrency()
+        : (localStorage.getItem('selectedCurrency') || 'USD');
+
     let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
 
     const newBooking = {
@@ -53,6 +67,10 @@ function bookTrip(name, price, image) {
         userEmail: user.email,
         tripName: name,
         price: price,
+        currency: selectedCurrency,
+        checkIn: checkIn,
+        checkOut: checkOut,
+        rooms: rooms,
         image: image,
         status: 'Pending'
     };
@@ -108,7 +126,7 @@ function removeSavedItem(key) {
     displaySavedItems();
 }
 
-// وظيفة الدفع الصامتة (تم حذف الـ alert)
+// وظيفة الدفع
 function confirmAndPay(bookingId, amount) {
     let user = JSON.parse(localStorage.getItem('currentUser'));
     let allUsers = JSON.parse(localStorage.getItem('users')) || [];
@@ -119,7 +137,6 @@ function confirmAndPay(bookingId, amount) {
         return;
     }
 
-    // خصم المبلغ وتحديث البيانات
     user.credit -= amount;
     const uIdx = allUsers.findIndex(u => u.email === user.email);
     if (uIdx !== -1) allUsers[uIdx].credit = user.credit;
@@ -127,12 +144,10 @@ function confirmAndPay(bookingId, amount) {
     const bIdx = bookings.findIndex(b => b.id === bookingId);
     if (bIdx !== -1) bookings[bIdx].status = 'Completed';
 
-    // حفظ البيانات الجديدة
     localStorage.setItem('currentUser', JSON.stringify(user));
     localStorage.setItem('users', JSON.stringify(allUsers));
     localStorage.setItem('bookings', JSON.stringify(bookings));
     
-    // تم حذف سطر alert الدفع بنجاح
     displayMyBookings();
 }
 

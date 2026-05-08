@@ -525,10 +525,21 @@ if (destination && hotel) {
     `;
 }
 
-function handleRoomBooking(roomName, price, image) {
+function handleRoomBooking(roomName, basePrice, image) {
     if (typeof bookTrip === "function") {
-        bookTrip(roomName, price, image);
-        setTimeout(() => { window.location.href = "booking.html"; }, 800);
+        
+        const rooms = parseInt(document.getElementById("roomCount")?.value) || 1;
+        const checkIn = document.getElementById("roomCheckIn")?.value || "";
+        const checkOut = document.getElementById("roomCheckOut")?.value || "";
+        
+        // السعر بالعملة المختارة × عدد الغرف
+        const convertedPrice = convertPrice(basePrice) * rooms;
+        
+        bookTrip(roomName, convertedPrice, image, checkIn, checkOut, rooms);
+        
+        setTimeout(() => {
+            window.location.href = "booking.html";
+        }, 800);
     } else {
         alert("Error: booking.js is missing!");
     }

@@ -18,10 +18,9 @@ body {
     color: var(--text-dark);
 }
 
-
 /* --- Layout --- */
 .container {
-    max-width: 1200px; /* وسعنا الحاوية شوية للراحة البصرية */
+    max-width: 1200px;
     margin: 50px auto;
     padding: 0 20px;
 }
@@ -62,13 +61,12 @@ body {
     background: var(--primary-color);
 }
 
-/* --- Grid System (التعديل الأساسي لثبات الحجم) --- */
+/* --- Grid --- */
 .tab-content { 
     display: none; 
-    /* التغيير هنا: auto-fill بتسيب مكان فاضي للكروت اللي لسه مجتش فبتحافظ على الحجم */
     grid-template-columns: repeat(auto-fill, minmax(300px, 350px)); 
     gap: 25px;
-    justify-content: start; /* الكروت تبدأ من الشمال */
+    justify-content: start;
 }
 
 .tab-content.active { display: grid; }
@@ -83,16 +81,15 @@ body {
     transition: 0.3s;
     display: flex;
     flex-direction: column;
-    height: 100%; /* توحيد الطول */
+    height: 100%;
 }
 
 .booking-card:hover { transform: translateY(-5px); }
 
-/* تثبيت حجم الصورة ومنع التمطيط */
 .booking-card img {
     width: 100%;
-    height: 200px; /* طول ثابت موحد */
-    object-fit: cover; /* أهم سطر لضبط أبعاد الصورة داخل المربع */
+    height: 200px;
+    object-fit: cover;
     background-color: #f0f0f0;
 }
 
@@ -100,28 +97,38 @@ body {
     padding: 20px; 
     display: flex; 
     flex-direction: column; 
-    gap: 10px; 
-    flex-grow: 1; /* عشان المحتوى يملأ الكارت والزراير تنزل تحت */
+    gap: 4px;       /* ← كان 10px */
+    flex-grow: 1;
 }
 
-/* --- Badges & Buttons --- */
+.card-body p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.card-body h3 {
+    margin: 0 0 6px 0;
+}
+
+/* --- Badges --- */
 .status-badge {
     padding: 6px 12px;
     border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 700;
     width: fit-content;
+    margin: 4px 0;
 }
 
 .status-pending { background: #fff4e5; color: #b07000; }
 .status-completed { background: #e6fcf5; color: var(--success-color); }
 .status-saved { background: #ffe3e3; color: var(--danger-color); }
 
-/* تنسيق مجموعة الأزرار */
+/* --- Buttons --- */
 .button-group {
     display: flex;
     gap: 10px;
-    margin-top: auto; /* دفع الأزرار لأسفل الكارت دائماً */
+    margin-top: auto;
     padding-top: 10px;
 }
 
@@ -144,12 +151,28 @@ body {
     border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
-    flex: 2; /* زرار التفاصيل بياخد مساحة أكبر */
+    flex: 2;
 }
 
-/* نصوص إضافية */
-.processed-text { color: var(--success-color); font-weight: bold; margin-top: 5px; }
-.location-text { font-size: 0.9rem; color: #666; }
+/* --- Misc --- */
+.processed-text { 
+    color: var(--success-color); 
+    font-weight: bold; 
+    margin: 0;
+}
+
+.location-text { 
+    font-size: 0.9rem; 
+    color: #666;
+    margin: 0;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
 
 /* --- Modal --- */
 .custom-modal-overlay {
@@ -172,4 +195,10 @@ body {
     width: 90%;
 }
 
-.footer { text-align: center; padding: 40px; margin-top: 50px; border-top: 1px solid #eee; }
+/* --- Footer --- */
+.footer { 
+    text-align: center; 
+    padding: 40px; 
+    margin-top: 50px; 
+    border-top: 1px solid #eee; 
+}
