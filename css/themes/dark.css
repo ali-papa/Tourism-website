@@ -1,0 +1,681 @@
+[data-theme="dark"] {
+  /* Backgrounds - Professional Gray Scale */
+  --bg-base:      #121212; /* Base Background */
+  --bg-surface:   #1e1e1e; /* Large Surfaces */
+  --bg-surface-2: #2d2d2d; /* Interactive Surfaces */
+  --bg-card:      #1a1a1a; /* Card Backgrounds */
+  --bg-input:     #252525; /* Input Fields */
+  --bg-navbar:    rgba(18, 18, 18, 0.96);
+
+  /* Borders - Neutral */
+  --border:       #333333;
+  --border-input: #444444;
+
+  /* Text - Matte White & Gradients */
+  --text-1:       #eeeeee; /* Primary Text */
+  --text-2:       #b0b0b0; /* Secondary Text */
+  --text-3:       #757575; /* Muted/Disabled Text */
+
+  /* Shadows - Deep & Neutral */
+  --shadow-card:   0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-hover:  0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-navbar: 0 1px 0 #2a2a2a;
+
+  /* Theme Toggle Colors */
+  --toggle-bg:     #333333;
+  --toggle-color:  #eeeeee;
+  --toggle-hover:  #444444;
+}
+
+/* ==========================================================================
+   Global Dark Overrides — Body & Navbar
+   ========================================================================== */
+
+[data-theme="dark"] body {
+  background: var(--bg-base);
+  color: var(--text-1);
+}
+
+[data-theme="dark"] .navbar {
+  background: var(--bg-navbar);
+  border-bottom: 1px solid var(--border);
+}
+
+[data-theme="dark"] .nav-hamburger span {
+  background: var(--text-1);
+}
+
+[data-theme="dark"] .footer {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  color: var(--text-3);
+}
+
+/* ==========================================================================
+   Cards, Content Boxes & UI Components
+   Fixes white card backgrounds showing in dark mode
+   ========================================================================== */
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .hotel-card,
+[data-theme="dark"] .dest-card,
+[data-theme="dark"] .destination-card,
+[data-theme="dark"] .auth-box,
+[data-theme="dark"] .details-card,
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .booking-card,
+[data-theme="dark"] .booking-summary,
+[data-theme="dark"] .filters-sidebar,
+[data-theme="dark"] .auth-container,
+[data-theme="dark"] .login-box,
+[data-theme="dark"] .register-card,
+[data-theme="dark"] .search-box,
+[data-theme="dark"] .user-stats,
+[data-theme="dark"] .edit-profile-form,
+[data-theme="dark"] .destination-card-content,
+[data-theme="dark"] .dest-card-info {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-card);
+  color: var(--text-1);
+}
+
+/* Subtle lift effect on card hover */
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .hotel-card:hover,
+[data-theme="dark"] .dest-card:hover,
+[data-theme="dark"] .destination-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   Hero & Map Sections
+   Replaces bright hero gradient with dark equivalent
+   ========================================================================== */
+
+[data-theme="dark"] .hero {
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 35%),
+    linear-gradient(135deg, #1a1a1a 0%, #121212 100%);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Dims and inverts the world map image so it reads on dark backgrounds */
+[data-theme="dark"] .world-map-section {
+  background-color: var(--bg-surface) !important;
+  background-blend-mode: overlay;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  filter: brightness(0.8) contrast(1.2);
+}
+
+[data-theme="dark"] .world-map-section img {
+  filter: invert(1) opacity(0.2) !important;
+}
+
+[data-theme="dark"] .world-kicker {
+  background: var(--bg-surface-2) !important;
+  color: var(--text-1) !important;
+}
+
+/* Hides the semi-transparent light overlay that only works on light backgrounds */
+[data-theme="dark"] .map-overlay {
+  display: none;
+}
+
+/* ==========================================================================
+   Inputs & Interactivity
+   Prevents white input fields from flashing in dark mode
+   ========================================================================== */
+
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea,
+[data-theme="dark"] .search-bar,
+[data-theme="dark"] .price-input-wrap,
+[data-theme="dark"] .select-wrap select {
+  background: var(--bg-input) !important;
+  color: var(--text-1) !important;
+  border: 1px solid var(--border-input) !important;
+  border-radius: 6px;
+}
+
+/* Muted placeholder text so it doesn't compete with real input value */
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: var(--text-3);
+}
+
+/* Rating filter buttons — unselected state */
+[data-theme="dark"] .rating-btn {
+  background: var(--bg-surface-2) !important;
+  color: var(--text-2) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* Rating filter buttons — selected/active state: inverted for contrast */
+[data-theme="dark"] .rating-btn.active {
+  background: var(--text-1) !important;
+  color: var(--bg-base) !important;
+}
+
+/* ==========================================================================
+   Global Typography — Headings Only
+   NOTE: Intentionally does NOT include div/span/p to avoid overriding
+   component-specific text colors (e.g. card badges, price labels)
+   ========================================================================== */
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .filter-label,
+[data-theme="dark"] .results-count {
+  color: var(--text-1) !important;
+}
+
+/* Only target form labels, not all labels inside cards */
+[data-theme="dark"] label,
+[data-theme="dark"] .info-row,
+[data-theme="dark"] .summary-item {
+  color: var(--text-2) !important;
+}
+
+/* Muted text for price symbol and search box labels */
+[data-theme="dark"] .price-symbol,
+[data-theme="dark"] .sbox-inner label {
+  color: var(--text-3) !important;
+}
+
+/* ==========================================================================
+   Structural Fixes & Utilities
+   ========================================================================== */
+
+/* Dividers and info rows use the dark border color */
+[data-theme="dark"] hr,
+[data-theme="dark"] .sbox-divider,
+[data-theme="dark"] .info-row {
+  border-color: var(--border) !important;
+}
+
+/* SVG icons use secondary text color so they're visible but not dominant */
+[data-theme="dark"] svg {
+  stroke: var(--text-2);
+}
+
+/* General links get secondary text color; nav CTAs and logo are excluded */
+[data-theme="dark"] a:not(.nav-cta):not(.logo) {
+  color: var(--text-2);
+}
+
+[data-theme="dark"] a:hover {
+  color: var(--text-1);
+}
+
+/* Custom dark scrollbar to match overall palette */
+[data-theme="dark"] ::-webkit-scrollbar { width: 8px; }
+[data-theme="dark"] ::-webkit-scrollbar-track { background: var(--bg-base); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #3d3d3d;
+  border-radius: 10px;
+  border: 2px solid var(--bg-base);
+}
+
+/* ==========================================================================
+   Theme Toggle Button
+   Sun/moon icon button in the navbar
+   ========================================================================== */
+
+[data-theme="light"] .theme-toggle-btn {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--toggle-color, #eeeeee);
+}
+
+[data-theme="dark"] .theme-toggle-btn svg {
+  stroke: var(--toggle-color, #eeeeee);
+}
+
+/* ==========================================================================
+   Search Page — Destination Cards
+   Fixes unreadable text inside .card-body on dark mode
+   Root cause: previous rule targeted div/p/span globally and overrode
+   component-level colors. Now handled per-element below.
+   ========================================================================== */
+
+/* Category badge (e.g. HISTORICAL, CITY) — semi-transparent white pill */
+[data-theme="dark"] .card-badge-cat {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+/* Card title — city name, needs full brightness */
+[data-theme="dark"] .card-title {
+  color: var(--text-1) !important;
+}
+
+/* Card description — one-liner under the city name */
+[data-theme="dark"] .card-desc {
+  color: var(--text-2) !important;
+}
+
+/* "FROM" label above the price */
+[data-theme="dark"] .card-price-label {
+  color: var(--text-3) !important;
+}
+
+/* Main price number — needs to stand out */
+[data-theme="dark"] .card-price-value {
+  color: var(--text-1) !important;
+}
+
+/* Currency abbreviation (USD) next to the price */
+[data-theme="dark"] .card-price-currency {
+  color: var(--text-2) !important;
+}
+
+/* Divider line between description and price/CTA row */
+[data-theme="dark"] .card-footer {
+  border-top-color: var(--border) !important;
+}
+
+/* ==========================================================================
+   Details & Hotel Pages
+   Fixes white card surfaces and unreadable text on detail views
+   ========================================================================== */
+
+/* Page-level backgrounds for details and hotel pages */
+[data-theme="dark"] .details-page,
+[data-theme="dark"] .hotel-section,
+[data-theme="dark"] .hotel-details-page {
+  background-color: var(--bg-base) !important;
+}
+
+/* All card-like containers inside details pages get dark card background */
+[data-theme="dark"] .details-card,
+[data-theme="dark"] .hotel-details-card,
+[data-theme="dark"] .hotel-card,
+[data-theme="dark"] .details-section,
+[data-theme="dark"] .hotel-side-map,
+[data-theme="dark"] .room-card,
+[data-theme="dark"] .similar-hotel-card,
+[data-theme="dark"] .hotel-search-bar {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Smaller info boxes and surfaces inside detail cards */
+[data-theme="dark"] .price-box,
+[data-theme="dark"] .hotel-details-price,
+[data-theme="dark"] .policy-item,
+[data-theme="dark"] .hotel-details-box,
+[data-theme="dark"] .room-date-box,
+[data-theme="dark"] .payment-types span,
+[data-theme="dark"] .search-box {
+  background-color: var(--bg-surface) !important;
+  border-color: var(--border) !important;
+  color: var(--text-1) !important;
+}
+
+/* Page and section headings inside detail views */
+[data-theme="dark"] .details-info h1,
+[data-theme="dark"] .hotel-main-content h1 {
+  color: #ffffff !important;
+}
+
+/* Body text inside hotel info and room cards */
+[data-theme="dark"] .hotel-info p,
+[data-theme="dark"] .room-info p,
+[data-theme="dark"] li,
+[data-theme="dark"] small {
+  color: var(--text-2) !important;
+}
+
+/* Hotel tab navigation bar background */
+[data-theme="dark"] .hotel-tabs {
+  background-color: var(--bg-card) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+/* Hotel tab links — must be readable against dark tab bar */
+[data-theme="dark"] .hotel-tabs a {
+  color: var(--text-1) !important;
+}
+
+/* Hotel tab wrapper (outer container around the tabs strip) */
+[data-theme="dark"] .hotel-tabs-wrapper {
+  background: var(--bg-card) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+/* Text color inside hotel search inputs */
+[data-theme="dark"] .hotel-input {
+  color: #fff !important;
+}
+
+/* Icon background circles — use a dark blue tint instead of white */
+[data-theme="dark"] .highlight-icon {
+  background: #1e293b !important;
+}
+
+/* ==========================================================================
+   Info Cards (used in hotel comparison sections)
+   ========================================================================== */
+
+[data-theme="dark"] .info-card {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+}
+
+[data-theme="dark"] .info-card h3 {
+  color: var(--text-1) !important;
+}
+
+[data-theme="dark"] .info-card p {
+  color: var(--text-2) !important;
+}
+
+/* ==========================================================================
+   Comparison Table
+   Fixes alternating row colors and border visibility in dark mode
+   ========================================================================== */
+
+[data-theme="dark"] .comparison-table th,
+[data-theme="dark"] .comparison-table td {
+  border-color: var(--border) !important;
+  color: var(--text-1) !important;
+}
+
+/* Header row gets a slightly lighter surface to distinguish from data rows */
+[data-theme="dark"] .comparison-table th {
+  background: var(--bg-surface-2) !important;
+}
+
+[data-theme="dark"] .comparison-table td {
+  background: var(--bg-card) !important;
+}
+
+/* Zebra striping for odd rows using a slightly elevated surface */
+[data-theme="dark"] .comparison-table tr:nth-child(odd) td {
+  background: var(--bg-surface) !important;
+}
+
+/* ==========================================================================
+   Footer
+   Replaces default footer colors with deep dark navy tones
+   ========================================================================== */
+
+[data-theme="dark"] .main-footer {
+  background-color: #0f172a !important;
+  border-top-color: #1e293b !important;
+}
+
+/* Footer section headings and logo stay near-white */
+[data-theme="dark"] .footer-section h3,
+[data-theme="dark"] .footer-logo {
+  color: #f8fafc !important;
+}
+
+/* Footer body text, links, and social icons use muted slate */
+[data-theme="dark"] .footer-section p,
+[data-theme="dark"] .footer-section ul li a,
+[data-theme="dark"] .social-links a,
+[data-theme="dark"] .footer-bottom {
+  color: #94a3b8 !important;
+}
+
+/* Bottom strip separator line */
+[data-theme="dark"] .footer-bottom {
+  border-top-color: #1e293b !important;
+}
+
+/* ==========================================================================
+   Profile Page
+   Custom dark gradient background + card/form overrides for profile layout
+   ========================================================================== */
+
+/* Deep navy gradient background unique to the profile page */
+[data-theme="dark"] .profile-page {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(37,99,235,0.12) 0%, transparent 28%),
+    radial-gradient(circle at 92% 20%, rgba(14,165,233,0.10) 0%, transparent 26%),
+    linear-gradient(160deg, #020617 0%, #0f172a 40%, #111827 100%);
+}
+
+/* Profile wrapper containers are transparent to let the gradient show through */
+[data-theme="dark"] .profile-wrapper,
+[data-theme="dark"] .profile-container,
+[data-theme="dark"] .profile-layout {
+  background: transparent !important;
+}
+
+/* Profile cards — slightly lighter than the page background */
+[data-theme="dark"] .pcard {
+  background: #111827;
+  border-color: #1e293b;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Profile card header divider line */
+[data-theme="dark"] .pcard-header {
+  border-bottom-color: #1e293b;
+}
+
+/* Profile card headings, overview values, completed checklist items, and form fields */
+[data-theme="dark"] .pcard-header h3,
+[data-theme="dark"] .ov-value,
+[data-theme="dark"] .check-item.done,
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group select {
+  color: #f8fafc;
+}
+
+/* Muted label text for overview items, stat labels, form labels, modal subtitles */
+[data-theme="dark"] .ov-label,
+[data-theme="dark"] .stat-lbl,
+[data-theme="dark"] .form-group label,
+[data-theme="dark"] .modal-sub {
+  color: #94a3b8;
+}
+
+/* Form input fields get a very dark background and a visible border */
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group select {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+/* Read-only fields use a slightly lifted surface so users know they can't edit */
+[data-theme="dark"] .input-readonly {
+  background: #1e293b !important;
+  color: #cbd5e1 !important;
+}
+
+/* Progress bar track (unfilled portion) */
+[data-theme="dark"] .progress-bar-track {
+  background: #1e293b;
+}
+
+/* Stat boxes (e.g. trips taken, reviews written) */
+[data-theme="dark"] .stat-box {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+
+/* Horizontal divider line inside forms */
+[data-theme="dark"] .form-divider::before {
+  background: #1e293b;
+}
+
+/* "OR" divider label — pill with dark background */
+[data-theme="dark"] .form-divider span {
+  background: #111827;
+  color: #94a3b8;
+}
+
+/* Profile modal dialog box */
+[data-theme="dark"] .pmodal-box {
+  background: #111827;
+}
+
+/* Input fields inside profile modals */
+[data-theme="dark"] .modal-input-group input {
+  background: #0f172a;
+  border-color: #334155;
+  color: white;
+}
+/* ==========================================================================
+   Global Variable Bridge
+   Fixes page-specific CSS vars that search.css / booking.css define
+   in :root without a dark override
+   ========================================================================== */
+
+[data-theme="dark"] {
+  --surface:   var(--bg-card);
+  --surface-2: var(--bg-surface-2);
+}
+
+/* ==========================================================================
+   Register Page — Input Flash Fix
+   register.css had background:#ffffff !important which beats the generic
+   input rule; we repeat the override with higher specificity here
+   ========================================================================== */
+
+[data-theme="dark"] .auth-box {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+  color: var(--text-1) !important;
+}
+
+[data-theme="dark"] .auth-box input,
+[data-theme="dark"] .auth-box select,
+[data-theme="dark"] .auth-box textarea {
+  background: var(--bg-input) !important;
+  color: var(--text-1) !important;
+  border-color: var(--border-input) !important;
+}
+
+[data-theme="dark"] .auth-box h2,
+[data-theme="dark"] .auth-box label {
+  color: var(--text-1) !important;
+}
+
+[data-theme="dark"] .auth-box .auth-footer {
+  color: var(--text-2) !important;
+}
+
+[data-theme="dark"] .s-seg {
+  background: var(--bg-surface-2) !important;
+}
+
+/* ==========================================================================
+   Booking Page — Misc Elements
+   ========================================================================== */
+
+[data-theme="dark"] .custom-modal {
+  background: var(--bg-card) !important;
+  color: var(--text-1) !important;
+}
+
+[data-theme="dark"] .tabs-container {
+  border-bottom-color: var(--border) !important;
+}
+
+[data-theme="dark"] .tab-btn {
+  color: var(--text-2) !important;
+  background: transparent !important;
+}
+
+[data-theme="dark"] .tab-btn.active {
+  color: var(--brand, #0057B7) !important;
+}
+
+/* ==========================================================================
+   Home Page — Landmark Card
+   ========================================================================== */
+
+[data-theme="dark"] .landmark-content {
+  background: var(--bg-card) !important;
+}
+
+[data-theme="dark"] .landmark-title {
+  color: var(--text-1) !important;
+}
+
+[data-theme="dark"] .landmark-desc {
+  color: var(--text-2) !important;
+}
+
+/* ==========================================================================
+   Navbar (components.css has rgba(255,255,255,0.95) hardcoded)
+   ========================================================================== */
+
+[data-theme="dark"] .navbar {
+  background: var(--bg-navbar) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+[data-theme="dark"] .nav-links a {
+  color: var(--text-2) !important;
+}
+
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active {
+  color: var(--text-1) !important;
+}
+
+[data-theme="dark"] .nav-cta {
+  color: #fff !important;
+}
+
+/* ==========================================================================
+   Search — Skeleton loading animation fix
+   ========================================================================== */
+
+[data-theme="dark"] .skeleton-card {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+}
+
+/* ==========================================================================
+   Navbar Active / Hover State Fix
+   components.css uses --brand-light (#e8f0fe) as background for
+   .nav-links a.active and :hover — which appears as a bright white box
+   in dark mode. Override both background AND text colour here.
+   ========================================================================== */
+
+[data-theme="dark"] .nav-links a {
+  color: var(--text-2) !important;
+}
+
+[data-theme="dark"] .nav-links a:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--text-1) !important;
+}
+
+[data-theme="dark"] .nav-links a.active {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: var(--text-1) !important;
+}
+
+/* Keep Sign In CTA always blue */
+[data-theme="dark"] .nav-links a.nav-cta,
+[data-theme="dark"] .nav-links a.nav-cta:hover {
+  background: var(--brand, #0057B7) !important;
+  color: #fff !important;
+}
+
+/* Currency selector in dark mode */
+[data-theme="dark"] .currency-selector select {
+  background: var(--bg-surface-2, #2d2d2d) !important;
+  color: var(--text-1, #eee) !important;
+  border-color: var(--border, #444) !important;
+}

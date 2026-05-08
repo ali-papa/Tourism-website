@@ -5,7 +5,7 @@
 /* ----- الأساسيات العامة للصفحة ----- */
 .details-page {
     padding: 30px 0;
-    background: #f5f7fb;
+    background: var(--bg-surface, #f5f7fb);
     min-height: 100vh;
 }
 
@@ -17,7 +17,7 @@
 .not-found {
     text-align: center;
     padding: 50px 20px;
-    background: #fff;
+    background: var(--bg-card, #fff);
     border-radius: 16px;
 }
 
@@ -63,7 +63,7 @@
 .details-card {
     display: flex;
     gap: 30px;
-    background: #fff;
+    background: var(--bg-card, #fff);
     border-radius: 16px;
     padding: 25px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.08);
@@ -81,7 +81,7 @@
     height: 320px;
     object-fit: cover;
     border-radius: 14px;
-    background-color: #f1f5f9;
+    background-color: var(--bg-surface-2, #f1f5f9);
 }
 
 .details-info {
@@ -91,19 +91,19 @@
 .details-info h1 {
     font-size: 38px;
     margin-bottom: 15px;
-    color: #1e1e1e;
+    color: var(--text-1, #1e1e1e);
 }
 
 .details-info p {
     margin: 10px 0;
     line-height: 1.7;
-    color: #444;
+    color: var(--text-2, #444);
 }
 
 .price-box {
     margin: 20px 0;
     padding: 16px;
-    background: #f8fafc;
+    background: var(--bg-surface, #f8fafc);
     border-radius: 12px;
     text-align: center;
 }
@@ -111,13 +111,13 @@
 .price-box h3 {
     margin: 0;
     font-size: 30px;
-    color: #111;
+    color: var(--text-1, #111);
 }
 
 .price-box span {
     display: block;
     margin-top: 5px;
-    color: #666;
+    color: var(--text-2, #666);
 }
 
 .details-actions {
@@ -126,7 +126,7 @@
 
 /* الأقسام العامة */
 .details-section {
-    background: #fff;
+    background: var(--bg-card, #fff);
     border-radius: 16px;
     padding: 25px;
     margin-bottom: 25px;
@@ -135,7 +135,7 @@
 
 .details-section h2 {
     margin-bottom: 18px;
-    color: #1f2937;
+    color: var(--text-1, #1f2937);
     font-size: 28px;
 }
 
@@ -145,7 +145,7 @@
 
 .details-list li {
     margin-bottom: 12px;
-    color: #444;
+    color: var(--text-2, #444);
     line-height: 1.6;
 }
 
@@ -156,14 +156,14 @@
 }
 
 .policy-item {
-    background: #f8fafc;
+    background: var(--bg-surface, #f8fafc);
     padding: 18px;
     border-radius: 12px;
 }
 
 .policy-item h4 {
     margin-bottom: 10px;
-    color: #111827;
+    color: var(--text-1, #111827);
 }
 
 /* سلايدر المعرض */
@@ -192,7 +192,7 @@
     width: 100%;
     height: 380px;
     object-fit: cover;
-    background-color: #f1f5f9;
+    background-color: var(--bg-surface-2, #f1f5f9);
     border-radius: 14px;
 }
 
@@ -263,7 +263,7 @@
 
 .location-info p {
     margin-bottom: 15px;
-    color: #444;
+    color: var(--text-2, #444);
 }
 
 .map-box {
@@ -271,7 +271,7 @@
     height: 300px;
     border-radius: 14px;
     overflow: hidden;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border, #e5e7eb);
 }
 
 .map-box iframe {
@@ -288,8 +288,8 @@
 }
 
 .hotel-card {
-    background: #fff;
-    border: 1px solid #e5e7eb;
+    background: var(--bg-card, #fff);
+    border: 1px solid var(--border, #e5e7eb);
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 4px 14px rgba(0,0,0,0.06);
@@ -314,12 +314,12 @@
 .hotel-info h3 {
     margin-bottom: 10px;
     font-size: 22px;
-    color: #111827;
+    color: var(--text-1, #111827);
 }
 
 .hotel-info p {
     margin: 8px 0;
-    color: #444;
+    color: var(--text-2, #444);
 }
 
 .hotel-info ul {
@@ -329,7 +329,7 @@
 
 .hotel-info li {
     margin-bottom: 6px;
-    color: #555;
+    color: var(--text-2, #555);
 }
 
 .hotel-price {
@@ -339,12 +339,12 @@
 
 .hotel-price h4 {
     font-size: 24px;
-    color: #111;
+    color: var(--text-1, #111);
     margin: 0;
 }
 
 .hotel-price span {
-    color: #666;
+    color: var(--text-2, #666);
     font-size: 14px;
 }
 
@@ -357,7 +357,7 @@
     display: grid;
     grid-template-columns: 1.2fr 1.2fr 1.2fr auto;
     gap: 12px;
-    background: #fff;
+    background: var(--bg-card, #fff);
     padding: 22px;
     border-radius: 16px;
     margin-bottom: 25px;
@@ -365,21 +365,23 @@
 }
 
 .search-box {
-    border: 1px solid #cfd4dc;
+    border: 1px solid var(--border-input, #cfd4dc);
     border-radius: 12px;
     padding: 12px 16px;
     display: flex;
     gap: 12px;
     align-items: center;
+    background: var(--bg-surface, transparent);
 }
 
 .search-box small {
-    color: #666;
+    color: var(--text-2, #666);
 }
 
 .search-box p {
     margin: 3px 0 0;
     font-weight: 600;
+    color: var(--text-1, inherit);
 }
 
 .hotel-input {
@@ -390,6 +392,7 @@
     font-weight: 600;
     background: transparent;
     margin-top: 4px;
+    color: var(--text-1, inherit);
 }
 
 /* أعلى الصفحة (أزرار المشاركة والحفظ) */
@@ -407,8 +410,9 @@
 }
 
 .outline-btn {
-    border: 1px solid #cfd4dc;
-    background: white;
+    border: 1px solid var(--border, #cfd4dc);
+    background: var(--bg-card, white);
+    color: var(--text-1, inherit);
     padding: 10px 18px;
     border-radius: 25px;
     cursor: pointer;
@@ -442,11 +446,11 @@
     position: sticky;
     top: 70px;
     z-index: 999;
-    background: #fff;
+    background: var(--bg-card, #fff);
     display: flex;
     align-items: center;
     padding: 10px 24px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border, #ddd);
     margin-bottom: 30px;
     justify-content: space-between;
     box-shadow: 0 3px 10px rgba(0,0,0,0.06);
@@ -464,7 +468,7 @@
 
 .hotel-tabs a {
     text-decoration: none;
-    color: #111;
+    color: var(--text-1, #111);
     font-weight: 700;
     padding: 20px 0 17px;
     border-bottom: 3px solid transparent;
@@ -506,11 +510,11 @@
 .hotel-main-content h1 {
     font-size: 52px;
     margin-bottom: 12px;
-    color: #101828;
+    color: var(--text-1, #101828);
 }
 
 .stars {
-    color: #111827;
+    color: var(--text-1, #111827);
     margin-bottom: 18px;
 }
 
@@ -571,14 +575,14 @@
 
 .highlight-item p {
     margin: 0;
-    color: #444;
+    color: var(--text-2, #444);
     line-height: 1.6;
 }
 
 /* الخريطة الجانبية */
 .hotel-side-map {
-    background: #fff;
-    border: 1px solid #e5e7eb;
+    background: var(--bg-card, #fff);
+    border: 1px solid var(--border, #e5e7eb);
     border-radius: 16px;
     padding: 18px;
     height: fit-content;
@@ -621,15 +625,15 @@
 }
 
 .nearby-list small {
-    color: #555;
+    color: var(--text-2, #555);
     white-space: nowrap;
 }
 
 /* الأقسام العامة داخل الفندق */
 .hotel-section {
-    background: #fff;
+    background: var(--bg-card, #fff);
     padding: 35px 0;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--border, #e5e7eb);
     margin-bottom: 10px;
 }
 
@@ -641,7 +645,7 @@
 }
 
 .feature-item {
-    color: #222;
+    color: var(--text-1, #222);
 }
 
 /* بانر التوفير (لغير المسجلين) */
@@ -677,23 +681,25 @@
 }
 
 .room-date-box {
-    border: 1px solid #cfd4dc;
+    border: 1px solid var(--border-input, #cfd4dc);
     border-radius: 14px;
     padding: 18px;
+    background: var(--bg-surface, transparent);
 }
 
 .room-date-box small {
-    color: #555;
+    color: var(--text-2, #555);
 }
 
 .price-message {
-    border: 1px solid #d8dee9;
+    border: 1px solid var(--border, #d8dee9);
     border-radius: 14px;
     padding: 18px;
     display: flex;
     gap: 18px;
     align-items: center;
     margin-bottom: 30px;
+    background: var(--bg-card, transparent);
 }
 
 .price-message span {
@@ -710,11 +716,12 @@
 
 .price-message h3 {
     margin: 0 0 6px;
+    color: var(--text-1, inherit);
 }
 
 .price-message p {
     margin: 0;
-    color: #444;
+    color: var(--text-2, #444);
 }
 
 .room-cards {
@@ -724,19 +731,19 @@
 }
 
 .room-card {
-    border: 1px solid #d8dee9;
+    border: 1px solid var(--border, #d8dee9);
     border-radius: 18px;
     overflow: hidden;
-    background: #fff;
+    background: var(--bg-card, #fff);
     display: flex;
     flex-direction: column;
-    min-height: 460px;            /* يضمن طول موحد */
+    min-height: 460px;
 }
 
 .room-card img {
     width: 100%;
     height: 250px;
-    object-fit: cover;            /* يملأ المساحة بشكل مستطيل */
+    object-fit: cover;
 }
 
 .room-info {
@@ -760,10 +767,12 @@
 .room-info h3 {
     font-size: 24px;
     margin: 10px 0;
+    color: var(--text-1, inherit);
 }
 
 .room-info p {
     margin: 8px 0;
+    color: var(--text-2, inherit);
 }
 
 .room-rating span {
@@ -778,6 +787,7 @@
 .room-info h4 {
     font-size: 28px;
     margin: 20px 0 5px;
+    color: var(--text-1, inherit);
 }
 
 /* Accessibility & Policies Grid */
@@ -788,8 +798,8 @@
 }
 
 .info-card {
-    background: #f8fafc;
-    border: 1px solid #e5e7eb;
+    background: var(--bg-surface, #f8fafc);
+    border: 1px solid var(--border, #e5e7eb);
     border-radius: 16px;
     padding: 22px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.04);
@@ -798,12 +808,12 @@
 .info-card h3 {
     margin-bottom: 14px;
     font-size: 22px;
-    color: #111827;
+    color: var(--text-1, #111827);
 }
 
 .info-card p {
     margin: 8px 0;
-    color: #444;
+    color: var(--text-2, #444);
     line-height: 1.6;
 }
 
@@ -815,11 +825,12 @@
 }
 
 .payment-types span {
-    border: 1px solid #ddd;
+    border: 1px solid var(--border, #ddd);
     padding: 12px 18px;
     border-radius: 8px;
     font-weight: bold;
-    background: #f8fafc;
+    background: var(--bg-surface, #f8fafc);
+    color: var(--text-1, inherit);
 }
 
 .info-list li {
@@ -835,12 +846,12 @@
 }
 
 .similar-hotel-card {
-    border: 1px solid #ddd;
+    border: 1px solid var(--border, #ddd);
     border-radius: 16px;
     overflow: hidden;
-    background: #fff;
+    background: var(--bg-card, #fff);
     text-decoration: none;
-    color: inherit;
+    color: var(--text-1, inherit);
     display: block;
     transition: 0.3s;
 }
@@ -862,6 +873,7 @@
 
 .similar-hotel-info h3 {
     margin: 0 0 8px;
+    color: var(--text-1, inherit);
 }
 
 .similar-hotel-info ul {
@@ -884,8 +896,8 @@
 }
 
 .review-card {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--bg-surface, #f8fafc);
+    border: 1px solid var(--border, #e2e8f0);
     border-radius: 12px;
     padding: 18px;
 }
@@ -895,13 +907,13 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 10px;
-    color: #334155;
+    color: var(--text-2, #334155);
 }
 
 .review-header time {
     margin-left: auto;
     font-size: 14px;
-    color: #64748b;
+    color: var(--text-3, #64748b);
 }
 
 /* رسالة التحقق */
@@ -953,16 +965,19 @@
     margin-top: 20px;
 }
 .comparison-table th, .comparison-table td {
-    border: 1px solid #ccc;
+    border: 1px solid var(--border, #ccc);
     padding: 12px;
     text-align: center;
 }
 .comparison-table th {
-    background: #f1f5f9;
+    background: var(--bg-surface-2, #f1f5f9);
     font-size: 18px;
+    color: var(--text-1, inherit);
 }
 .comparison-table td {
     font-size: 16px;
+    color: var(--text-1, inherit);
+    background: var(--bg-card, transparent);
 }
 
 .view-hotel-btn, .reserve-btn, .back-btn {
@@ -1032,4 +1047,17 @@
     .slide img {
         height: 250px;
     }
+}
+
+/* ── RTL SUPPORT ─────────────────────────────────────── */
+[dir="rtl"] .details-container {
+  text-align: right;
+}
+
+[dir="rtl"] .details-card {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .detail-info {
+  text-align: right;
 }

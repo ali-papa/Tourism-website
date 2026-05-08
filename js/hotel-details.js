@@ -156,14 +156,44 @@ if (destination && hotel) {
             </a>
         `).join("");
 
-    const stdOfferKey = `${destination.id}-${hotelIndex}-standard`;
-    const dlxOfferKey = `${destination.id}-${hotelIndex}-deluxe`;
-    const stdDiscount = roomOffers[stdOfferKey] || null;
-    const dlxDiscount = roomOffers[dlxOfferKey] || null;
-    const stdOriginalUSD = hotel.price;
-    const dlxOriginalUSD = hotel.price + 40;
-    const stdFinalUSD = stdDiscount ? (stdOriginalUSD * (1 - stdDiscount / 100)).toFixed(0) : stdOriginalUSD;
-    const dlxFinalUSD = dlxDiscount ? (dlxOriginalUSD * (1 - dlxDiscount / 100)).toFixed(0) : dlxOriginalUSD;
+  // ========== مفاتيح العروض والأسعار ==========
+const stdOfferKey = destination.id + "-" + hotelIndex + "-standard";
+const dlxOfferKey = destination.id + "-" + hotelIndex + "-deluxe";
+const stdDiscount = roomOffers[stdOfferKey] || null;
+const dlxDiscount = roomOffers[dlxOfferKey] || null;
+const stdOriginalUSD = hotel.price;
+const dlxOriginalUSD = hotel.price + 40;
+const stdFinalUSD = stdDiscount ? (stdOriginalUSD * (1 - stdDiscount / 100)).toFixed(0) : stdOriginalUSD;
+const dlxFinalUSD = dlxDiscount ? (dlxOriginalUSD * (1 - dlxDiscount / 100)).toFixed(0) : dlxOriginalUSD;
+
+// ========== بناء HTML الأسعار مع الخصم مسبقاً ==========
+function buildPriceHTML(discount, originalUSD, finalUSD, currencySymbol, convertFn) {
+    if (!discount) {
+        return `${currencySymbol} ${convertFn(finalUSD).toLocaleString()}`;
+    }
+    const originalFormatted = convertFn(originalUSD).toLocaleString();
+    const finalFormatted = convertFn(finalUSD).toLocaleString();
+    return `
+        <s style="color:#999; margin-right:6px;">${currencySymbol} ${originalFormatted}</s>
+        ${currencySymbol} ${finalFormatted}
+        <span style="color:green; font-size:16px;"> (${discount}% OFF)</span>
+    `;
+}
+
+const currencySymbol = typeof getCurrencySymbol === 'function' ? getCurrencySymbol() : '$';
+const convertPriceFn = typeof convertPrice === 'function' ? convertPrice : (usd) => usd;
+
+const stdPriceHTML = buildPriceHTML(stdDiscount, stdOriginalUSD, stdFinalUSD, currencySymbol, convertPriceFn);
+const dlxPriceHTML = buildPriceHTML(dlxDiscount, dlxOriginalUSD, dlxFinalUSD, currencySymbol, convertPriceFn);
+
+// ========== تجهيز نصوص الأسعار النهائية ==========
+const stdPriceDisplay = stdDiscount
+    ? `<s style="color:#999; margin-right:6px;">${getCurrencySymbol()} ${convertPrice(stdOriginalUSD).toLocaleString()}</s> ${getCurrencySymbol()} ${convertPrice(stdFinalUSD).toLocaleString()} <span style="color:green; font-size:16px;"> (${stdDiscount}% OFF)</span>`
+    : `${getCurrencySymbol()} ${convertPrice(stdFinalUSD).toLocaleString()}`;
+
+const dlxPriceDisplay = dlxDiscount
+    ? `<s style="color:#999; margin-right:6px;">${getCurrencySymbol()} ${convertPrice(dlxOriginalUSD).toLocaleString()}</s> ${getCurrencySymbol()} ${convertPrice(dlxFinalUSD).toLocaleString()} <span style="color:green; font-size:16px;"> (${dlxDiscount}% OFF)</span>`
+    : `${getCurrencySymbol()} ${convertPrice(dlxFinalUSD).toLocaleString()}`;
 
     hotelDetailsContainer.innerHTML = `
         <section class="hotel-search-bar">
@@ -237,37 +267,35 @@ if (destination && hotel) {
             <p id="bookingValidationMessage" class="validation-message"></p>
             <div class="price-message"><span>↓</span><div><h3>Price is lower than usual</h3><p>Pay less than for similar properties on our site.</p></div></div>
             <div class="room-cards">
-                <div class="room-card">
-                    <img src="${roomImages[stdOfferKey] || hotel.image}" alt="Standard Room">
-                    <div class="room-info">
-                        <span class="room-label">${stdDiscount ? '🔥 Special Offer' : 'Our lowest price'}</span>
-                        <h3>Standard Room</h3>
-                        <p>✓ Free WiFi</p><p>✓ Sleeps 2</p>
-                        <div class="room-rating"><span>${reviewScore}</span> ${reviewText}</div>
-                        <h4 data-price-usd="${stdFinalUSD}">
-                            ${stdDiscount ? `<s style="color:#999; margin-right:6px;">${getCurrencySymbol()} ${convertPrice(stdOriginalUSD).toLocaleString()}</s>` : ''}
-                            ${getCurrencySymbol()} ${convertPrice(stdFinalUSD).toLocaleString()}
-                            ${stdDiscount ? `<span style="color:green; font-size:16px;"> (${stdDiscount}% OFF)</span>` : ''}
-                        </h4>
-                        <button onclick="handleRoomBooking('${hotel.name} - Standard', ${stdFinalUSD}, '${roomImages[stdOfferKey] || hotel.image}')" class="reserve-btn">Reserve</button>
-                    </div>
-                </div>
-                <div class="room-card">
-                    <img src="${roomImages[dlxOfferKey] || hotel.image}" alt="Deluxe Room">
-                    <div class="room-info">
-                        <span class="room-label">${dlxDiscount ? '🔥 Special Offer' : 'Popular choice'}</span>
-                        <h3>Deluxe Room</h3>
-                        <p>✓ City view</p>
-                        <div class="room-rating"><span>${reviewScore}</span> ${reviewText}</div>
-                        <h4 data-price-usd="${dlxFinalUSD}">
-                            ${dlxDiscount ? `<s style="color:#999; margin-right:6px;">${getCurrencySymbol()} ${convertPrice(dlxOriginalUSD).toLocaleString()}</s>` : ''}
-                            ${getCurrencySymbol()} ${convertPrice(dlxFinalUSD).toLocaleString()}
-                            ${dlxDiscount ? `<span style="color:green; font-size:16px;"> (${dlxDiscount}% OFF)</span>` : ''}
-                        </h4>
-                        <button onclick="handleRoomBooking('${hotel.name} - Deluxe', ${dlxFinalUSD}, '${roomImages[dlxOfferKey] || hotel.image}')" class="reserve-btn">Reserve</button>
-                    </div>
-                </div>
-            </div>
+    <div class="room-card">
+        <img src="${roomImages[stdOfferKey] || hotel.image}" alt="Standard Room">
+        <div class="room-info">
+            <span class="room-label">${stdDiscount ? '🔥 Special Offer' : 'Our lowest price'}</span>
+            <h3>Standard Room</h3>
+            <p>✓ Free WiFi</p>
+            <p>✓ Sleeps 2</p>
+            <div class="room-rating"><span>${reviewScore}</span> ${reviewText}</div>
+            <h4 data-price-usd="${stdFinalUSD}">${stdPriceDisplay}</h4>
+    ${stdPriceHTML}
+</h4>
+            <button onclick="handleRoomBooking('${hotel.name} - Standard', ${stdFinalUSD}, '${roomImages[stdOfferKey] || hotel.image}')" class="reserve-btn">Reserve</button>
+        </div>
+    </div>
+
+    <div class="room-card">
+        <img src="${roomImages[dlxOfferKey] || hotel.image}" alt="Deluxe Room">
+        <div class="room-info">
+            <span class="room-label">${dlxDiscount ? '🔥 Special Offer' : 'Popular choice'}</span>
+            <h3>Deluxe Room</h3>
+            <p>✓ City view</p>
+            <div class="room-rating"><span>${reviewScore}</span> ${reviewText}</div>
+            <h4 data-price-usd="${dlxFinalUSD}">${dlxPriceDisplay}</h4>
+    ${dlxPriceHTML}
+</h4>
+            <button onclick="handleRoomBooking('${hotel.name} - Deluxe', ${dlxFinalUSD}, '${roomImages[dlxOfferKey] || hotel.image}')" class="reserve-btn">Reserve</button>
+        </div>
+    </div>
+</div>
         </section>
         <section id="roomComparison" class="hotel-section">
             <h2>📊 Room Comparison</h2>
@@ -544,3 +572,70 @@ function handleRoomBooking(roomName, basePrice, image) {
         alert("Error: booking.js is missing!");
     }
 }
+
+// ========== إصلاح نهائي لتواريخ قسم الغرف (Rooms) ==========
+(function enforceRoomDateConstraints() {
+    const roomCheckIn = document.getElementById("roomCheckIn");
+    const roomCheckOut = document.getElementById("roomCheckOut");
+    if (!roomCheckIn || !roomCheckOut) return;
+
+    function getLocalDateString(date) {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    const todayStr = getLocalDateString(new Date());
+
+    // تعيين الحد الأدنى لتاريخ الوصول = اليوم
+    roomCheckIn.min = todayStr;
+    if (roomCheckIn.value < todayStr) roomCheckIn.value = todayStr;
+
+    // تحديث حد check-out بناءً على check-in الحالي
+    function setCheckOutMin() {
+        const checkInDate = new Date(roomCheckIn.value + "T00:00:00");
+        if (isNaN(checkInDate.getTime())) return;
+        const nextDay = new Date(checkInDate);
+        nextDay.setDate(nextDay.getDate() + 1);
+        const minCheckOut = getLocalDateString(nextDay);
+        roomCheckOut.min = minCheckOut;
+        if (roomCheckOut.value < minCheckOut) roomCheckOut.value = minCheckOut;
+    }
+
+    // تطبيق القيود عند التغيير
+    roomCheckIn.addEventListener("change", () => {
+        if (roomCheckIn.value < todayStr) roomCheckIn.value = todayStr;
+        setCheckOutMin();
+        // مزامنة مع العلوي (اختياري)
+        const topCheckIn = document.getElementById("topCheckIn");
+        if (topCheckIn) topCheckIn.value = roomCheckIn.value;
+    });
+
+    roomCheckIn.addEventListener("input", () => {
+        if (roomCheckIn.value < todayStr) roomCheckIn.value = todayStr;
+    });
+
+    roomCheckOut.addEventListener("change", () => {
+        const checkInDate = new Date(roomCheckIn.value + "T00:00:00");
+        if (new Date(roomCheckOut.value) <= checkInDate) {
+            const nextDay = new Date(checkInDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+            roomCheckOut.value = getLocalDateString(nextDay);
+        }
+        const topCheckOut = document.getElementById("topCheckOut");
+        if (topCheckOut) topCheckOut.value = roomCheckOut.value;
+    });
+
+    roomCheckOut.addEventListener("input", () => {
+        const checkInDate = new Date(roomCheckIn.value + "T00:00:00");
+        if (new Date(roomCheckOut.value) <= checkInDate) {
+            const nextDay = new Date(checkInDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+            roomCheckOut.value = getLocalDateString(nextDay);
+        }
+    });
+
+    // تشغيل أولي
+    setCheckOutMin();
+})();

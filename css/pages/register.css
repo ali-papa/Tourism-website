@@ -9,8 +9,8 @@
 /* ===== BOX ===== */
 .auth-box {
   width: 380px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
   border-radius: var(--radius-md);
   padding: 28px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.05);
@@ -42,7 +42,7 @@
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-sm);
 
-  background: #ffffff !important;   /* يمنع أي override */
+  background: var(--bg-input, #ffffff);   /* يدعم الداك مود */
   color: var(--text-1);
 
   font-size: 0.95rem;
