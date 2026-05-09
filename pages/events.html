@@ -3,27 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--
+        نفس الـ anti-flash trick بتاع الـ home page —
+        بس هنا الكود مضغوط في سطر واحد (shorthand)
+        t = theme  |  l = lang
+        نفس الفكرة: بنحط الـ attributes على <html> قبل ما أي CSS يتحمل
+    -->
     <script>
         const t = localStorage.getItem('theme') || 'light', l = localStorage.getItem('lang') || 'en';
         document.documentElement.setAttribute('data-theme', t);
         document.documentElement.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
         document.documentElement.setAttribute('lang', l);
     </script>
+
     <title>Events & Tour Guides – Tourism</title>
+
+    <!-- ===== Google Fonts ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Sora للعناوين، DM Sans للنصوص — نفس الـ fonts بتاعة الـ home -->
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/themes/light.css">
-    <link rel="stylesheet" href="../css/themes/dark.css">
-    <link rel="stylesheet" href="../css/pages/events.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- ===== ملفات الـ CSS (من العام للخاص) ===== -->
+    <link rel="stylesheet" href="../css/main.css">         <!-- ستايلات أساسية عامة -->
+    <link rel="stylesheet" href="../css/components.css">   <!-- مكونات مشتركة -->
+    <link rel="stylesheet" href="../css/layout.css">       <!-- navbar والـ layout العام -->
+    <link rel="stylesheet" href="../css/themes/light.css"> <!-- ألوان الـ light theme -->
+    <link rel="stylesheet" href="../css/themes/dark.css">  <!-- ألوان الـ dark theme -->
+    <link rel="stylesheet" href="../css/pages/events.css"> <!-- ستايلات خاصة بالـ events page بس -->
+    <link rel="stylesheet" href="../css/responsive.css">   <!-- media queries -->
+    <!-- ملاحظة: مفيش rtl.css هنا — الـ RTL للـ events جوه events.css نفسه -->
 </head>
 <body>
 
+<!-- =====================
+     Navbar (مشترك مع كل الصفحات)
+     =====================
+     نفس الـ navbar بتاع الـ home،
+     الفرق الوحيد: class="active" على رابط Events مش Home
+-->
 <nav class="navbar">
     <a href="index.html" class="logo">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -32,11 +54,14 @@
         </svg>
         Tourism
     </a>
+
     <div class="nav-links">
         <a href="index.html" data-lang="home">Home</a>
         <a href="search.html" data-lang="explore">Explore</a>
         <a href="booking.html" data-lang="book">Book</a>
-        <a href="events.html" class="active">Events</a>
+        <a href="events.html" class="active">Events</a> <!-- active هنا على Events -->
+
+        <!-- مبدّل العملة -->
         <div class="currency-selector" id="currencyContainer">
             <span class="currency-icon">💱</span>
             <select id="globalCurrencySelect" onchange="handleCurrencyChange(this.value)">
@@ -45,33 +70,67 @@
                 <option value="AED">AED</option><option value="SAR">SAR</option>
             </select>
         </div>
+
         <button class="lang-toggle-btn" id="langToggle">AR</button>
         <button class="theme-toggle-btn" id="themeToggle"></button>
         <a href="login.html" class="nav-cta" data-lang="signin">Sign in</a>
     </div>
+
+    <!-- زرار الـ hamburger للموبايل -->
     <button class="nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
 </nav>
 
+
+<!-- =====================
+     Events Hero Section
+     =====================
+     Hero خاص بصفحة الـ events —
+     مختلف عن الـ home hero في الشكل والـ CSS class
+-->
 <div class="events-hero">
+    <!-- طبقة خلفية منفصلة عشان نقدر نتحكم فيها بالـ CSS (صورة أو gradient) -->
     <div class="events-hero-bg"></div>
+
     <div class="events-hero-content">
         <span class="events-kicker">🌍 Around the World</span>
-        <h1>Events & <span class="events-hero-accent">Festivals</span></h1>
+        <h1>Events & <span class="events-hero-accent">Festivals</span></h1> <!-- الكلمة التانية ليها لون مختلف -->
         <p>Discover the most vibrant celebrations across our 15 destinations.</p>
         <div class="events-hero-btns">
+            <!-- لينك anchor بينزل مباشرة لـ section الـ events تحت في نفس الصفحة -->
             <a href="#events-section" class="ev-btn-primary">Browse Events</a>
         </div>
     </div>
 </div>
 
+
+<!-- =====================
+     المحتوى الرئيسي
+     ===================== -->
 <div class="ev-container">
+
+    <!-- =====================
+         Tabs (تبديل بين Events وTour Guides)
+         =====================
+         زرارين بيشغّلوا switchTab() في events.js —
+         data-tab بيحدد أيه الـ section اللي هيبان
+    -->
     <div class="ev-tabs">
         <button class="ev-tab active" data-tab="events" onclick="switchTab('events')">🎉 Events & Festivals</button>
-        <button class="ev-tab" data-tab="guides" onclick="switchTab('guides')">🧭 Tour Guide Services</button>
+        <button class="ev-tab"        data-tab="guides" onclick="switchTab('guides')">🧭 Tour Guide Services</button>
     </div>
 
+
+    <!-- =====================
+         Events Section (Tab الأول)
+         =====================
+         active-section = بيان بالـ CSS
+         id="events-section" = target للـ anchor link في الـ Hero
+    -->
     <section id="events-section" class="ev-section active-section">
+
+        <!-- شريط الـ filter: بيفلتر الـ events حسب المنطقة الجغرافية -->
         <div class="ev-filter-bar">
+            <!-- كل زرار بيبعت category مختلفة لـ filterEvents() في events.js -->
             <button class="ev-filter active" onclick="filterEvents('all',this)">All</button>
             <button class="ev-filter" onclick="filterEvents('egypt',this)">🇪🇬 Egypt</button>
             <button class="ev-filter" onclick="filterEvents('middle-east',this)">Middle East</button>
@@ -80,18 +139,36 @@
             <button class="ev-filter" onclick="filterEvents('americas',this)">Americas</button>
             <button class="ev-filter" onclick="filterEvents('upcoming',this)">⭐ Upcoming</button>
         </div>
+
+        <!-- الـ JS بيبني الـ event cards هنا ديناميكياً من data.js -->
         <div class="ev-grid" id="eventsGrid"></div>
     </section>
 
+
+    <!-- =====================
+         Guides Section (Tab التاني)
+         =====================
+         مخفي في البداية — بيبان لما المستخدم يضغط Tab الـ guides
+    -->
     <section id="guides-section" class="ev-section">
         <div class="guides-intro">
             <h2>Expert Local Tour Guides</h2>
             <p>Connect with certified local guides who know every hidden gem.</p>
         </div>
+
+        <!-- الـ JS بيبني الـ guide cards هنا ديناميكياً -->
         <div class="guides-grid" id="guidesGrid"></div>
     </section>
-</div>
 
+</div><!-- /ev-container -->
+
+
+<!-- =====================
+     Footer (مشترك مع كل الصفحات)
+     =====================
+     مبسّط شوية مقارنة بالـ home — data-lang مش موجودة هنا
+     (الـ events page مش بتدعم الترجمة الكاملة)
+-->
 <footer class="main-footer">
     <div class="footer-container">
         <div class="footer-section about">
@@ -103,6 +180,7 @@
                 <a href="#"><i class="fab fa-twitter"></i></a>
             </div>
         </div>
+
         <div class="footer-section links">
             <h3>Quick Links</h3>
             <ul>
@@ -111,6 +189,7 @@
                 <li><a href="events.html">Events</a></li>
             </ul>
         </div>
+
         <div class="footer-section contact">
             <h3>Contact Us</h3>
             <p><i class="fas fa-envelope"></i> support@tourism.com</p>
@@ -120,11 +199,15 @@
     <div class="footer-bottom">&copy; 2026 Tourism Website | Designed with ❤️</div>
 </footer>
 
-<script src="../js/data.js"></script>
-<script src="../js/currency.js"></script>
-<script src="../js/events.js"></script>
-<script src="../js/translations.js"></script>
-<script src="../js/layout.js"></script>
-<script src="../js/chat.js"></script>
+
+<!-- ===== ملفات الـ JS (الترتيب مهم!) ===== -->
+<script src="../js/data.js"></script>         <!-- بيانات الـ events والـ guides -->
+<script src="../js/currency.js"></script>      <!-- تحويل العملات -->
+<script src="../js/events.js"></script>        <!-- switchTab() و filterEvents() وبناء الـ cards -->
+<script src="../js/translations.js"></script>  <!-- نظام الترجمة -->
+<script src="../js/layout.js"></script>        <!-- navbar والـ hamburger -->
+<script src="../js/chat.js"></script>          <!-- الشات أو أي feature إضافي -->
+<!-- ملاحظة: main.js و ui.js مش موجودين هنا — مش محتاجينهم في الـ events page -->
+
 </body>
 </html>

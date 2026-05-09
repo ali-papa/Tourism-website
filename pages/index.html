@@ -3,37 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Apply theme before page render to prevent flash -->
+
+    <!--
+        ====================================================
+        إعداد الـ Theme والـ Language قبل ما الصفحة تتحمل
+        ====================================================
+        الـ script ده بيتشغل فوراً قبل أي CSS أو HTML يتعرض،
+        عشان نمنع الـ "flash" — يعني المستخدم محيرهوش يشوف
+        اللون الغلط أو الاتجاه الغلط لأجزاء من ثانية.
+
+        - بنجيب الـ theme المحفوظ في localStorage (أو نبدأ بـ light)
+        - بنجيب الـ lang المحفوظ (أو نبدأ بـ en)
+        - بنحط الـ attributes على الـ <html> مباشرةً:
+            · data-theme → بيتحكم في ألوان الـ CSS (light/dark)
+            · dir        → اتجاه النص (ltr للإنجليزي / rtl للعربي)
+            · lang       → بيقول للـ browser إيه لغة الصفحة
+        ====================================================
+    -->
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
-        // Apply lang/dir before CSS loads to prevent flash of wrong direction
+
         const savedLang = localStorage.getItem('lang') || 'en';
         document.documentElement.setAttribute('dir', savedLang === 'ar' ? 'rtl' : 'ltr');
         document.documentElement.setAttribute('lang', savedLang);
     </script>
-    
+
     <title>Tourism Website</title>
 
+    <!-- ===== Google Fonts ===== -->
+    <!-- preconnect بيفتح connection مع Google مبكراً عشان الـ fonts تتحمل أسرع -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Sora للعناوين، DM Sans للنصوص العادية -->
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/themes/light.css">
-    <link rel="stylesheet" href="../css/themes/dark.css">
-    <link rel="stylesheet" href="../css/pages/home.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../css/responsive.css">
-    <link rel="stylesheet" href="../css/rtl.css">
+    <!-- ===== ملفات الـ CSS (مرتبة من العام للخاص) ===== -->
+    <link rel="stylesheet" href="../css/main.css">         <!-- ستايلات أساسية عامة -->
+    <link rel="stylesheet" href="../css/components.css">   <!-- مكونات متكررة (cards, buttons, …) -->
+    <link rel="stylesheet" href="../css/layout.css">       <!-- الـ layout والـ grid -->
+    <link rel="stylesheet" href="../css/themes/light.css"> <!-- ألوان الـ light theme -->
+    <link rel="stylesheet" href="../css/themes/dark.css">  <!-- ألوان الـ dark theme -->
+    <link rel="stylesheet" href="../css/pages/home.css">   <!-- ستايلات خاصة بالـ home page -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" href="../css/responsive.css">   <!-- media queries للـ mobile/tablet -->
+    <link rel="stylesheet" href="../css/rtl.css">          <!-- تعديلات الـ RTL للعربي -->
 </head>
 
 <body>
 
-    <!-- Navbar -->
+    <!-- =====================
+         Navbar (شريط التنقل)
+         =====================
+         فيه: اللوجو، الـ links، مبدّل العملة، مبدّل اللغة،
+         مبدّل الـ theme، زرار Sign in، وزرار الـ hamburger للموبايل
+    -->
     <nav class="navbar">
+
+        <!-- اللوجو: أيقونة SVG + اسم الموقع، ويرجع للـ home عند الضغط -->
         <a href="index.html" class="logo">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
@@ -42,13 +69,15 @@
             Tourism
         </a>
 
+        <!-- روابط التنقل الرئيسية -->
         <div class="nav-links">
+            <!-- data-lang → بيستخدمه ملف translations.js عشان يترجم النص -->
             <a href="index.html" class="active" data-lang="home">Home</a>
             <a href="search.html" data-lang="explore">Explore</a>
             <a href="booking.html" data-lang="book">Book</a>
             <a href="events.html">Events</a>
 
-            <!-- Currency Selector -->
+            <!-- مبدّل العملة: dropdown بيستدعي handleCurrencyChange() عند التغيير -->
             <div class="currency-selector" id="currencyContainer">
                 <span class="currency-icon">💱</span>
                 <select id="globalCurrencySelect" onchange="handleCurrencyChange(this.value)">
@@ -61,11 +90,17 @@
                 </select>
             </div>
 
+            <!-- زرار تبديل اللغة (EN ↔ AR) — اللوجيك في translations.js -->
             <button class="lang-toggle-btn" id="langToggle" aria-label="Toggle language">AR</button>
+
+            <!-- زرار تبديل الـ theme (light ↔ dark) — اللوجيك في main.js -->
             <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
+
+            <!-- زرار Sign in -->
             <a href="login.html" class="nav-cta" data-lang="signin">Sign in</a>
         </div>
 
+        <!-- زرار الـ hamburger — بيظهر على الموبايل ويفتح الـ nav-links -->
         <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
             <span></span>
             <span></span>
@@ -75,19 +110,32 @@
 
     <div class="container">
 
-        <!-- Hero -->
+        <!-- =====================
+             Hero Section
+             =====================
+             أول حاجة المستخدم يشوفها:
+             عنوان + وصف + زرارين (Explore / Search)
+        -->
         <section class="hero">
             <h1 data-lang="hero_title">Discover the World</h1>
             <p data-lang="hero_subtitle">Explore amazing places inside and outside Egypt</p>
+
+            <!-- scrollToDestinations() → بيسكرول لـ section الـ destinations تحت -->
             <button class="explore-main-btn" data-lang="hero_btn" onclick="scrollToDestinations()">
                 ✈ Explore Now
             </button>
+
+            <!-- لينك مباشر لصفحة البحث -->
             <a href="search.html" class="explore-btn" data-lang="hero_search">Search Destinations</a>
         </section>
 
-        <!-- World Map -->
+        <!-- =====================
+             World Map Section
+             =====================
+             صورة خريطة العالم مع overlay وعليها كلام تشجيعي
+        -->
         <section class="world-map-section">
-            <div class="map-overlay"></div>
+            <div class="map-overlay"></div> <!-- طبقة شفافة داكنة فوق الصورة عشان النص يبان -->
             <div class="world-content">
                 <span class="world-kicker" data-lang="world_kicker">World Explorer</span>
                 <h2 data-lang="world_title">Explore Every Corner of the Planet</h2>
@@ -98,11 +146,17 @@
             </div>
         </section>
 
-        <!-- Featured Landmark -->
+        <!-- =====================
+             Featured Landmark
+             =====================
+             بطاقة كبيرة لمعلم مميز —
+             onclick بيروح لصفحة الـ destination رقم 6
+             goToDestination() موجودة في main.js أو ui.js
+        -->
         <section class="featured-landmark" onclick="goToDestination(6)">
             <div class="landmark-img-wrap">
                 <img src="../assets/images/universal.jpg" alt="Universal Studios Japan" />
-                <div class="landmark-img-overlay"></div>
+                <div class="landmark-img-overlay"></div> <!-- overlay داكن فوق الصورة -->
             </div>
             <div class="landmark-content">
                 <span class="landmark-badge" data-lang="landmark_badge">⭐ Featured Landmark</span>
@@ -111,6 +165,7 @@
                     One of the world's most iconic theme parks — home to the legendary
                     USJ Globe in the heart of Osaka, Japan.
                 </p>
+                <!-- سهم SVG جنب نص الـ CTA -->
                 <span class="landmark-cta" data-lang="landmark_cta">
                     Explore Tokyo & Japan
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -120,12 +175,20 @@
             </div>
         </section>
 
-        <!-- Events & Guides Promo Banner -->
+        <!-- =====================
+             Events Promo Banner
+             =====================
+             بانر ترويجي للـ events page —
+             كلك على البانر كله بيروح لـ events.html
+             event.stopPropagation() على الزرار عشان محيرهوش يفتح مرتين
+        -->
         <section class="events-promo-banner" onclick="window.location.href='events.html'">
             <div class="events-promo-left">
                 <span class="events-promo-kicker">✨ New</span>
                 <h3>Events, Festivals & Tour Guides</h3>
                 <p>Discover upcoming celebrations across 15 destinations — from Eid Al-Adha in Egypt to Rio Carnival in Brazil.</p>
+
+                <!-- stopPropagation عشان الـ click على الزرار محيرهوش يشغّل الـ onclick على الـ section برضو -->
                 <a href="events.html" class="events-promo-btn" onclick="event.stopPropagation()">
                     Explore Events
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -138,18 +201,30 @@
             </div>
         </section>
 
-        <!-- Destinations -->
+        <!-- =====================
+             Destinations Section
+             =====================
+             الـ cards بتتولد ديناميكياً في JavaScript —
+             id="cardsContainer" هو اللي بيستخدمه الـ JS عشان يحقن الـ HTML فيه
+        -->
         <section class="destinations" id="destinationsSection">
             <h2 class="section-title" data-lang="destinations_title">Popular Destinations</h2>
-            <div class="cards" id="cardsContainer"></div>
+            <div class="cards" id="cardsContainer"></div> <!-- الـ JS بيبني الـ cards هنا من ملف data.js -->
         </section>
 
     </div>
 
 
-
+    <!-- =====================
+         Footer
+         =====================
+         3 أعمدة: About + Quick Links + Contact
+         وفي الأخر copyright bar
+    -->
     <footer class="main-footer">
         <div class="footer-container">
+
+            <!-- عمود About: اسم الموقع + وصف + أيقونات السوشيال -->
             <div class="footer-section about">
                 <h2 class="footer-logo">Tourism</h2>
                 <p>Discover the world's most beautiful destinations with us. Your journey starts here.</p>
@@ -160,6 +235,7 @@
                 </div>
             </div>
 
+            <!-- عمود Quick Links: روابط سريعة للصفحات الرئيسية -->
             <div class="footer-section links">
                 <h3 data-lang="quick_links">Quick Links</h3>
                 <ul>
@@ -170,6 +246,7 @@
                 </ul>
             </div>
 
+            <!-- عمود Contact: إيميل وتليفون -->
             <div class="footer-section contact">
                 <h3 data-lang="contact_us">Contact Us</h3>
                 <p><i class="fas fa-envelope"></i> support@tourism.com</p>
@@ -177,18 +254,19 @@
             </div>
         </div>
 
+        <!-- شريط الـ copyright في أسفل الصفحة -->
         <div class="footer-bottom">
             &copy; 2026 Tourism Website | Designed with ❤️
         </div>
-
     </footer>
 
-    <script src="../js/data.js"></script>
-    <script src="../js/currency.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/ui.js"></script>
-    <script src="../js/translations.js"></script>
-    <script src="../js/layout.js"></script>
-    <script src="../js/chat.js"></script>
+    <!-- ===== ملفات الـ JavaScript (الترتيب مهم!) ===== -->
+    <script src="../js/data.js"></script>         <!-- بيانات الـ destinations (array of objects) -->
+    <script src="../js/currency.js"></script>      <!-- تحويل العملات وحساب الأسعار -->
+    <script src="../js/main.js"></script>          <!-- اللوجيك الرئيسي للصفحة (theme, scroll, …) -->
+    <script src="../js/ui.js"></script>            <!-- دوال بناء الـ UI (render cards, …) -->
+    <script src="../js/translations.js"></script>  <!-- نظام الترجمة (EN ↔ AR) وتطبيق data-lang -->
+    <script src="../js/layout.js"></script>        <!-- navbar، hamburger menu، resize handlers -->
+    <script src="../js/chat.js"></script>          <!-- شات أو أي feature تفاعلي إضافي -->
 </body>
 </html>
