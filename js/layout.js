@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // 3. منطق اللغة
   const langBtn = document.getElementById("langToggle");
   if (langBtn) {
-    // Set correct label on load
     const currentLang = (typeof getLang === 'function') ? getLang() : (localStorage.getItem('lang') || 'en');
     langBtn.textContent = currentLang === 'ar' ? 'EN' : 'AR';
 
@@ -51,12 +50,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 4. منطق الموبايل منيو
+  // 4. منطق الموبايل منيو مع overlay
   const hamburger = document.getElementById("navHamburger");
-  const links = document.querySelector(".nav-links");
-  if (hamburger && links) {
-    hamburger.addEventListener("click", () => {
-      links.classList.toggle("open");
+  const navLinks = document.querySelector(".nav-links");
+
+  // إنشاء overlay ووضعه مباشرة بعد الـ navbar في الـ DOM
+  let overlay = document.getElementById("navOverlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "navOverlay";
+    overlay.className = "nav-overlay";
+    // نضيفه للـ body مباشرة مش جوا الـ navbar
+    document.body.appendChild(overlay);
+  }
+
+  function openMenu() {
+    if (!navLinks) return;
+    navLinks.classList.add("open");
+    overlay.classList.add("visible");
+    // منع scroll للصفحة لما المنيو يكون مفتوح
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    if (!navLinks) return;
+    navLinks.classList.remove("open");
+    overlay.classList.remove("visible");
+    document.body.style.overflow = "";
+  }
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      navLinks.classList.contains("open") ? closeMenu() : openMenu();
+    });
+
+    // إغلاق لو ضغط على الـ overlay
+    overlay.addEventListener("click", closeMenu);
+
+    // إغلاق لو ضغط على أي لينك في المنيو
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    // إغلاق لو الشاشة اتكبرت (مثلاً rotate)
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) {
+        closeMenu();
+      }
     });
   }
 });

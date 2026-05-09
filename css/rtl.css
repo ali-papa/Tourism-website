@@ -1,0 +1,273 @@
+/* ============================================================
+   RTL.CSS  —  Right-to-Left (Arabic) Layout Fixes
+   Applied when: [dir="rtl"]
+   ============================================================ */
+
+/* ── Global ─────────────────────────────────────────────── */
+[dir="rtl"] body {
+    font-family: 'Cairo', 'DM Sans', sans-serif;
+}
+
+[dir="rtl"] * {
+    text-align: right;
+}
+
+/* Centered elements should stay centered */
+[dir="rtl"] .hero,
+[dir="rtl"] .world-content,
+[dir="rtl"] .section-title,
+[dir="rtl"] .search-hero .hero-content,
+[dir="rtl"] .hero-badge,
+[dir="rtl"] .hero-title,
+[dir="rtl"] .hero-sub,
+[dir="rtl"] .no-results,
+[dir="rtl"] .footer-bottom,
+[dir="rtl"] .weather-widget {
+    text-align: center;
+}
+
+/* ── Navbar ─────────────────────────────────────────────── */
+[dir="rtl"] .navbar {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-links {
+    flex-direction: row-reverse;
+}
+
+/* ── Hero section ───────────────────────────────────────── */
+[dir="rtl"] .hero h1,
+[dir="rtl"] .hero p,
+[dir="rtl"] .hero a,
+[dir="rtl"] .hero button {
+    text-align: center;
+}
+
+/* ── Cards grid ─────────────────────────────────────────── */
+[dir="rtl"] .card {
+    text-align: right;
+}
+
+[dir="rtl"] .card h3,
+[dir="rtl"] .card p {
+    text-align: right;
+}
+
+[dir="rtl"] .price-box {
+    text-align: right;
+}
+
+/* ── Featured Landmark ──────────────────────────────────── */
+[dir="rtl"] .featured-landmark {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .landmark-content {
+    text-align: right;
+}
+
+[dir="rtl"] .landmark-cta svg {
+    transform: scaleX(-1);
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+[dir="rtl"] .footer-container {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .footer-section {
+    text-align: right;
+}
+
+[dir="rtl"] .footer-section ul {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+[dir="rtl"] .social-links {
+    justify-content: flex-start;
+}
+
+/* ── Details page ───────────────────────────────────────── */
+[dir="rtl"] .details-card {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .details-info {
+    text-align: right;
+}
+
+[dir="rtl"] .details-info h1,
+[dir="rtl"] .details-info p {
+    text-align: right;
+}
+
+[dir="rtl"] .details-actions {
+    justify-content: flex-start;
+}
+
+[dir="rtl"] .details-section h2 {
+    text-align: right;
+}
+
+[dir="rtl"] .details-list {
+    padding-right: 1.2rem;
+    padding-left: 0;
+    text-align: right;
+}
+
+[dir="rtl"] .policy-grid {
+    direction: rtl;
+}
+
+[dir="rtl"] .policy-item {
+    text-align: right;
+}
+
+[dir="rtl"] .location-layout {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .location-info {
+    text-align: right;
+}
+
+[dir="rtl"] .hotels-grid {
+    direction: rtl;
+}
+
+[dir="rtl"] .hotel-card {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+[dir="rtl"] .hotel-info {
+    text-align: right;
+}
+
+[dir="rtl"] .hotel-info ul {
+    padding-right: 1.2rem;
+    padding-left: 0;
+}
+
+[dir="rtl"] .hotel-info h3,
+[dir="rtl"] .hotel-info p {
+    text-align: right;
+}
+
+[dir="rtl"] .hotel-price {
+    text-align: right;
+}
+
+[dir="rtl"] .reviews-container {
+    direction: rtl;
+}
+
+[dir="rtl"] .review-card {
+    text-align: right;
+}
+
+[dir="rtl"] .review-header {
+    flex-direction: row-reverse;
+}
+
+/* ── Login / Register ───────────────────────────────────── */
+[dir="rtl"] .auth-form,
+[dir="rtl"] .login-form,
+[dir="rtl"] .register-form {
+    text-align: right;
+    direction: rtl;
+}
+
+[dir="rtl"] .auth-form input,
+[dir="rtl"] .login-form input,
+[dir="rtl"] .register-form input {
+    text-align: right;
+    direction: rtl;
+}
+
+[dir="rtl"] .auth-form label,
+[dir="rtl"] .login-form label,
+[dir="rtl"] .register-form label {
+    text-align: right;
+}
+
+/* ── Booking page ───────────────────────────────────────── */
+[dir="rtl"] .booking-card {
+    text-align: right;
+}
+
+[dir="rtl"] .booking-info {
+    text-align: right;
+}
+
+[dir="rtl"] .booking-page h1,
+[dir="rtl"] .booking-page h2,
+[dir="rtl"] .booking-page p {
+    text-align: right;
+}
+
+/* ── Profile page ───────────────────────────────────────── */
+[dir="rtl"] .profile-section {
+    text-align: right;
+    direction: rtl;
+}
+
+[dir="rtl"] .profile-info {
+    text-align: right;
+}
+
+/* ── Search page specific (supplement existing RTL) ─────── */
+[dir="rtl"] .card-body {
+    text-align: right;
+}
+
+[dir="rtl"] .card-title,
+[dir="rtl"] .card-desc {
+    text-align: right;
+}
+
+[dir="rtl"] .card-footer {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .filters-sidebar {
+    text-align: right;
+}
+
+[dir="rtl"] .filters-sidebar label {
+    text-align: right;
+}
+
+[dir="rtl"] .filter-group {
+    text-align: right;
+}
+
+[dir="rtl"] .search-box {
+    direction: rtl;
+}
+
+[dir="rtl"] #searchInput {
+    text-align: right;
+}
+
+/* ── Chat widget ────────────────────────────────────────── */
+[dir="rtl"] .chat-box {
+    text-align: right;
+    direction: rtl;
+}
+
+[dir="rtl"] .chat-message {
+    text-align: right;
+}
+
+/* ── Hamburger menu on mobile ───────────────────────────── */
+@media (max-width: 768px) {
+    [dir="rtl"] .nav-links {
+        text-align: right;
+    }
+
+    [dir="rtl"] .nav-links a {
+        text-align: right;
+    }
+}

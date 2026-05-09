@@ -1,46 +1,58 @@
-// details.js – merged with currency converter, offers, weather, reviews
+// details.js – bilingual (EN/AR) with currency converter, offers, weather, reviews
 
 const detailsContainer = document.getElementById("detailsContainer");
 
-// ========== عروض خاصة على غرف ==========
 const roomOffers = {
-    "1-0-standard": 20,   // Cairo, hotel 0 → 20% OFF
-    "1-0-deluxe": 25,     // Cairo, hotel 0, deluxe → 25% OFF
-    "2-1-deluxe": 15,     // Dubai, hotel 1
-    "5-0-standard": 10,   // Istanbul, hotel 0 → 10% OFF
-    "8-1-deluxe": 25,     // New York, hotel 1
-    "13-0-standard": 30   // Bangkok, hotel 0 → 30% OFF
+    "1-0-standard": 20, "1-0-deluxe": 25, "2-1-deluxe": 15,
+    "5-0-standard": 10, "8-1-deluxe": 25, "13-0-standard": 30
 };
 
-// ========== بيانات الطقس الوهمية ==========
 const weatherData = {
-    "Cairo": { temp: "32°C", condition: "Sunny" },
-    "Dubai": { temp: "38°C", condition: "Hot" },
-    "Paris": { temp: "18°C", condition: "Cloudy" },
-    "Rome": { temp: "24°C", condition: "Partly Cloudy" },
-    "Istanbul": { temp: "22°C", condition: "Windy" },
-    "Tokyo": { temp: "28°C", condition: "Rainy" },
-    "London": { temp: "15°C", condition: "Foggy" },
-    "New York": { temp: "20°C", condition: "Clear" },
-    "Barcelona": { temp: "26°C", condition: "Sunny" },
-    "Athens": { temp: "30°C", condition: "Sunny" },
-    "Amsterdam": { temp: "17°C", condition: "Breezy" },
-    "Zurich": { temp: "13°C", condition: "Snow" },
-    "Bangkok": { temp: "35°C", condition: "Humid" },
-    "Sydney": { temp: "27°C", condition: "Warm" },
-    "Rio de Janeiro": { temp: "33°C", condition: "Tropical" }
+    "Cairo":          { temp: "32°C", condition: "Sunny",        condition_ar: "مشمس" },
+    "Dubai":          { temp: "38°C", condition: "Hot",          condition_ar: "حار" },
+    "Paris":          { temp: "18°C", condition: "Cloudy",       condition_ar: "غائم" },
+    "Rome":           { temp: "24°C", condition: "Partly Cloudy",condition_ar: "غائم جزئياً" },
+    "Istanbul":       { temp: "22°C", condition: "Windy",        condition_ar: "عاصف" },
+    "Tokyo":          { temp: "28°C", condition: "Rainy",        condition_ar: "ممطر" },
+    "London":         { temp: "15°C", condition: "Foggy",        condition_ar: "ضبابي" },
+    "New York":       { temp: "20°C", condition: "Clear",        condition_ar: "صافٍ" },
+    "Barcelona":      { temp: "26°C", condition: "Sunny",        condition_ar: "مشمس" },
+    "Athens":         { temp: "30°C", condition: "Sunny",        condition_ar: "مشمس" },
+    "Amsterdam":      { temp: "17°C", condition: "Breezy",       condition_ar: "منعش" },
+    "Zurich":         { temp: "13°C", condition: "Snow",         condition_ar: "ثلجي" },
+    "Bangkok":        { temp: "35°C", condition: "Humid",        condition_ar: "رطب" },
+    "Sydney":         { temp: "27°C", condition: "Warm",         condition_ar: "دافئ" },
+    "Rio de Janeiro": { temp: "33°C", condition: "Tropical",     condition_ar: "استوائي" }
 };
 
-// ========== توليد مراجعات وهمية للمدينة ==========
+function getLangNow() {
+    return (typeof getLang === 'function') ? getLang() : (localStorage.getItem('lang') || 'en');
+}
+
+function loc(obj, field) {
+    const lang = getLangNow();
+    if (lang === 'ar' && obj[field + '_ar'] !== undefined) return obj[field + '_ar'];
+    return obj[field];
+}
+
 function generateCityReviews(cityName) {
+    const lang = getLangNow();
     const reviewers = ["Ahmed", "Mona", "Carlos", "Sara", "John"];
-    const comments = [
+    const comments_en = [
         "Amazing city with rich culture!",
         "I loved the atmosphere and the friendly people.",
         "A must-visit destination, highly recommended.",
         "Great historical sites and delicious food.",
         "Wonderful experience, will come back again."
     ];
+    const comments_ar = [
+        "مدينة رائعة بثقافة غنية!",
+        "أحببت الأجواء والناس الودودين.",
+        "وجهة يجب زيارتها، أوصي بها بشدة.",
+        "مواقع تاريخية رائعة وطعام لذيذ.",
+        "تجربة جميلة، سأعود مرة أخرى."
+    ];
+    const comments = lang === 'ar' ? comments_ar : comments_en;
     const reviews = [];
     for (let i = 0; i < 3; i++) {
         reviews.push({
@@ -64,111 +76,148 @@ function createMapEmbed(address) {
 
 function renderDetails() {
     if (!destination) {
+        const lang = getLangNow();
         detailsContainer.innerHTML = `
             <div class="not-found">
-                <h2>Destination not found</h2>
-                <a href="search.html" class="back-btn">Back to Search</a>
+                <h2>${lang === 'ar' ? 'الوجهة غير موجودة' : 'Destination not found'}</h2>
+                <a href="search.html" class="back-btn">${lang === 'ar' ? 'العودة للبحث' : 'Back to Search'}</a>
             </div>`;
         return;
     }
 
+    const lang = getLangNow();
+    const isAr = lang === 'ar';
+
+    const name = isAr && destination.name_ar ? destination.name_ar : destination.name;
+    const country = isAr && destination.country_ar ? destination.country_ar : destination.country;
+    const shortDesc = loc(destination, 'shortDescription');
+    const desc = loc(destination, 'description');
+    const highlights = loc(destination, 'highlights') || destination.highlights;
+    const accessibility = loc(destination, 'accessibility') || destination.accessibility;
+    const nearbyPlaces = loc(destination, 'nearbyPlaces') || destination.nearbyPlaces;
+    const policies = isAr && destination.policies_ar ? destination.policies_ar : destination.policies;
+
     const gallerySlides = destination.gallery.map((img, idx) => `
         <div class="slide">
-            <img src="${img}" alt="${destination.name} - Image ${idx+1}">
-            <p class="slide-caption">${destination.name} - ${idx+1}</p>
+            <img src="${img}" alt="${name} - ${isAr ? 'صورة' : 'Image'} ${idx+1}">
+            <p class="slide-caption">${name} - ${idx+1}</p>
         </div>
     `).join("");
 
-    const highlightsHTML    = destination.highlights.map(item => `<li>${item}</li>`).join("");
-    const accessibilityHTML = destination.accessibility.map(item => `<li>${item}</li>`).join("");
-    const nearbyHTML        = destination.nearbyPlaces.map(place => `<li>${place}</li>`).join("");
+    const highlightsHTML    = highlights.map(item => `<li>${item}</li>`).join("");
+    const accessibilityHTML = accessibility.map(item => `<li>${item}</li>`).join("");
+    const nearbyHTML        = nearbyPlaces.map(place => `<li>${place}</li>`).join("");
 
     const hotels = hotelsByDestination[destination.id] || [];
     let hotelsHTML = "";
     if (hotels.length > 0) {
         hotelsHTML = hotels.map((hotel, index) => {
             const keyStandard = `${destination.id}-${index}-standard`;
-            const keyDeluxe = `${destination.id}-${index}-deluxe`;
-
+            const keyDeluxe   = `${destination.id}-${index}-deluxe`;
             const discountStd = roomOffers[keyStandard] || null;
             const discountDlx = roomOffers[keyDeluxe] || null;
-
-            const priceStd = hotel.price;
-            const priceDlx = hotel.price + 40;
-
-            const finalStd = discountStd ? (priceStd * (1 - discountStd / 100)).toFixed(0) : priceStd;
-            const finalDlx = discountDlx ? (priceDlx * (1 - discountDlx / 100)).toFixed(0) : priceDlx;
-
-            const hasOffer = discountStd || discountDlx;
-            const displayPriceUSD = Math.min(Number(finalStd), Number(finalDlx));
-            const displayDiscount = discountStd !== null && discountDlx !== null
-                ? Math.max(discountStd, discountDlx)
-                : discountStd || discountDlx;
-
-            // currency conversion
-            const convertedPrice = convertPrice(displayPriceUSD).toLocaleString();
-            const symbol = getCurrencySymbol();
+            const priceStd    = hotel.price;
+            const priceDlx    = hotel.price + 40;
+            const finalStd    = discountStd ? (priceStd * (1 - discountStd / 100)).toFixed(0) : priceStd;
+            const finalDlx    = discountDlx ? (priceDlx * (1 - discountDlx / 100)).toFixed(0) : priceDlx;
+            const hasOffer    = discountStd || discountDlx;
+            const displayPriceUSD  = Math.min(Number(finalStd), Number(finalDlx));
+            const displayDiscount  = discountStd !== null && discountDlx !== null
+                ? Math.max(discountStd, discountDlx) : discountStd || discountDlx;
+            const convertedPrice   = convertPrice(displayPriceUSD).toLocaleString();
+            const symbol           = getCurrencySymbol();
+            const hotelLocation    = isAr && hotel.location_ar ? hotel.location_ar : hotel.location;
+            const hotelFeatures    = (isAr && hotel.features_ar ? hotel.features_ar : hotel.features) || [];
 
             let priceHTML = '';
             if (hasOffer) {
                 const originalConverted = convertPrice(hotel.price).toLocaleString();
-                priceHTML = `<s style="color:#999;">From ${symbol} ${originalConverted}</s><br>
+                const offLabel = isAr ? `(خصم ${displayDiscount}% على غرف مختارة)` : `(${displayDiscount}% OFF on select room)`;
+                const fromLabel = isAr ? 'من' : 'From';
+                priceHTML = `<s style="color:#999;">${fromLabel} ${symbol} ${originalConverted}</s><br>
                              <h4 data-price-usd="${displayPriceUSD}">${symbol} ${convertedPrice}</h4>
-                             <span style="color:green;">(${displayDiscount}% OFF on select room)</span>`;
+                             <span style="color:green;">${offLabel}</span>`;
             } else {
+                const perNight = isAr ? 'في الليلة' : 'per night';
                 priceHTML = `<h4 data-price-usd="${displayPriceUSD}">${symbol} ${convertedPrice}</h4>
-                             <span>per night</span>`;
+                             <span>${perNight}</span>`;
             }
+
+            const viewDetailsLabel = isAr ? 'عرض التفاصيل' : 'View Details';
 
             return `
                 <div class="hotel-card">
                     <img src="${hotel.image}" alt="${hotel.name}" class="hotel-image">
                     <div class="hotel-info">
                         <h3>${hotel.name} ${hasOffer ? '🔥' : ''}</h3>
-                        <p><strong>📍 ${hotel.location}</strong></p>
+                        <p><strong>📍 ${hotelLocation}</strong></p>
                         <p>⭐ ${hotel.rating}</p>
-                        <ul>${hotel.features.map(f => `<li>${f}</li>`).join("")}</ul>
-                        <div class="hotel-price">
-                            ${priceHTML}
-                        </div>
-                        <a href="hotel-details.html?destinationId=${destination.id}&hotelIndex=${index}" class="view-hotel-btn">View Details</a>
+                        <ul>${hotelFeatures.map(f => `<li>${f}</li>`).join("")}</ul>
+                        <div class="hotel-price">${priceHTML}</div>
+                        <a href="hotel-details.html?destinationId=${destination.id}&hotelIndex=${index}" class="view-hotel-btn">${viewDetailsLabel}</a>
                     </div>
                 </div>`;
         }).join("");
     } else {
-        hotelsHTML = `<p class="no-data">No hotels available for this destination.</p>`;
+        hotelsHTML = `<p class="no-data">${isAr ? 'لا توجد فنادق متاحة لهذه الوجهة.' : 'No hotels available for this destination.'}</p>`;
     }
+
+    const weather = weatherData[destination.name];
+    const weatherCondition = weather ? (isAr ? weather.condition_ar : weather.condition) : (isAr ? 'لا توجد بيانات' : 'No data');
+    const weatherTemp = weather ? weather.temp : 'N/A';
+
+    const labels = {
+        country:      isAr ? 'الدولة'       : 'Country',
+        category:     isAr ? 'الفئة'        : 'Category',
+        rating:       isAr ? 'التقييم'      : 'Rating',
+        avgNight:     isAr ? 'متوسط سعر الليلة' : 'avg per night',
+        backSearch:   isAr ? '→ العودة للبحث' : '← Back to Search',
+        gallery:      isAr ? '📷 معرض الصور' : '📷 Gallery',
+        video:        isAr ? '🎥 فيديو'       : '🎥 Video',
+        noVideo:      isAr ? 'المتصفح لا يدعم الفيديو.' : 'Your browser does not support the video tag.',
+        location:     isAr ? '📍 الموقع'     : '📍 Location',
+        openMaps:     isAr ? 'فتح في خرائط جوجل' : 'Open in Google Maps',
+        hotels:       isAr ? '🏨 الفنادق المتاحة' : '🏨 Available Hotels',
+        highlights:   isAr ? '✨ أبرز المميزات'   : '✨ Highlights',
+        accessibility:isAr ? '♿ إمكانية الوصول'   : '♿ Accessibility',
+        policies:     isAr ? '📋 السياسات'         : '📋 Policies',
+        checkIn:      isAr ? 'تسجيل الوصول'        : 'Check-in',
+        checkOut:     isAr ? 'تسجيل المغادرة'       : 'Check-out',
+        pets:         isAr ? 'الحيوانات الأليفة'    : 'Pets',
+        children:     isAr ? 'الأطفال'              : 'Children',
+        nearby:       isAr ? '📍 أماكن قريبة'       : '📍 Nearby Places',
+        weather:      isAr ? '🌤️ حالة الطقس الحالية' : '🌤️ Current Weather',
+        reviews:      isAr ? `💬 آراء الضيوف عن ${name}` : `💬 Guest Reviews about ${name}`,
+    };
 
     detailsContainer.innerHTML = `
         <section class="details-hero">
             <div class="details-card">
                 <div class="details-main-image">
-                    <img src="${destination.image}" alt="${destination.name}" class="details-image">
+                    <img src="${destination.image}" alt="${name}" class="details-image">
                 </div>
                 <div class="details-info">
-                    <h1>${destination.name}</h1>
-                    <p><strong>Country:</strong> ${destination.country}</p>
-                    <p><strong>Category:</strong> ${destination.category}</p>
-                    <p>⭐ ${destination.rating} (Rating)</p>
-                    <p class="short-desc">${destination.shortDescription}</p>
-                    <p>${destination.description}</p>
-
+                    <h1>${name}</h1>
+                    <p><strong>${labels.country}:</strong> ${country}</p>
+                    <p><strong>${labels.category}:</strong> ${destination.category}</p>
+                    <p>⭐ ${destination.rating} (${labels.rating})</p>
+                    <p class="short-desc">${shortDesc}</p>
+                    <p>${desc}</p>
                     <div class="price-box">
                         <h3 data-price-usd="${destination.price}">
                             ${getCurrencySymbol()} ${convertPrice(destination.price).toLocaleString()}
                         </h3>
-                        <span>avg per night</span>
+                        <span>${labels.avgNight}</span>
                     </div>
-
                     <div class="details-actions">
-                        <a href="search.html" class="back-btn">Back to Search</a>
+                        <a href="search.html" class="back-btn">${labels.backSearch}</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="details-section">
-            <h2>📷 Gallery</h2>
+            <h2>${labels.gallery}</h2>
             <div class="slider-container" id="gallerySlider">
                 <div class="slides">${gallerySlides}</div>
                 <button class="prev" onclick="changeSlide(-1)">❮</button>
@@ -178,73 +227,70 @@ function renderDetails() {
         </section>
 
         <section class="details-section">
-            <h2>🎥 Video</h2>
+            <h2>${labels.video}</h2>
             <div class="video-box">
                 <video controls class="details-video">
                     <source src="${destination.video}" type="video/mp4">
-                    Your browser does not support the video tag.
+                    ${labels.noVideo}
                 </video>
             </div>
         </section>
 
         <section class="details-section location-section">
-            <h2>📍 Location</h2>
+            <h2>${labels.location}</h2>
             <div class="location-layout">
                 <div class="location-info">
                     <p>${destination.location.address}</p>
                     <a href="${destination.location.mapLink}" target="_blank" rel="noopener" class="map-btn">
-                        Open in Google Maps
+                        ${labels.openMaps}
                     </a>
                 </div>
                 <div class="map-box">
-                    <iframe src="${createMapEmbed(destination.location.address)}" 
-                            loading="lazy" allowfullscreen></iframe>
+                    <iframe src="${createMapEmbed(destination.location.address)}" loading="lazy" allowfullscreen></iframe>
                 </div>
             </div>
         </section>
 
         <section class="details-section">
-            <h2>🏨 Available Hotels</h2>
+            <h2>${labels.hotels}</h2>
             <div class="hotels-grid">${hotelsHTML}</div>
         </section>
 
         <section class="details-section">
-            <h2>✨ Highlights</h2>
+            <h2>${labels.highlights}</h2>
             <ul class="details-list">${highlightsHTML}</ul>
         </section>
 
         <section class="details-section">
-            <h2>♿ Accessibility</h2>
+            <h2>${labels.accessibility}</h2>
             <ul class="details-list">${accessibilityHTML}</ul>
         </section>
 
         <section class="details-section">
-            <h2>📋 Policies</h2>
+            <h2>${labels.policies}</h2>
             <div class="policy-grid">
-                <div class="policy-item"><h4>Check-in</h4><p>${destination.policies.checkIn}</p></div>
-                <div class="policy-item"><h4>Check-out</h4><p>${destination.policies.checkOut}</p></div>
-                <div class="policy-item"><h4>Pets</h4><p>${destination.policies.pets}</p></div>
-                <div class="policy-item"><h4>Children</h4><p>${destination.policies.children}</p></div>
+                <div class="policy-item"><h4>${labels.checkIn}</h4><p>${policies.checkIn}</p></div>
+                <div class="policy-item"><h4>${labels.checkOut}</h4><p>${policies.checkOut}</p></div>
+                <div class="policy-item"><h4>${labels.pets}</h4><p>${policies.pets}</p></div>
+                <div class="policy-item"><h4>${labels.children}</h4><p>${policies.children}</p></div>
             </div>
         </section>
 
         <section class="details-section">
-            <h2>📍 Nearby Places</h2>
+            <h2>${labels.nearby}</h2>
             <ul class="details-list">${nearbyHTML}</ul>
         </section>
 
-        <!-- Weather -->
         <section class="details-section weather-section">
-            <h2>🌤️ Current Weather</h2>
+            <h2>${labels.weather}</h2>
             <div class="weather-widget">
-                <span>${weatherData[destination.name] ? weatherData[destination.name].temp : "N/A"}</span>
-                <p>${weatherData[destination.name] ? weatherData[destination.name].condition : "No data"}</p>
+                <span>${weatherTemp}</span>
+                <p>${weatherCondition}</p>
             </div>
         </section>
 
-        <!-- City Reviews -->
         <section class="details-section reviews-section">
-            <h2>💬 Guest Reviews about ${destination.name}</h2>
+            <h2>${labels.reviews}</h2>
             <div class="reviews-container">
                 ${generateCityReviews(destination.name).map(r => `
                     <div class="review-card">
@@ -269,7 +315,6 @@ function setupSlider() {
     const slides = document.querySelectorAll("#gallerySlider .slide");
     const dotsContainer = document.getElementById("sliderDots");
     if (!slides.length || !dotsContainer) return;
-
     dotsContainer.innerHTML = "";
     slides.forEach((_, i) => {
         const dot = document.createElement("span");
@@ -277,7 +322,6 @@ function setupSlider() {
         dot.addEventListener("click", () => goToSlide(i));
         dotsContainer.appendChild(dot);
     });
-
     currentSlide = 0;
     updateSliderView();
 }
@@ -301,5 +345,9 @@ function goToSlide(index) {
     updateSliderView();
 }
 
-// Initial render
 renderDetails();
+
+// Re-render when language changes
+document.addEventListener('langChanged', function() {
+    renderDetails();
+});

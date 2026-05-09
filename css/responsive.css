@@ -4,10 +4,9 @@
    ============================================================ */
 
 /* ── PREVENT HORIZONTAL SCROLL ──────────────────────────── */
-/* NOTE: overflow-x must NOT be on html — it breaks position:sticky on navbar */
-body {
-  overflow-x: hidden;
-  max-width: 100%;
+/* Use clip on html to prevent horizontal scroll WITHOUT breaking position:fixed */
+html {
+  overflow-x: clip;
 }
 
 /* ── LANGUAGE TOGGLE BTN IN NAVBAR ─────────────────────── */
@@ -137,12 +136,6 @@ body {
 
 /* ── TABLET ≤ 768px ─────────────────────────────────────── */
 @media (max-width: 768px) {
-  /* Navbar - mobile menu open state */
-  .nav-links.open {
-    position: fixed;
-    top: 64px;
-  }
-
   /* Currency selector in mobile menu */
   .nav-links.open .currency-selector {
     width: 100%;
@@ -578,10 +571,12 @@ body {
   }
 }
 
-/* ── NAVBAR STICKY ENFORCEMENT ───────────────────────── */
+/* ── NAVBAR FIXED ENFORCEMENT ───────────────────────── */
 /* Re-declare after all page CSS loads to prevent any override */
 .navbar {
-  position: sticky !important;
+  position: fixed !important;
   top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
   z-index: 1000 !important;
 }
