@@ -1,0 +1,710 @@
+/* ============================================================
+   events.css — ستايلات خاصة بصفحة الـ Events بس
+   ============================================================ */
+
+
+/* ════════════════════════════════════════════════════════════
+   HERO SECTION
+   ════════════════════════════════════════════════════════════ */
+
+.events-hero {
+    position: relative;       /* عشان الـ bg المطلق يتحسب جواه */
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;         /* يقص أي حاجة تطلع برا الـ border-radius */
+    border-radius: 28px;
+    margin: 20px 24px 0;
+}
+
+/* طبقة الخلفية منفصلة عشان نتحكم فيها بسهولة (خصوصاً في dark mode) */
+.events-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 50%, rgba(0,87,183,.18), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(0,180,216,.15), transparent 40%),
+        linear-gradient(135deg, #f0f7ff 0%, #e8f4ff 50%, #f0fdf4 100%);
+    z-index: 0;
+}
+
+/* المحتوى النصي فوق الخلفية */
+.events-hero-content {
+    position: relative;
+    z-index: 1;           /* يطلع فوق الـ .events-hero-bg */
+    padding: 48px 24px;
+    max-width: 640px;
+}
+
+/* الـ badge الصغير "🌍 Around the World" */
+.events-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: rgba(0,87,183,.08);
+    border: 1px solid rgba(0,87,183,.15);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--brand, #0057B7);
+    margin-bottom: 16px;
+}
+
+.events-hero-content h1 {
+    font-family: var(--font-display, 'Sora', sans-serif);
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    color: var(--text-1, #0f172a);
+    letter-spacing: -.03em;
+    line-height: 1.1;
+    margin: 0 0 14px;
+}
+
+/* كلمة "Festivals" بتاخد لون gradient بدل لون عادي */
+.events-hero-accent {
+    background: linear-gradient(90deg, #0057B7, #00b4d8);
+    -webkit-background-clip: text;  /* Chrome/Safari */
+    -webkit-text-fill-color: transparent;
+    background-clip: text;          /* Standard */
+}
+
+.events-hero-content p {
+    font-size: 1.05rem;
+    color: var(--text-2, #475569);
+    line-height: 1.7;
+    margin: 0 0 28px;
+}
+
+/* حاوية الزرارين في الـ Hero */
+.events-hero-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;  /* لو الزرارين مش واخدين، ينزلوا تحت بعض على الموبايل */
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   BUTTONS
+   ════════════════════════════════════════════════════════════ */
+
+/* خصائص مشتركة بين الزرارين */
+.ev-btn-primary,
+.ev-btn-outline {
+    padding: 13px 28px;
+    border-radius: 999px;  /* pill shape */
+    font-weight: 700;
+    font-size: .95rem;
+    text-decoration: none;
+}
+
+/* الزرار الأساسي — خلفية gradient زرقاء */
+.ev-btn-primary {
+    background: linear-gradient(45deg, #0057B7, #00b4d8);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(0,87,183,.25);
+}
+
+/* الزرار الثانوي — شفاف مع border */
+.ev-btn-outline {
+    background: transparent;
+    color: var(--brand, #0057B7);
+    border: 2px solid var(--brand, #0057B7);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   LAYOUT
+   ════════════════════════════════════════════════════════════ */
+
+/* حاوية المحتوى الرئيسي بتاخد أقصى عرض وتتمركز */
+.ev-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   TABS (زرارات التبديل بين Events و Guides)
+   ════════════════════════════════════════════════════════════ */
+
+/* حاوية الـ tabs — شكلها capsule رمادي */
+.ev-tabs {
+    display: flex;
+    gap: 8px;
+    background: var(--bg-secondary, #f1f5f9);
+    border-radius: 16px;
+    padding: 6px;
+    width: fit-content;   /* بقدر المحتوى بس */
+    margin: 0 auto 36px;  /* متمركزة أفقياً */
+}
+
+/* الـ tab الواحد */
+.ev-tab {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text-2, #475569);
+    font-family: var(--font-display, 'Sora', sans-serif);
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;  /* محيرهوش يكسر السطر */
+}
+
+/* الـ tab المحدود: بيبان أبيض مع ظل خفيف */
+.ev-tab.active {
+    background: #fff;
+    color: var(--brand, #0057B7);
+    box-shadow: 0 2px 12px rgba(15,23,42,.08);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   SECTIONS (الـ Events section والـ Guides section)
+   ════════════════════════════════════════════════════════════ */
+
+/* كل الـ sections مخفية بـ default */
+.ev-section {
+    display: none;
+}
+
+/* الـ section النشطة بتبان مع animation */
+.ev-section.active-section {
+    display: block;
+    animation: fadeUp .3s ease;
+}
+
+/* animation بسيطة: بتطلع من تحت لفوق مع ظهور تدريجي */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   FILTER BAR (أزرار الفلترة حسب المنطقة)
+   ════════════════════════════════════════════════════════════ */
+
+.ev-filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;      /* لو الأزرار كتير تنزل سطر تاني */
+    margin-bottom: 28px;
+}
+
+/* الزرار العادي — outline */
+.ev-filter {
+    padding: 8px 18px;
+    border: 1.5px solid var(--border, #e2e8f0);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--text-2, #475569);
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* الزرار المحدد — solid أزرق */
+.ev-filter.active {
+    background: var(--brand, #0057B7);
+    border-color: var(--brand, #0057B7);
+    color: #fff;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   EVENTS GRID & CARDS
+   ════════════════════════════════════════════════════════════ */
+
+/* grid بيتكيف أوتوماتيك — كل card مش أقل من 320px */
+.ev-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 22px;
+}
+
+/* رسالة "No events found." بتمتد على كل الأعمدة */
+.ev-empty {
+    grid-column: 1 / -1;  /* من أول عمود لآخر عمود */
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-2, #475569);
+}
+
+/* الـ card الواحدة */
+.ev-card {
+    background: #fff;
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;  /* محتوى متراص فوق بعض */
+    box-shadow: 0 4px 16px rgba(15,23,42,.05);
+}
+
+/* Header الـ card: الإيموجي يسار + tag وbadge يمين */
+.ev-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px 20px 0;
+}
+
+.ev-emoji {
+    font-size: 2.6rem;
+    line-height: 1;
+}
+
+/* حاوية الـ tag والـ upcoming badge — مرصوصين فوق بعض يمين */
+.ev-card-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+/* الـ tag (Religious / Culture / Festival …)
+   لونه بيتحدد inline من الـ JS بالـ tagColor */
+.ev-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+}
+
+/* badge "⭐ Upcoming" — برتقالي فاتح */
+.ev-upcoming-badge {
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: #fff7ed;
+    color: #ea580c;
+    font-size: .72rem;
+    font-weight: 700;
+    border: 1px solid #fed7aa;
+}
+
+/* body الـ card: flex: 1 عشان يملا الفراغ ويخلي الـ footer ثابت تحت */
+.ev-card-body {
+    padding: 16px 20px;
+    flex: 1;
+}
+
+.ev-card-title {
+    font-family: var(--font-display, 'Sora', sans-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-1, #0f172a);
+    margin: 0 0 10px;
+    line-height: 1.3;
+}
+
+/* السطر اللي فيه البلد والتاريخ */
+.ev-card-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .82rem;
+    color: var(--text-2, #475569);
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.ev-card-location i {
+    color: var(--brand, #0057B7);
+    font-size: .75rem;
+}
+
+.ev-dot {
+    color: var(--text-3, #94a3b8);  /* النقطة الفاصلة بين البلد والتاريخ */
+}
+
+.ev-card-desc {
+    font-size: .88rem;
+    color: var(--text-2, #475569);
+    line-height: 1.65;
+    margin: 0 0 14px;
+}
+
+/* قائمة الـ highlights — بدون bullets، كل item فيه أيقونة ✓ */
+.ev-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ev-highlights li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: .82rem;
+    color: var(--text-2, #475569);
+}
+
+.ev-highlights li i {
+    color: #10b981;        /* أخضر للـ check icon */
+    font-size: .75rem;
+    flex-shrink: 0;        /* محيرهوش يتضغط لو النص طويل */
+}
+
+/* footer الـ card: مفصول بـ border فوقيه */
+.ev-card-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border, #e2e8f0);
+}
+
+/* زرار "Explore [Country]" بيمتد على عرض الـ card كلها */
+.ev-explore-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--brand-light, #e8f0fe);
+    color: var(--brand, #0057B7);
+    border-radius: 10px;
+    font-size: .88rem;
+    font-weight: 700;
+    text-decoration: none;
+    width: 100%;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   GUIDES SECTION
+   ════════════════════════════════════════════════════════════ */
+
+.guides-intro {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.guides-intro h2 {
+    font-family: var(--font-display, 'Sora', sans-serif);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: var(--text-1, #0f172a);
+    margin: 0 0 10px;
+}
+
+.guides-intro p {
+    font-size: 1rem;
+    color: var(--text-2, #475569);
+}
+
+/* الـ guides بتتراص فوق بعض (flex column) مش grid */
+.guides-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* الـ guide card: صورة/avatar يسار + معلومات يمين */
+.guide-card {
+    background: #fff;
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: 20px;
+    padding: 22px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    box-shadow: 0 4px 16px rgba(15,23,42,.05);
+}
+
+/* دايرة الـ avatar: الحرفين الأوليين من الاسم بلون مميز */
+.guide-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display, 'Sora', sans-serif);
+    font-size: 1.2rem;
+    font-weight: 800;
+    flex-shrink: 0;  /* محيرهوش يتضغط لو المحتوى ضيق */
+}
+
+.guide-info {
+    flex: 1;
+    min-width: 0;  /* بيمنع overflow في الـ flex items */
+}
+
+/* header الـ guide card: الاسم يسار + التقييم يمين */
+.guide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.guide-name {
+    font-family: var(--font-display, 'Sora', sans-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-1, #0f172a);
+    margin: 0 0 3px;
+}
+
+.guide-specialty {
+    font-size: .82rem;
+    color: var(--text-2, #475569);
+    margin: 0;
+}
+
+/* التقييم: نجمة + رقم + عدد الـ reviews */
+.guide-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.guide-rating i {
+    color: #f59e0b;  /* نجمة ذهبية */
+    font-size: .85rem;
+}
+
+.guide-rating strong {
+    font-size: .95rem;
+    color: var(--text-1, #0f172a);
+}
+
+.guide-rating span {
+    font-size: .8rem;
+    color: var(--text-3, #94a3b8);
+}
+
+/* stats: الخبرة واللغات */
+.guide-stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.guide-stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .82rem;
+    color: var(--text-2, #475569);
+}
+
+.guide-stat i {
+    color: var(--brand, #0057B7);
+    font-size: .75rem;
+}
+
+/* tags الجولات المتاحة */
+.guide-tours {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.guide-tour-tag {
+    padding: 4px 10px;
+    background: var(--bg-secondary, #f1f5f9);
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: 999px;
+    font-size: .78rem;
+    color: var(--text-2, #475569);
+    font-weight: 500;
+}
+
+/* footer الـ guide card: السعر يسار + زرار يمين */
+.guide-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* حاوية السعر: "from $45 / half day" */
+.guide-price {
+    display: flex;
+    align-items: baseline;  /* محاذاة على خط الكتابة عشان الأحجام مختلفة */
+    gap: 4px;
+}
+
+.guide-price-from {
+    font-size: .8rem;
+    color: var(--text-3, #94a3b8);
+}
+
+.guide-price strong {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-1, #0f172a);
+    font-family: var(--font-display, 'Sora', sans-serif);
+}
+
+.guide-price span {
+    font-size: .8rem;
+    color: var(--text-2, #475569);
+}
+
+.guide-book-btn {
+    padding: 10px 22px;
+    background: var(--brand, #0057B7);
+    color: #fff;
+    border-radius: 10px;
+    font-size: .88rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;  /* محيرهوش يكسر السطر */
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   DARK MODE
+   ════════════════════════════════════════════════════════════ */
+
+/* الـ cards بتاخد خلفية داكنة */
+[data-theme="dark"] .ev-card,
+[data-theme="dark"] .guide-card {
+    background: var(--bg-card, #1e293b);
+    border-color: var(--border, #334155);
+}
+
+/* حاوية الـ tabs */
+[data-theme="dark"] .ev-tabs {
+    background: var(--bg-secondary, #1e293b);
+}
+
+/* الـ tab الـ active في dark mode */
+[data-theme="dark"] .ev-tab.active {
+    background: var(--bg-card, #0f172a);
+}
+
+/* أزرار الـ filter */
+[data-theme="dark"] .ev-filter {
+    background: var(--bg-card, #1e293b);
+    border-color: var(--border, #334155);
+    color: var(--text-2, #94a3b8);
+}
+
+[data-theme="dark"] .ev-filter.active {
+    background: var(--brand, #0057B7);
+    border-color: var(--brand, #0057B7);
+    color: #fff;
+}
+
+/* زرار explore في الـ card */
+[data-theme="dark"] .ev-explore-btn {
+    background: rgba(0,87,183,.15);
+}
+
+/* tags الجولات */
+[data-theme="dark"] .guide-tour-tag {
+    background: var(--bg-secondary, #1e293b);
+    border-color: var(--border, #334155);
+}
+
+/* خلفية الـ Hero في dark mode — أغمق وأكثر تشبعاً */
+[data-theme="dark"] .events-hero-bg {
+    background:
+        radial-gradient(circle at 15% 50%, rgba(0,87,183,.25), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(0,180,216,.20), transparent 40%),
+        linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE — Tablet (max 768px)
+   ════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .events-hero {
+        margin: 12px 12px 0;
+        min-height: 300px;
+        border-radius: 22px;
+    }
+
+    .ev-container {
+        padding: 24px 16px 48px;
+    }
+
+    /* الـ tabs تمتد على عرض الشاشة كلها */
+    .ev-tabs {
+        width: 100%;
+    }
+
+    .ev-tab {
+        flex: 1;            /* كل tab باخد نص العرض المتاح */
+        text-align: center;
+        padding: 10px 12px;
+        font-size: .82rem;
+    }
+
+    /* الـ events grid بيبقى عمود واحد */
+    .ev-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* الـ guide card بيبقى فوق بعض بدل جنب بعض */
+    .guide-card {
+        flex-direction: column;
+    }
+
+    .guide-avatar {
+        width: 52px;
+        height: 52px;
+    }
+
+    /* اسم الـ guide والتقييم فوق بعض بدل جنب بعض */
+    .guide-header {
+        flex-direction: column;
+        gap: 6px;
+    }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE — Mobile صغير (max 500px)
+   ════════════════════════════════════════════════════════════ */
+
+@media (max-width: 500px) {
+    /* الزرارين بيبقوا فوق بعض ممتدين على العرض */
+    .events-hero-btns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ev-btn-primary,
+    .ev-btn-outline {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .ev-filter-bar {
+        gap: 6px;
+    }
+
+    .ev-filter {
+        padding: 7px 13px;
+        font-size: .8rem;
+    }
+}

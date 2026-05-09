@@ -1,49 +1,69 @@
+/* ============================================================
+   home.css — ستايلات خاصة بالـ Home Page بس
+   الستايلات العامة موجودة في main.css و components.css
+   ============================================================ */
+
+
+/* ── smooth scroll على مستوى الصفحة كلها ── */
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; /* لما بنعمل scrollToDestinations() تنزل بسلاسة مش بقفزة */
 }
+
+
+/* ================================================================
+   HERO SECTION
+   ================================================================ */
 
 .hero {
     text-align: center;
     padding: 72px 20px 56px;
     border-radius: 28px;
+
+    /* خلفية مركبة من 3 طبقات فوق بعض (CSS بيقراها من فوق لتحت):
+       1. radial-gradient أزرق فوق يسار
+       2. radial-gradient أخضر تحت يمين
+       3. linear-gradient أساسي من أبيض لأزرق فاتح جداً             */
     background:
         radial-gradient(circle at top left, rgba(59,130,246,0.10), transparent 32%),
         radial-gradient(circle at bottom right, rgba(34,197,94,0.10), transparent 28%),
         linear-gradient(135deg, #f8fafc 0%, #eaf3ff 100%);
+
     box-shadow: 0 18px 45px rgba(15, 23, 42, 0.05);
-    position: relative;
-    overflow: hidden;
+    position: relative;  /* عشان الـ ::before يتحسب جواه */
+    overflow: hidden;    /* يقص أي حاجة تطلع برا الـ border-radius */
 }
 
+/* طبقة زخرفية إضافية فوق الـ hero بدون ما تاخد أي clicks */
 .hero::before {
     content: "";
     position: absolute;
-    inset: -2px;
+    inset: -2px; /* بتغطي الحواف كمان عشان محيرهوش يبان خط */
     background:
         radial-gradient(circle at 20% 10%, rgba(0,119,182,0.10), transparent 18%),
         radial-gradient(circle at 85% 20%, rgba(0,180,216,0.10), transparent 16%);
-    pointer-events: none;
+    pointer-events: none; /* الطبقة ديكور بس، مش بتعترض على الـ clicks */
 }
 
 .hero h1 {
     position: relative;
-    z-index: 1;
+    z-index: 1; /* يطلع فوق الـ ::before */
     font-family: var(--font-display);
-    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-size: clamp(2.2rem, 4vw, 3.4rem); /* clamp: بيحدد min/preferred/max للـ font-size */
     line-height: 1.08;
     margin: 0 0 12px;
     color: var(--text-1);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.03em; /* ضغط خفيف بين الحروف عشان العنوان يبان أنيق */
 }
 
 .hero p {
     position: relative;
     z-index: 1;
     font-size: 1.05rem;
-    color: var(--text-2);
+    color: var(--text-2); /* لون أفتح من العنوان */
     margin: 0;
 }
 
+/* زرار "Explore Now" — الزرار الرئيسي في الـ Hero */
 .explore-main-btn {
     position: relative;
     z-index: 1;
@@ -51,21 +71,22 @@ html {
     padding: 14px 28px;
     cursor: pointer;
     border: none;
-    border-radius: 999px;
+    border-radius: 999px; /* pill shape كامل */
     font-size: 1rem;
     font-weight: 700;
     color: white;
-    background: linear-gradient(45deg, #0077b6, #00b4d8);
+    background: linear-gradient(45deg, #0077b6, #00b4d8); /* gradient من أزرق غامق لـ cyan */
     box-shadow: 0 10px 24px rgba(0, 119, 182, 0.25);
     transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
 }
 
 .explore-main-btn:hover {
-    transform: translateY(-2px) scale(1.03);
+    transform: translateY(-2px) scale(1.03); /* يطلع لفوق وينكبر شوية */
     box-shadow: 0 14px 30px rgba(0, 119, 182, 0.30);
-    filter: saturate(1.05);
+    filter: saturate(1.05); /* يزود تشبع الألوان خفيف */
 }
 
+/* لينك "Search Destinations" — تاني زرار في الـ Hero */
 .explore-btn {
     position: relative;
     z-index: 1;
@@ -83,11 +104,23 @@ html {
 }
 
 .explore-btn:hover {
-    background-color: #005f93;
+    background-color: #005f93; /* أغمق قليلاً عند الـ hover */
     transform: translateY(-1px);
 }
 
-/* ===== WORLD MAP SECTION ===== */
+/* Helpers: بيضمن إن الزرارين دايماً flex مش inline */
+.explore-main-btn,
+.explore-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ================================================================
+   WORLD MAP SECTION
+   ================================================================ */
+
 .world-map-section {
     position: relative;
     margin-top: 26px;
@@ -98,8 +131,10 @@ html {
     align-items: center;
     justify-content: center;
     text-align: center;
-    isolation: isolate;
+    isolation: isolate; /* بيعمل stacking context جديد عشان الـ z-index يشتغل صح جواه */
     box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+
+    /* خلفية: gradient شفاف فوق صورة خريطة العالم من Wikipedia */
     background:
         linear-gradient(180deg, rgba(255,255,255,0.92), rgba(247,250,255,0.88)),
         url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg");
@@ -108,6 +143,7 @@ html {
     background-size: cover, 88% auto;
 }
 
+/* طبقة ألوان ناعمة فوق الخريطة */
 .world-map-section::before {
     content: "";
     position: absolute;
@@ -119,23 +155,26 @@ html {
     pointer-events: none;
 }
 
+/* طبقة blur فوق الخريطة عشان النص يبان وضوح أكتر */
 .map-overlay {
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px); /* ضبابية خفيفة على الخريطة */
     background:
         linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.08)),
         linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.20));
     z-index: 1;
 }
 
+/* المحتوى النصي فوق كل الطبقات */
 .world-content {
     position: relative;
-    z-index: 2;
+    z-index: 2; /* أعلى من الـ map-overlay */
     max-width: 760px;
     padding: 24px 28px;
 }
 
+/* الـ badge الصغير "World Explorer" فوق العنوان */
 .world-kicker {
     display: inline-flex;
     align-items: center;
@@ -148,7 +187,7 @@ html {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #0f4c81;
-    background: rgba(255,255,255,0.68);
+    background: rgba(255,255,255,0.68); /* خلفية بيضاء شبه شفافة */
     border: 1px solid rgba(255,255,255,0.55);
     box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
 }
@@ -169,7 +208,11 @@ html {
     margin: 0;
 }
 
-/* Section */
+
+/* ================================================================
+   DESTINATIONS SECTION
+   ================================================================ */
+
 .destinations {
     margin-top: 76px;
     padding-top: 22px;
@@ -184,15 +227,17 @@ html {
     letter-spacing: -0.02em;
 }
 
-/* Cards layout */
+/* Grid بتاع الـ cards — بيتكيف أوتوماتيك مع العرض */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* auto-fit: بيحط أكبر عدد ممكن من الأعمدة
+       minmax(250px, 1fr): كل عمود مش أقل من 250px ويكبر بالتساوي */
     gap: 20px;
     padding: 0 4px 10px;
 }
 
-/* Card */
+/* الـ card الواحدة */
 .card {
     border: 1px solid rgba(148,163,184,0.20);
     border-radius: 16px;
@@ -205,7 +250,7 @@ html {
 }
 
 .card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px); /* ترتفع لفوق عند الـ hover */
     box-shadow: 0 18px 35px rgba(15, 23, 42, 0.10);
     border-color: rgba(0,87,183,0.18);
 }
@@ -213,61 +258,19 @@ html {
 .card img {
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    object-fit: cover; /* الصورة تملا المساحة من غير تشويه */
     display: block;
 }
 
-/* Helpers */
-.explore-main-btn,
-.explore-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
 
-@media (max-width: 768px) {
-    .hero {
-        padding: 56px 16px 44px;
-        border-radius: 22px;
-    }
+/* ================================================================
+   FEATURED LANDMARK
+   ================================================================ */
 
-    .world-map-section {
-        min-height: 340px;
-        border-radius: 24px;
-        background-size: cover, 110% auto;
-    }
-
-    .world-content {
-        padding: 18px 18px;
-    }
-
-    .destinations {
-        margin-top: 56px;
-    }
-
-    .cards {
-        gap: 16px;
-    }
-}
-
-@media (max-width: 500px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .world-content h2 {
-        font-size: 1.9rem;
-    }
-
-    .world-content p {
-        font-size: 0.98rem;
-    }
-}
-
-/* ── FEATURED LANDMARK ───────────────────────────────── */
+/* بطاقة كبيرة بـ grid: صورة يسار + محتوى يمين */
 .featured-landmark {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* نص الصفحة ينقسم بالتساوي */
     gap: 0;
     border-radius: 24px;
     overflow: hidden;
@@ -283,6 +286,7 @@ html {
     box-shadow: var(--shadow-hover);
 }
 
+/* حاوية الصورة */
 .landmark-img-wrap {
     position: relative;
     height: 320px;
@@ -297,16 +301,19 @@ html {
     transition: transform 0.4s ease;
 }
 
+/* الصورة بتكبر خفيف عند الـ hover على البطاقة كلها */
 .featured-landmark:hover .landmark-img-wrap img {
     transform: scale(1.05);
 }
 
+/* ظل من يمين الصورة باتجاه المحتوى عشان الانتقال ناعم */
 .landmark-img-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to right, transparent 60%, rgba(10,22,40,0.15));
 }
 
+/* الجانب الأيمن: المحتوى النصي */
 .landmark-content {
     background: var(--bg-card, #fff);
     padding: 40px 36px;
@@ -316,6 +323,7 @@ html {
     gap: 14px;
 }
 
+/* Badge "⭐ Featured Landmark" */
 .landmark-badge {
     display: inline-flex;
     align-items: center;
@@ -329,7 +337,7 @@ html {
     text-transform: uppercase;
     padding: 5px 14px;
     border-radius: 999px;
-    width: fit-content;
+    width: fit-content; /* الـ badge بس بقدر المحتوى مش يمتد */
 }
 
 .landmark-title {
@@ -349,6 +357,7 @@ html {
     margin: 0;
 }
 
+/* زرار "Explore Tokyo & Japan" */
 .landmark-cta {
     display: inline-flex;
     align-items: center;
@@ -365,39 +374,172 @@ html {
     transition: background var(--transition), transform var(--transition);
 }
 
+/* السهم بيتحرك لليمين عند الـ hover */
 .featured-landmark:hover .landmark-cta {
     background: var(--brand-dark);
     transform: translateX(3px);
 }
 
+
+/* ================================================================
+   EVENTS PROMO BANNER
+   ================================================================ */
+
+.events-promo-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 32px;
+    padding: 28px 32px;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f4ff 60%, #f0fdf4 100%);
+    border: 1.5px solid rgba(0, 87, 183, 0.14);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 6px 22px rgba(0, 87, 183, 0.07);
+}
+
+.events-promo-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(0, 87, 183, 0.12);
+}
+
+/* Badge "✨ New" */
+.events-promo-kicker {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    background: rgba(0, 87, 183, 0.10);
+    color: #0057B7;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.events-promo-left h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-1);
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+}
+
+.events-promo-left p {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    line-height: 1.6;
+    margin: 0 0 16px;
+    max-width: 480px;
+}
+
+/* زرار "Explore Events" */
+.events-promo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #0057B7;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease, gap 0.2s ease;
+}
+
+/* السهم بيتحرك لليمين بزيادة الـ gap */
+.events-promo-btn:hover {
+    background: #003f8a;
+    gap: 12px;
+}
+
+/* الأيقونات الزخرفية يمين البانر */
+.events-promo-icons {
+    display: flex;
+    gap: 10px;
+    font-size: 2rem;
+    flex-shrink: 0; /* محيرهومش يتضغطوا لو الشاشة ضيقت */
+}
+
+
+/* ================================================================
+   DARK MODE
+   ================================================================ */
+
+/* البانر في الـ dark mode بيبقى أغمق مع نفس الألوان */
+[data-theme="dark"] .events-promo-banner {
+    background: linear-gradient(135deg, rgba(0, 87, 183, 0.12) 0%, rgba(0, 87, 183, 0.06) 60%, rgba(34, 197, 94, 0.06) 100%);
+    border-color: rgba(0, 87, 183, 0.25);
+}
+
+
+/* ================================================================
+   RTL SUPPORT (للعربي)
+   ================================================================ */
+
+/* بيعكس اتجاه النص والعناصر لما اللغة عربي */
+[dir="rtl"] .hero            { text-align: right; }
+[dir="rtl"] .section-title   { text-align: right; }
+[dir="rtl"] .cards           { direction: rtl; }
+[dir="rtl"] .card            { text-align: right; }
+[dir="rtl"] .card-footer     { flex-direction: row-reverse; } /* أيقونات وأسعار تتعكس */
+[dir="rtl"] .world-content   { text-align: right; }
+
+/* البانر بيتعكس كمان في RTL */
+[dir="rtl"] .events-promo-banner { flex-direction: row-reverse; }
+[dir="rtl"] .events-promo-left p { text-align: right; }
+
+
+/* ================================================================
+   RESPONSIVE — Tablet (max 768px)
+   ================================================================ */
+
 @media (max-width: 768px) {
+    .hero {
+        padding: 56px 16px 44px;
+        border-radius: 22px;
+    }
+
+    .world-map-section {
+        min-height: 340px;
+        border-radius: 24px;
+        background-size: cover, 110% auto; /* الخريطة تكبر شوية على الموبايل */
+    }
+
+    .world-content { padding: 18px 18px; }
+
+    .destinations { margin-top: 56px; }
+
+    .cards { gap: 16px; }
+
+    /* الـ landmark بيبقى عمود واحد تحت بعض */
     .featured-landmark {
         grid-template-columns: 1fr;
     }
-    .landmark-img-wrap { height: 220px; }
-    .landmark-content { padding: 24px 20px; }
-}
-/* ── RTL SUPPORT ─────────────────────────────────────── */
-[dir="rtl"] .hero {
-  text-align: right;
+    .landmark-img-wrap  { height: 220px; }
+    .landmark-content   { padding: 24px 20px; }
+
+    /* البانر بيبقى عمود برضو */
+    .events-promo-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 22px 20px;
+    }
+    .events-promo-icons { font-size: 1.5rem; }
 }
 
-[dir="rtl"] .section-title {
-  text-align: right;
-}
 
-[dir="rtl"] .cards {
-  direction: rtl;
-}
+/* ================================================================
+   RESPONSIVE — Mobile صغير (max 500px)
+   ================================================================ */
 
-[dir="rtl"] .card {
-  text-align: right;
-}
-
-[dir="rtl"] .card-footer {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .world-content {
-  text-align: right;
+@media (max-width: 500px) {
+    .hero h1          { font-size: 2rem; }
+    .world-content h2 { font-size: 1.9rem; }
+    .world-content p  { font-size: 0.98rem; }
 }

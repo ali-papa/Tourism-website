@@ -12,38 +12,20 @@ const destinations = [
         rating: 4.7,
         image: "../assets/images/place3.jpg",
         shortDescription: "Famous for the Pyramids and the Nile River.",
+        shortDescription_ar: "مشهورة بالأهرامات ونهر النيل.",
         description: "Cairo is the capital of Egypt and one of the most famous tourist destinations, known for the Pyramids and the Nile River.",
-        gallery: [
-            "../assets/images/cairo1.jpg",
-            "../assets/images/cairo2.jpg",
-            "../assets/images/cairo3.jpg"
-        ],
+        description_ar: "القاهرة هي عاصمة مصر وواحدة من أشهر الوجهات السياحية، تُعرف بالأهرامات ونهر النيل.",
+        gallery: ["../assets/images/cairo1.jpg","../assets/images/cairo2.jpg","../assets/images/cairo3.jpg"],
         video: "../assets/videos/cairo.mp4",
-        location: {
-            address: "Cairo, Egypt",
-            mapLink: "https://www.google.com/maps?q=Cairo,Egypt"
-        },
-        highlights: [
-            "Visit the Great Pyramids of Giza",
-            "Enjoy a Nile River cruise",
-            "Discover museums and ancient history"
-        ],
-        accessibility: [
-            "Wheelchair accessible entrance",
-            "Accessible public areas",
-            "Elevator available in some attractions"
-        ],
-        policies: {
-            checkIn: "From 3:00 PM",
-            checkOut: "Before 12:00 PM",
-            pets: "Pets are not allowed",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Giza Pyramids",
-            "Egyptian Museum",
-            "Khan El Khalili"
-        ]
+        location: { address: "Cairo, Egypt", mapLink: "https://www.google.com/maps?q=Cairo,Egypt" },
+        highlights: ["Visit the Great Pyramids of Giza","Enjoy a Nile River cruise","Discover museums and ancient history"],
+        highlights_ar: ["زيارة أهرامات الجيزة الكبرى","الاستمتاع برحلة على نهر النيل","اكتشاف المتاحف والتاريخ القديم"],
+        accessibility: ["Wheelchair accessible entrance","Accessible public areas","Elevator available in some attractions"],
+        accessibility_ar: ["مداخل مخصصة لذوي الاحتياجات الخاصة","مناطق عامة متاحة","مصاعد متاحة في بعض المعالم"],
+        policies: { checkIn: "From 3:00 PM", checkOut: "Before 12:00 PM", pets: "Pets are not allowed", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 3:00 مساءً", checkOut: "قبل الساعة 12:00 ظهراً", pets: "الحيوانات الأليفة غير مسموح بها", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Giza Pyramids","Egyptian Museum","Khan El Khalili"],
+        nearbyPlaces_ar: ["أهرامات الجيزة","المتحف المصري","خان الخليلي"]
     },
     {
         id: 2,
@@ -55,38 +37,20 @@ const destinations = [
         rating: 4.8,
         image: "../assets/images/place2.jpg",
         shortDescription: "Modern city famous for luxury shopping and skyscrapers.",
+        shortDescription_ar: "مدينة حديثة مشهورة بالتسوق الفاخر وناطحات السحاب.",
         description: "Dubai is a modern city famous for luxury shopping, skyscrapers, and unique tourist attractions like Burj Khalifa.",
-        gallery: [
-            "../assets/images/dubai1.jpg",
-            "../assets/images/dubai2.jpg",
-            "../assets/images/dubai3.jpg"
-        ],
+        description_ar: "دبي مدينة حديثة مشهورة بالتسوق الفاخر وناطحات السحاب والمعالم السياحية الفريدة كبرج خليفة.",
+        gallery: ["../assets/images/dubai1.jpg","../assets/images/dubai2.jpg","../assets/images/dubai3.jpg"],
         video: "../assets/videos/dubai.mp4",
-        location: {
-            address: "Dubai, UAE",
-            mapLink: "https://www.google.com/maps?q=Dubai,UAE"
-        },
-        highlights: [
-            "Burj Khalifa and luxury malls",
-            "Desert safari experiences",
-            "Modern entertainment and nightlife"
-        ],
-        accessibility: [
-            "Accessible hotels and malls",
-            "Wheelchair-friendly transportation",
-            "Elevators in major attractions"
-        ],
-        policies: {
-            checkIn: "From 2:00 PM",
-            checkOut: "Before 11:00 AM",
-            pets: "Pets depend on hotel policy",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Burj Khalifa",
-            "Dubai Mall",
-            "Palm Jumeirah"
-        ]
+        location: { address: "Dubai, UAE", mapLink: "https://www.google.com/maps?q=Dubai,UAE" },
+        highlights: ["Burj Khalifa and luxury malls","Desert safari experiences","Modern entertainment and nightlife"],
+        highlights_ar: ["برج خليفة والمراكز التجارية الفاخرة","رحلات سفاري الصحراء","الترفيه الحديث والحياة الليلية"],
+        accessibility: ["Accessible hotels and malls","Wheelchair-friendly transportation","Elevators in major attractions"],
+        accessibility_ar: ["فنادق ومراكز تسوق مهيأة","مواصلات ملائمة لذوي الاحتياجات","مصاعد في المعالم الرئيسية"],
+        policies: { checkIn: "From 2:00 PM", checkOut: "Before 11:00 AM", pets: "Pets depend on hotel policy", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 2:00 مساءً", checkOut: "قبل الساعة 11:00 صباحاً", pets: "الحيوانات حسب سياسة الفندق", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Burj Khalifa","Dubai Mall","Palm Jumeirah"],
+        nearbyPlaces_ar: ["برج خليفة","دبي مول","نخلة جميرا"]
     },
     {
         id: 3,
@@ -98,38 +62,20 @@ const destinations = [
         rating: 4.9,
         image: "../assets/images/place1.jpg",
         shortDescription: "City of love, famous for the Eiffel Tower and art museums.",
+        shortDescription_ar: "مدينة الحب، مشهورة ببرج إيفل ومتاحف الفن.",
         description: "Paris is known as the city of love, famous for the Eiffel Tower, art museums, and beautiful streets.",
-        gallery: [
-            "../assets/images/paris1.jpg",
-            "../assets/images/paris2.jpg",
-            "../assets/images/paris3.jpg"
-        ],
+        description_ar: "باريس تُعرف بمدينة الحب، مشهورة ببرج إيفل ومتاحف الفن والشوارع الجميلة.",
+        gallery: ["../assets/images/paris1.jpg","../assets/images/paris2.jpg","../assets/images/paris3.jpg"],
         video: "../assets/videos/paris.mp4",
-        location: {
-            address: "Paris, France",
-            mapLink: "https://www.google.com/maps?q=Paris,France"
-        },
-        highlights: [
-            "Eiffel Tower views",
-            "World-famous museums",
-            "Romantic streets and cafes"
-        ],
-        accessibility: [
-            "Accessible metro stations in some areas",
-            "Wheelchair access in major museums",
-            "Public elevators available"
-        ],
-        policies: {
-            checkIn: "From 3:00 PM",
-            checkOut: "Before 12:00 PM",
-            pets: "Small pets may be allowed",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Eiffel Tower",
-            "Louvre Museum",
-            "Champs-Élysées"
-        ]
+        location: { address: "Paris, France", mapLink: "https://www.google.com/maps?q=Paris,France" },
+        highlights: ["Eiffel Tower views","World-famous museums","Romantic streets and cafes"],
+        highlights_ar: ["إطلالات برج إيفل","متاحف ذات شهرة عالمية","شوارع ومقاهي رومانسية"],
+        accessibility: ["Accessible metro stations in some areas","Wheelchair access in major museums","Public elevators available"],
+        accessibility_ar: ["محطات مترو مهيأة في بعض المناطق","وصول بالكرسي المتحرك في المتاحف الكبرى","مصاعد عامة متاحة"],
+        policies: { checkIn: "From 3:00 PM", checkOut: "Before 12:00 PM", pets: "Small pets may be allowed", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 3:00 مساءً", checkOut: "قبل الساعة 12:00 ظهراً", pets: "الحيوانات الصغيرة قد تكون مسموحاً بها", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Eiffel Tower","Louvre Museum","Champs-Élysées"],
+        nearbyPlaces_ar: ["برج إيفل","متحف اللوفر","الشانزليزيه"]
     },
     {
         id: 4,
@@ -141,38 +87,20 @@ const destinations = [
         currency: "USD",
         rating: 4.7,
         shortDescription: "Ancient Roman Empire architecture.",
+        shortDescription_ar: "عمارة الإمبراطورية الرومانية القديمة.",
         description: "Rome is famous for the Colosseum and ancient Roman architecture.",
-        gallery: [
-            "../assets/images/rome1.jpg",
-            "../assets/images/rome2.jpg",
-            "../assets/images/rome3.jpg"
-        ],
+        description_ar: "روما مشهورة بالكولوسيوم والعمارة الرومانية القديمة.",
+        gallery: ["../assets/images/rome1.jpg","../assets/images/rome2.jpg","../assets/images/rome3.jpg"],
         video: "../assets/videos/rome.mp4",
-        location: {
-            address: "Rome, Italy",
-            mapLink: "https://www.google.com/maps?q=Rome,Italy"
-        },
-        highlights: [
-            "Ancient ruins and landmarks",
-            "Famous Italian food",
-            "Rich historical atmosphere"
-        ],
-        accessibility: [
-            "Accessible tourist buses",
-            "Some historical sites offer wheelchair access",
-            "Public transport support available"
-        ],
-        policies: {
-            checkIn: "From 2:00 PM",
-            checkOut: "Before 11:00 AM",
-            pets: "Pets may be allowed",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Colosseum",
-            "Trevi Fountain",
-            "Roman Forum"
-        ]
+        location: { address: "Rome, Italy", mapLink: "https://www.google.com/maps?q=Rome,Italy" },
+        highlights: ["Ancient ruins and landmarks","Famous Italian food","Rich historical atmosphere"],
+        highlights_ar: ["الأطلال والمعالم القديمة","الطعام الإيطالي الشهير","أجواء تاريخية غنية"],
+        accessibility: ["Accessible tourist buses","Some historical sites offer wheelchair access","Public transport support available"],
+        accessibility_ar: ["حافلات سياحية مهيأة","بعض المواقع التاريخية تتيح الكراسي المتحركة","دعم المواصلات العامة متاح"],
+        policies: { checkIn: "From 2:00 PM", checkOut: "Before 11:00 AM", pets: "Pets may be allowed", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 2:00 مساءً", checkOut: "قبل الساعة 11:00 صباحاً", pets: "الحيوانات الأليفة قد تكون مسموحاً بها", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Colosseum","Trevi Fountain","Roman Forum"],
+        nearbyPlaces_ar: ["الكولوسيوم","نافورة تريفي","المنتدى الروماني"]
     },
     {
         id: 5,
@@ -184,38 +112,20 @@ const destinations = [
         currency: "USD",
         rating: 4.6,
         shortDescription: "A mix of Europe and Asia culture.",
+        shortDescription_ar: "مزيج من ثقافتي أوروبا وآسيا.",
         description: "Istanbul is a unique city that blends European and Asian culture.",
-        gallery: [
-            "../assets/images/istanbul1.jpg",
-            "../assets/images/istanbul2.jpg",
-            "../assets/images/istanbul3.jpg"
-        ],
+        description_ar: "إسطنبول مدينة فريدة تجمع بين الثقافة الأوروبية والآسيوية.",
+        gallery: ["../assets/images/istanbul1.jpg","../assets/images/istanbul2.jpg","../assets/images/istanbul3.jpg"],
         video: "../assets/videos/istanbul.mp4",
-        location: {
-            address: "Istanbul, Turkey",
-            mapLink: "https://www.google.com/maps?q=Istanbul,Turkey"
-        },
-        highlights: [
-            "Historic mosques and bazaars",
-            "Bosporus views",
-            "Blend of cultures and food"
-        ],
-        accessibility: [
-            "Some tram lines are accessible",
-            "Accessible hotels available",
-            "Support services in tourist zones"
-        ],
-        policies: {
-            checkIn: "From 2:00 PM",
-            checkOut: "Before 12:00 PM",
-            pets: "Depends on hotel policy",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Hagia Sophia",
-            "Blue Mosque",
-            "Grand Bazaar"
-        ]
+        location: { address: "Istanbul, Turkey", mapLink: "https://www.google.com/maps?q=Istanbul,Turkey" },
+        highlights: ["Historic mosques and bazaars","Bosporus views","Blend of cultures and food"],
+        highlights_ar: ["مساجد وأسواق تاريخية","إطلالات على مضيق البوسفور","مزيج من الثقافات والمأكولات"],
+        accessibility: ["Some tram lines are accessible","Accessible hotels available","Support services in tourist zones"],
+        accessibility_ar: ["بعض خطوط الترام مهيأة","فنادق مهيأة متاحة","خدمات دعم في المناطق السياحية"],
+        policies: { checkIn: "From 2:00 PM", checkOut: "Before 12:00 PM", pets: "Depends on hotel policy", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 2:00 مساءً", checkOut: "قبل الساعة 12:00 ظهراً", pets: "حسب سياسة الفندق", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Hagia Sophia","Blue Mosque","Grand Bazaar"],
+        nearbyPlaces_ar: ["آيا صوفيا","المسجد الأزرق","البازار الكبير"]
     },
     {
         id: 6,
@@ -227,38 +137,20 @@ const destinations = [
         currency: "USD",
         rating: 4.9,
         shortDescription: "Technology, anime culture, and neon city.",
+        shortDescription_ar: "التكنولوجيا وثقافة الأنمي ومدينة النيون.",
         description: "Tokyo is known for technology, anime culture, and vibrant city life.",
-        gallery: [
-            "../assets/images/tokyo1.jpg",
-            "../assets/images/tokyo2.jpg",
-            "../assets/images/tokyo3.jpg"
-        ],
+        description_ar: "طوكيو تُعرف بالتكنولوجيا وثقافة الأنمي والحياة المدنية النابضة.",
+        gallery: ["../assets/images/tokyo1.jpg","../assets/images/tokyo2.jpg","../assets/images/tokyo3.jpg"],
         video: "../assets/videos/tokyo.mp4",
-        location: {
-            address: "Tokyo, Japan",
-            mapLink: "https://www.google.com/maps?q=Tokyo,Japan"
-        },
-        highlights: [
-            "Anime and gaming culture",
-            "Advanced technology and transport",
-            "Amazing city lights and shopping"
-        ],
-        accessibility: [
-            "Highly accessible metro system",
-            "Wheelchair-friendly stations",
-            "Accessible hotels and malls"
-        ],
-        policies: {
-            checkIn: "From 3:00 PM",
-            checkOut: "Before 11:00 AM",
-            pets: "Pets usually not allowed",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Shibuya Crossing",
-            "Tokyo Tower",
-            "Akihabara"
-        ]
+        location: { address: "Tokyo, Japan", mapLink: "https://www.google.com/maps?q=Tokyo,Japan" },
+        highlights: ["Anime and gaming culture","Advanced technology and transport","Amazing city lights and shopping"],
+        highlights_ar: ["ثقافة الأنمي والألعاب","تكنولوجيا ومواصلات متقدمة","أضواء المدينة الرائعة والتسوق"],
+        accessibility: ["Highly accessible metro system","Wheelchair-friendly stations","Accessible hotels and malls"],
+        accessibility_ar: ["نظام مترو متاح بالكامل","محطات صديقة للكراسي المتحركة","فنادق ومراكز تسوق مهيأة"],
+        policies: { checkIn: "From 3:00 PM", checkOut: "Before 11:00 AM", pets: "Pets usually not allowed", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 3:00 مساءً", checkOut: "قبل الساعة 11:00 صباحاً", pets: "الحيوانات عادةً غير مسموح بها", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Shibuya Crossing","Tokyo Tower","Akihabara"],
+        nearbyPlaces_ar: ["تقاطع شيبويا","برج طوكيو","أكيهابارا"]
     },
     {
         id: 7,
@@ -270,38 +162,20 @@ const destinations = [
         currency: "USD",
         rating: 4.8,
         shortDescription: "Big Ben, history, and royal culture.",
+        shortDescription_ar: "بيغ بن والتاريخ والثقافة الملكية.",
         description: "London is famous for Big Ben, royal landmarks, and rich history.",
-        gallery: [
-            "../assets/images/london1.jpg",
-            "../assets/images/london2.jpg",
-            "../assets/images/london3.jpg"
-        ],
+        description_ar: "لندن مشهورة ببيغ بن والمعالم الملكية والتاريخ الغني.",
+        gallery: ["../assets/images/london1.jpg","../assets/images/london2.jpg","../assets/images/london3.jpg"],
         video: "../assets/videos/london.mp4",
-        location: {
-            address: "London, UK",
-            mapLink: "https://www.google.com/maps?q=London,UK"
-        },
-        highlights: [
-            "Royal palaces and landmarks",
-            "Museums and historic streets",
-            "Excellent shopping and parks"
-        ],
-        accessibility: [
-            "Accessible buses and underground stations",
-            "Wheelchair-friendly museums",
-            "Step-free access in many areas"
-        ],
-        policies: {
-            checkIn: "From 3:00 PM",
-            checkOut: "Before 11:00 AM",
-            pets: "Depends on hotel policy",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Big Ben",
-            "London Eye",
-            "Buckingham Palace"
-        ]
+        location: { address: "London, UK", mapLink: "https://www.google.com/maps?q=London,UK" },
+        highlights: ["Royal palaces and landmarks","Museums and historic streets","Excellent shopping and parks"],
+        highlights_ar: ["القصور والمعالم الملكية","المتاحف والشوارع التاريخية","تسوق ممتاز وحدائق"],
+        accessibility: ["Accessible buses and underground stations","Wheelchair-friendly museums","Step-free access in many areas"],
+        accessibility_ar: ["حافلات ومحطات أنفاق مهيأة","متاحف صديقة للكراسي المتحركة","وصول خالٍ من الدرجات في مناطق كثيرة"],
+        policies: { checkIn: "From 3:00 PM", checkOut: "Before 11:00 AM", pets: "Depends on hotel policy", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 3:00 مساءً", checkOut: "قبل الساعة 11:00 صباحاً", pets: "حسب سياسة الفندق", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Big Ben","London Eye","Buckingham Palace"],
+        nearbyPlaces_ar: ["بيغ بن","عين لندن","قصر باكنغهام"]
     },
     {
         id: 8,
@@ -313,38 +187,20 @@ const destinations = [
         currency: "USD",
         rating: 4.9,
         shortDescription: "Times Square and Statue of Liberty.",
+        shortDescription_ar: "تايمز سكوير وتمثال الحرية.",
         description: "New York is famous for Times Square, the Statue of Liberty, and skyscrapers.",
-        gallery: [
-            "../assets/images/newyork1.jpg",
-            "../assets/images/newyork2.jpg",
-            "../assets/images/newyork3.jpg"
-        ],
+        description_ar: "نيويورك مشهورة بتايمز سكوير وتمثال الحرية وناطحات السحاب.",
+        gallery: ["../assets/images/newyork1.jpg","../assets/images/newyork2.jpg","../assets/images/newyork3.jpg"],
         video: "../assets/videos/newyork.mp4",
-        location: {
-            address: "New York, USA",
-            mapLink: "https://www.google.com/maps?q=New+York,USA"
-        },
-        highlights: [
-            "Times Square lights",
-            "Broadway and entertainment",
-            "Famous skyline and landmarks"
-        ],
-        accessibility: [
-            "Accessible taxis and public transport",
-            "Wheelchair access in many attractions",
-            "Accessible sidewalks and crossings"
-        ],
-        policies: {
-            checkIn: "From 4:00 PM",
-            checkOut: "Before 11:00 AM",
-            pets: "Some hotels allow pets",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Times Square",
-            "Statue of Liberty",
-            "Central Park"
-        ]
+        location: { address: "New York, USA", mapLink: "https://www.google.com/maps?q=New+York,USA" },
+        highlights: ["Times Square lights","Broadway and entertainment","Famous skyline and landmarks"],
+        highlights_ar: ["أضواء تايمز سكوير","برودواي والترفيه","الأفق الشهير والمعالم"],
+        accessibility: ["Accessible taxis and public transport","Wheelchair access in many attractions","Accessible sidewalks and crossings"],
+        accessibility_ar: ["سيارات أجرة ومواصلات عامة مهيأة","وصول بالكرسي المتحرك في معظم المعالم","أرصفة ومعابر مهيأة"],
+        policies: { checkIn: "From 4:00 PM", checkOut: "Before 11:00 AM", pets: "Some hotels allow pets", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 4:00 مساءً", checkOut: "قبل الساعة 11:00 صباحاً", pets: "بعض الفنادق تسمح بالحيوانات", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Times Square","Statue of Liberty","Central Park"],
+        nearbyPlaces_ar: ["تايمز سكوير","تمثال الحرية","سنترال بارك"]
     },
     {
         id: 9,
@@ -356,38 +212,20 @@ const destinations = [
         currency: "USD",
         rating: 4.7,
         shortDescription: "Beaches and unique Gaudi architecture.",
+        shortDescription_ar: "الشواطئ والعمارة الفريدة لغاودي.",
         description: "Barcelona is known for beaches and unique Gaudi architecture.",
-        gallery: [
-            "../assets/images/barcelona1.jpg",
-            "../assets/images/barcelona2.jpg",
-            "../assets/images/barcelona3.jpg"
-        ],
+        description_ar: "برشلونة تُعرف بشواطئها والعمارة الفريدة لغاودي.",
+        gallery: ["../assets/images/barcelona1.jpg","../assets/images/barcelona2.jpg","../assets/images/barcelona3.jpg"],
         video: "../assets/videos/barcelona.mp4",
-        location: {
-            address: "Barcelona, Spain",
-            mapLink: "https://www.google.com/maps?q=Barcelona,Spain"
-        },
-        highlights: [
-            "Beautiful beaches",
-            "Famous Gaudi architecture",
-            "Vibrant nightlife and food"
-        ],
-        accessibility: [
-            "Accessible beach areas",
-            "Public elevators available",
-            "Wheelchair-friendly attractions"
-        ],
-        policies: {
-            checkIn: "From 3:00 PM",
-            checkOut: "Before 12:00 PM",
-            pets: "Depends on accommodation",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Sagrada Familia",
-            "Park Güell",
-            "La Rambla"
-        ]
+        location: { address: "Barcelona, Spain", mapLink: "https://www.google.com/maps?q=Barcelona,Spain" },
+        highlights: ["Beautiful beaches","Famous Gaudi architecture","Vibrant nightlife and food"],
+        highlights_ar: ["شواطئ جميلة","عمارة غاودي الشهيرة","حياة ليلية نابضة وطعام شهي"],
+        accessibility: ["Accessible beach areas","Public elevators available","Wheelchair-friendly attractions"],
+        accessibility_ar: ["مناطق شاطئية مهيأة","مصاعد عامة متاحة","معالم صديقة للكراسي المتحركة"],
+        policies: { checkIn: "From 3:00 PM", checkOut: "Before 12:00 PM", pets: "Depends on accommodation", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 3:00 مساءً", checkOut: "قبل الساعة 12:00 ظهراً", pets: "حسب مكان الإقامة", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Sagrada Familia","Park Güell","La Rambla"],
+        nearbyPlaces_ar: ["كنيسة ساغرادا فاميليا","حديقة غويل","لا رامبلا"]
     },
     {
         id: 10,
@@ -399,38 +237,20 @@ const destinations = [
         currency: "USD",
         rating: 4.6,
         shortDescription: "Birthplace of ancient civilization.",
+        shortDescription_ar: "مهد الحضارة القديمة.",
         description: "Athens is the birthplace of ancient civilization and Greek history.",
-        gallery: [
-            "../assets/images/athens1.jpg",
-            "../assets/images/athens2.jpg",
-            "../assets/images/athens3.jpg"
-        ],
+        description_ar: "أثينا مهد الحضارة القديمة والتاريخ اليوناني.",
+        gallery: ["../assets/images/athens1.jpg","../assets/images/athens2.jpg","../assets/images/athens3.jpg"],
         video: "../assets/videos/athens.mp4",
-        location: {
-            address: "Athens, Greece",
-            mapLink: "https://www.google.com/maps?q=Athens,Greece"
-        },
-        highlights: [
-            "Ancient temples and ruins",
-            "Greek history and museums",
-            "Mediterranean atmosphere"
-        ],
-        accessibility: [
-            "Accessible metro options",
-            "Wheelchair access at major sites",
-            "Tourist assistance available"
-        ],
-        policies: {
-            checkIn: "From 2:00 PM",
-            checkOut: "Before 11:00 AM",
-            pets: "Small pets may be allowed",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Acropolis",
-            "Parthenon",
-            "Plaka"
-        ]
+        location: { address: "Athens, Greece", mapLink: "https://www.google.com/maps?q=Athens,Greece" },
+        highlights: ["Ancient temples and ruins","Greek history and museums","Mediterranean atmosphere"],
+        highlights_ar: ["المعابد والأطلال القديمة","التاريخ اليوناني والمتاحف","الأجواء المتوسطية"],
+        accessibility: ["Accessible metro options","Wheelchair access at major sites","Tourist assistance available"],
+        accessibility_ar: ["خيارات مترو مهيأة","وصول بالكرسي المتحرك في المواقع الكبرى","مساعدة سياحية متاحة"],
+        policies: { checkIn: "From 2:00 PM", checkOut: "Before 11:00 AM", pets: "Small pets may be allowed", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 2:00 مساءً", checkOut: "قبل الساعة 11:00 صباحاً", pets: "الحيوانات الصغيرة قد تكون مسموحاً بها", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Acropolis","Parthenon","Plaka"],
+        nearbyPlaces_ar: ["الأكروبوليس","البارثينون","بلاكا"]
     },
     {
         id: 11,
@@ -442,38 +262,20 @@ const destinations = [
         currency: "USD",
         rating: 4.7,
         shortDescription: "Canals, bikes, and artistic vibe.",
+        shortDescription_ar: "القنوات والدراجات والأجواء الفنية.",
         description: "Amsterdam is known for canals, bikes, and its artistic atmosphere.",
-        gallery: [
-            "../assets/images/amsterdam1.jpg",
-            "../assets/images/amsterdam2.jpg",
-            "../assets/images/amsterdam3.jpg"
-        ],
+        description_ar: "أمستردام تُعرف بقنواتها والدراجات وأجوائها الفنية.",
+        gallery: ["../assets/images/amsterdam1.jpg","../assets/images/amsterdam2.jpg","../assets/images/amsterdam3.jpg"],
         video: "../assets/videos/amsterdam.mp4",
-        location: {
-            address: "Amsterdam, Netherlands",
-            mapLink: "https://www.google.com/maps?q=Amsterdam,Netherlands"
-        },
-        highlights: [
-            "Canal cruises",
-            "Art museums and galleries",
-            "Relaxed cultural atmosphere"
-        ],
-        accessibility: [
-            "Accessible museums",
-            "Wheelchair support in transport",
-            "Tourist-friendly public spaces"
-        ],
-        policies: {
-            checkIn: "From 3:00 PM",
-            checkOut: "Before 11:00 AM",
-            pets: "Depends on property",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Van Gogh Museum",
-            "Anne Frank House",
-            "Dam Square"
-        ]
+        location: { address: "Amsterdam, Netherlands", mapLink: "https://www.google.com/maps?q=Amsterdam,Netherlands" },
+        highlights: ["Canal cruises","Art museums and galleries","Relaxed cultural atmosphere"],
+        highlights_ar: ["جولات على القنوات","متاحف وغاليريهات فنية","أجواء ثقافية هادئة"],
+        accessibility: ["Accessible museums","Wheelchair support in transport","Tourist-friendly public spaces"],
+        accessibility_ar: ["متاحف مهيأة","دعم الكراسي المتحركة في المواصلات","أماكن عامة صديقة للسياح"],
+        policies: { checkIn: "From 3:00 PM", checkOut: "Before 11:00 AM", pets: "Depends on property", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 3:00 مساءً", checkOut: "قبل الساعة 11:00 صباحاً", pets: "حسب مكان الإقامة", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Van Gogh Museum","Anne Frank House","Dam Square"],
+        nearbyPlaces_ar: ["متحف فان غوخ","بيت آن فرانك","ميدان دام"]
     },
     {
         id: 12,
@@ -485,38 +287,20 @@ const destinations = [
         currency: "USD",
         rating: 4.8,
         shortDescription: "Mountains, lakes, and luxury lifestyle.",
+        shortDescription_ar: "الجبال والبحيرات ونمط الحياة الفاخر.",
         description: "Zurich is known for mountains, lakes, and luxury lifestyle.",
-        gallery: [
-            "../assets/images/zurich1.jpg",
-            "../assets/images/zurich2.jpg",
-            "../assets/images/zurich3.jpg"
-        ],
+        description_ar: "زيورخ تُعرف بجبالها وبحيراتها ونمط الحياة الفاخر.",
+        gallery: ["../assets/images/zurich1.jpg","../assets/images/zurich2.jpg","../assets/images/zurich3.jpg"],
         video: "../assets/videos/zurich.mp4",
-        location: {
-            address: "Zurich, Switzerland",
-            mapLink: "https://www.google.com/maps?q=Zurich,Switzerland"
-        },
-        highlights: [
-            "Beautiful lakes and mountains",
-            "Luxury shopping",
-            "Clean and quiet atmosphere"
-        ],
-        accessibility: [
-            "Accessible transport network",
-            "Wheelchair-friendly public areas",
-            "Elevators in main attractions"
-        ],
-        policies: {
-            checkIn: "From 3:00 PM",
-            checkOut: "Before 11:00 AM",
-            pets: "Pets may be allowed",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Lake Zurich",
-            "Old Town",
-            "Bahnhofstrasse"
-        ]
+        location: { address: "Zurich, Switzerland", mapLink: "https://www.google.com/maps?q=Zurich,Switzerland" },
+        highlights: ["Beautiful lakes and mountains","Luxury shopping","Clean and quiet atmosphere"],
+        highlights_ar: ["بحيرات وجبال رائعة","تسوق فاخر","أجواء هادئة ونظيفة"],
+        accessibility: ["Accessible transport network","Wheelchair-friendly public areas","Elevators in main attractions"],
+        accessibility_ar: ["شبكة مواصلات مهيأة","مناطق عامة صديقة للكراسي المتحركة","مصاعد في المعالم الرئيسية"],
+        policies: { checkIn: "From 3:00 PM", checkOut: "Before 11:00 AM", pets: "Pets may be allowed", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 3:00 مساءً", checkOut: "قبل الساعة 11:00 صباحاً", pets: "الحيوانات قد تكون مسموحاً بها", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Lake Zurich","Old Town","Bahnhofstrasse"],
+        nearbyPlaces_ar: ["بحيرة زيورخ","المدينة القديمة","شارع بانهوفستراسه"]
     },
     {
         id: 13,
@@ -528,38 +312,20 @@ const destinations = [
         currency: "USD",
         rating: 4.6,
         shortDescription: "Temples, markets, and street food.",
+        shortDescription_ar: "المعابد والأسواق والطعام الشعبي.",
         description: "Bangkok is famous for temples, local markets, and street food.",
-        gallery: [
-            "../assets/images/bangkok1.jpg",
-            "../assets/images/bangkok2.jpg",
-            "../assets/images/bangkok3.jpg"
-        ],
+        description_ar: "بانكوك مشهورة بمعابدها وأسواقها المحلية والطعام الشعبي.",
+        gallery: ["../assets/images/bangkok1.jpg","../assets/images/bangkok2.jpg","../assets/images/bangkok3.jpg"],
         video: "../assets/videos/bangkok.mp4",
-        location: {
-            address: "Bangkok, Thailand",
-            mapLink: "https://www.google.com/maps?q=Bangkok,Thailand"
-        },
-        highlights: [
-            "Street food and floating markets",
-            "Historic temples",
-            "Vibrant nightlife"
-        ],
-        accessibility: [
-            "Accessible shopping centers",
-            "Wheelchair-friendly hotels",
-            "Support in tourist areas"
-        ],
-        policies: {
-            checkIn: "From 2:00 PM",
-            checkOut: "Before 12:00 PM",
-            pets: "Pets usually not allowed",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Grand Palace",
-            "Wat Arun",
-            "Chatuchak Market"
-        ]
+        location: { address: "Bangkok, Thailand", mapLink: "https://www.google.com/maps?q=Bangkok,Thailand" },
+        highlights: ["Street food and floating markets","Historic temples","Vibrant nightlife"],
+        highlights_ar: ["الطعام الشعبي والأسواق العائمة","المعابد التاريخية","الحياة الليلية النابضة"],
+        accessibility: ["Accessible shopping centers","Wheelchair-friendly hotels","Support in tourist areas"],
+        accessibility_ar: ["مراكز تسوق مهيأة","فنادق صديقة للكراسي المتحركة","دعم في المناطق السياحية"],
+        policies: { checkIn: "From 2:00 PM", checkOut: "Before 12:00 PM", pets: "Pets usually not allowed", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 2:00 مساءً", checkOut: "قبل الساعة 12:00 ظهراً", pets: "الحيوانات عادةً غير مسموح بها", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Grand Palace","Wat Arun","Chatuchak Market"],
+        nearbyPlaces_ar: ["القصر الكبير","وات آرون","سوق تشاتوشاك"]
     },
     {
         id: 14,
@@ -571,38 +337,20 @@ const destinations = [
         currency: "USD",
         rating: 4.9,
         shortDescription: "Opera House and beautiful beaches.",
+        shortDescription_ar: "دار الأوبرا والشواطئ الجميلة.",
         description: "Sydney is famous for the Opera House and beautiful beaches.",
-        gallery: [
-            "../assets/images/sydney1.jpg",
-            "../assets/images/sydney2.jpg",
-            "../assets/images/sydney3.jpg"
-        ],
+        description_ar: "سيدني مشهورة بدار الأوبرا والشواطئ الجميلة.",
+        gallery: ["../assets/images/sydney1.jpg","../assets/images/sydney2.jpg","../assets/images/sydney3.jpg"],
         video: "../assets/videos/sydney.mp4",
-        location: {
-            address: "Sydney, Australia",
-            mapLink: "https://www.google.com/maps?q=Sydney,Australia"
-        },
-        highlights: [
-            "Sydney Opera House",
-            "Beautiful coastal views",
-            "Relaxing beaches"
-        ],
-        accessibility: [
-            "Accessible ferry and train services",
-            "Wheelchair-friendly beaches",
-            "Accessible landmarks"
-        ],
-        policies: {
-            checkIn: "From 3:00 PM",
-            checkOut: "Before 10:00 AM",
-            pets: "Depends on property",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Opera House",
-            "Bondi Beach",
-            "Harbour Bridge"
-        ]
+        location: { address: "Sydney, Australia", mapLink: "https://www.google.com/maps?q=Sydney,Australia" },
+        highlights: ["Sydney Opera House","Beautiful coastal views","Relaxing beaches"],
+        highlights_ar: ["دار أوبرا سيدني","إطلالات ساحلية جميلة","شواطئ للاسترخاء"],
+        accessibility: ["Accessible ferry and train services","Wheelchair-friendly beaches","Accessible landmarks"],
+        accessibility_ar: ["خدمات عبّارات وقطارات مهيأة","شواطئ صديقة للكراسي المتحركة","معالم مهيأة"],
+        policies: { checkIn: "From 3:00 PM", checkOut: "Before 10:00 AM", pets: "Depends on property", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 3:00 مساءً", checkOut: "قبل الساعة 10:00 صباحاً", pets: "حسب مكان الإقامة", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Opera House","Bondi Beach","Harbour Bridge"],
+        nearbyPlaces_ar: ["دار الأوبرا","شاطئ بوندي","جسر الميناء"]
     },
     {
         id: 15,
@@ -614,354 +362,106 @@ const destinations = [
         currency: "USD",
         rating: 4.8,
         shortDescription: "Christ the Redeemer and carnival city.",
+        shortDescription_ar: "تمثال المسيح الفادي ومدينة الكرنفال.",
         description: "Rio de Janeiro is famous for Christ the Redeemer and carnival celebrations.",
-        gallery: [
-            "../assets/images/rio1.jpg",
-            "../assets/images/rio2.jpg",
-            "../assets/images/rio3.jpg"
-        ],
+        description_ar: "ريو دي جانيرو مشهورة بتمثال المسيح الفادي واحتفالات الكرنفال.",
+        gallery: ["../assets/images/rio1.jpg","../assets/images/rio2.jpg","../assets/images/rio3.jpg"],
         video: "../assets/videos/rio.mp4",
-        location: {
-            address: "Rio de Janeiro, Brazil",
-            mapLink: "https://www.google.com/maps?q=Rio+de+Janeiro,Brazil"
-        },
-        highlights: [
-            "Carnival celebrations",
-            "Beautiful mountains and beaches",
-            "Iconic Christ the Redeemer statue"
-        ],
-        accessibility: [
-            "Accessible tourist transport",
-            "Wheelchair-friendly hotels",
-            "Assistance available in attractions"
-        ],
-        policies: {
-            checkIn: "From 2:00 PM",
-            checkOut: "Before 12:00 PM",
-            pets: "Depends on hotel policy",
-            children: "Children are welcome"
-        },
-        nearbyPlaces: [
-            "Christ the Redeemer",
-            "Copacabana Beach",
-            "Sugarloaf Mountain"
-        ]
+        location: { address: "Rio de Janeiro, Brazil", mapLink: "https://www.google.com/maps?q=Rio+de+Janeiro,Brazil" },
+        highlights: ["Carnival celebrations","Beautiful mountains and beaches","Iconic Christ the Redeemer statue"],
+        highlights_ar: ["احتفالات الكرنفال","جبال وشواطئ جميلة","تمثال المسيح الفادي الشهير"],
+        accessibility: ["Accessible tourist transport","Wheelchair-friendly hotels","Assistance available in attractions"],
+        accessibility_ar: ["مواصلات سياحية مهيأة","فنادق صديقة للكراسي المتحركة","مساعدة متاحة في المعالم"],
+        policies: { checkIn: "From 2:00 PM", checkOut: "Before 12:00 PM", pets: "Depends on hotel policy", children: "Children are welcome" },
+        policies_ar: { checkIn: "من الساعة 2:00 مساءً", checkOut: "قبل الساعة 12:00 ظهراً", pets: "حسب سياسة الفندق", children: "الأطفال مرحب بهم" },
+        nearbyPlaces: ["Christ the Redeemer","Copacabana Beach","Sugarloaf Mountain"],
+        nearbyPlaces_ar: ["تمثال المسيح الفادي","شاطئ كوباكابانا","جبل شوغرلوف"]
     }
 ];
+
 const hotelsByDestination = {
     1: [
-        {
-            name: "Nile View Hotel",
-            image: "../assets/images/hotel-cairo1.jpg",
-            rating: 4.6,
-            price: 120,
-            currency: "USD",
-            location: "Downtown Cairo",
-            features: ["Free WiFi", "Nile view", "Breakfast included"]
-        },
-        {
-            name: "Pyramids Palace Hotel",
-            image: "../assets/images/hotel-cairo2.jpg",
-            rating: 4.8,
-            price: 180,
-            currency: "USD",
-            location: "Giza, Cairo",
-            features: ["Near Pyramids", "Pool", "Airport shuttle"]
-        }
+        { name: "Nile View Hotel", image: "../assets/images/hotel-cairo1.jpg", rating: 4.6, price: 120, currency: "USD", location: "Downtown Cairo", location_ar: "وسط القاهرة", features: ["Free WiFi", "Nile view", "Breakfast included"], features_ar: ["واي فاي مجاني", "إطلالة على النيل", "إفطار مشمول"] },
+        { name: "Pyramids Palace Hotel", image: "../assets/images/hotel-cairo2.jpg", rating: 4.8, price: 180, currency: "USD", location: "Giza, Cairo", location_ar: "الجيزة، القاهرة", features: ["Near Pyramids", "Pool", "Airport shuttle"], features_ar: ["قريب من الأهرامات", "حمام سباحة", "نقل مطار"] }
     ],
-
     2: [
-        {
-            name: "Dubai Marina Hotel",
-            image: "../assets/images/hotel-dubai1.jpg",
-            rating: 4.7,
-            price: 250,
-            currency: "USD",
-            location: "Dubai Marina",
-            features: ["Sea view", "Free WiFi", "Luxury rooms"]
-        },
-        {
-            name: "Burj View Suites",
-            image: "../assets/images/hotel-dubai2.jpg",
-            rating: 4.9,
-            price: 320,
-            currency: "USD",
-            location: "Downtown Dubai",
-            features: ["Burj Khalifa view", "Pool", "Spa"]
-        }
+        { name: "Dubai Marina Hotel", image: "../assets/images/hotel-dubai1.jpg", rating: 4.7, price: 250, currency: "USD", location: "Dubai Marina", location_ar: "دبي مارينا", features: ["Sea view", "Free WiFi", "Luxury rooms"], features_ar: ["إطلالة بحرية", "واي فاي مجاني", "غرف فاخرة"] },
+        { name: "Burj View Suites", image: "../assets/images/hotel-dubai2.jpg", rating: 4.9, price: 320, currency: "USD", location: "Downtown Dubai", location_ar: "وسط دبي", features: ["Burj Khalifa view", "Pool", "Spa"], features_ar: ["إطلالة على برج خليفة", "حمام سباحة", "سبا"] }
     ],
-
     3: [
-        {
-            name: "Eiffel Comfort Hotel",
-            image: "../assets/images/hotel-paris1.jpg",
-            rating: 4.8,
-            price: 210,
-            currency: "USD",
-            location: "Near Eiffel Tower",
-            features: ["City view", "Free WiFi", "Romantic rooms"]
-        },
-        {
-            name: "Paris Central Stay",
-            image: "../assets/images/hotel-paris2.jpg",
-            rating: 4.6,
-            price: 170,
-            currency: "USD",
-            location: "Central Paris",
-            features: ["Near metro", "Breakfast", "Family rooms"]
-        }
+        { name: "Eiffel Comfort Hotel", image: "../assets/images/hotel-paris1.jpg", rating: 4.8, price: 210, currency: "USD", location: "Near Eiffel Tower", location_ar: "قريب من برج إيفل", features: ["City view", "Free WiFi", "Romantic rooms"], features_ar: ["إطلالة على المدينة", "واي فاي مجاني", "غرف رومانسية"] },
+        { name: "Paris Central Stay", image: "../assets/images/hotel-paris2.jpg", rating: 4.6, price: 170, currency: "USD", location: "Central Paris", location_ar: "وسط باريس", features: ["Near metro", "Breakfast", "Family rooms"], features_ar: ["قريب من المترو", "إفطار", "غرف عائلية"] }
     ],
-
     4: [
-        {
-            name: "Colosseum Grand Hotel",
-            image: "../assets/images/hotel-rome1.jpg",
-            rating: 4.7,
-            price: 190,
-            currency: "USD",
-            location: "Near Colosseum",
-            features: ["Historic area", "Free WiFi", "Restaurant"]
-        },
-        {
-            name: "Rome Classic Inn",
-            image: "../assets/images/hotel-rome2.jpg",
-            rating: 4.5,
-            price: 150,
-            currency: "USD",
-            location: "Rome City Center",
-            features: ["Breakfast included", "City tours", "Airport shuttle"]
-        }
+        { name: "Colosseum Grand Hotel", image: "../assets/images/hotel-rome1.jpg", rating: 4.7, price: 190, currency: "USD", location: "Near Colosseum", location_ar: "قريب من الكولوسيوم", features: ["Historic area", "Free WiFi", "Restaurant"], features_ar: ["منطقة تاريخية", "واي فاي مجاني", "مطعم"] },
+        { name: "Rome Classic Inn", image: "../assets/images/hotel-rome2.jpg", rating: 4.5, price: 150, currency: "USD", location: "Rome City Center", location_ar: "وسط مدينة روما", features: ["Breakfast included", "City tours", "Airport shuttle"], features_ar: ["إفطار مشمول", "جولات المدينة", "نقل مطار"] }
     ],
-
     5: [
-        {
-            name: "Bosphorus View Hotel",
-            image: "../assets/images/hotel-istanbul1.jpg",
-            rating: 4.7,
-            price: 140,
-            currency: "USD",
-            location: "Bosphorus, Istanbul",
-            features: ["Sea view", "Free WiFi", "Restaurant"]
-        },
-        {
-            name: "Old City Istanbul Hotel",
-            image: "../assets/images/hotel-istanbul2.jpg",
-            rating: 4.6,
-            price: 110,
-            currency: "USD",
-            location: "Sultanahmet",
-            features: ["Near Blue Mosque", "Breakfast", "Family rooms"]
-        }
+        { name: "Bosphorus View Hotel", image: "../assets/images/hotel-istanbul1.jpg", rating: 4.7, price: 140, currency: "USD", location: "Bosphorus, Istanbul", location_ar: "البوسفور، إسطنبول", features: ["Sea view", "Free WiFi", "Restaurant"], features_ar: ["إطلالة بحرية", "واي فاي مجاني", "مطعم"] },
+        { name: "Old City Istanbul Hotel", image: "../assets/images/hotel-istanbul2.jpg", rating: 4.6, price: 110, currency: "USD", location: "Sultanahmet", location_ar: "السلطان أحمد", features: ["Near Blue Mosque", "Breakfast", "Family rooms"], features_ar: ["قريب من المسجد الأزرق", "إفطار", "غرف عائلية"] }
     ],
-
     6: [
-        {
-            name: "Tokyo Grand Hotel",
-            image: "../assets/images/hotel-tokyo1.jpg",
-            rating: 4.8,
-            price: 220,
-            currency: "USD",
-            location: "Shinjuku, Tokyo",
-            features: ["Free WiFi", "Near metro station", "City view"]
-        },
-        {
-            name: "Sakura Stay Hotel",
-            image: "../assets/images/hotel-tokyo2.jpg",
-            rating: 4.6,
-            price: 180,
-            currency: "USD",
-            location: "Shibuya, Tokyo",
-            features: ["Modern rooms", "Family rooms", "Restaurant"]
-        }
+        { name: "Tokyo Grand Hotel", image: "../assets/images/hotel-tokyo1.jpg", rating: 4.8, price: 220, currency: "USD", location: "Shinjuku, Tokyo", location_ar: "شينجوكو، طوكيو", features: ["Free WiFi", "Near metro station", "City view"], features_ar: ["واي فاي مجاني", "قريب من محطة المترو", "إطلالة على المدينة"] },
+        { name: "Sakura Stay Hotel", image: "../assets/images/hotel-tokyo2.jpg", rating: 4.6, price: 180, currency: "USD", location: "Shibuya, Tokyo", location_ar: "شيبويا، طوكيو", features: ["Modern rooms", "Family rooms", "Restaurant"], features_ar: ["غرف حديثة", "غرف عائلية", "مطعم"] }
     ],
-
     7: [
-        {
-            name: "London Royal Hotel",
-            image: "../assets/images/hotel-london1.jpg",
-            rating: 4.8,
-            price: 230,
-            currency: "USD",
-            location: "Westminster, London",
-            features: ["Near Big Ben", "Free WiFi", "Breakfast"]
-        },
-        {
-            name: "Thames River Hotel",
-            image: "../assets/images/hotel-london2.jpg",
-            rating: 4.7,
-            price: 200,
-            currency: "USD",
-            location: "Near River Thames",
-            features: ["River view", "Restaurant", "Airport shuttle"]
-        }
+        { name: "London Royal Hotel", image: "../assets/images/hotel-london1.jpg", rating: 4.8, price: 230, currency: "USD", location: "Westminster, London", location_ar: "وستمنستر، لندن", features: ["Near Big Ben", "Free WiFi", "Breakfast"], features_ar: ["قريب من بيغ بن", "واي فاي مجاني", "إفطار"] },
+        { name: "Thames River Hotel", image: "../assets/images/hotel-london2.jpg", rating: 4.7, price: 200, currency: "USD", location: "Near River Thames", location_ar: "قريب من نهر التايمز", features: ["River view", "Restaurant", "Airport shuttle"], features_ar: ["إطلالة على النهر", "مطعم", "نقل مطار"] }
     ],
-
     8: [
-        {
-            name: "Times Square Hotel",
-            image: "../assets/images/hotel-newyork1.jpg",
-            rating: 4.8,
-            price: 260,
-            currency: "USD",
-            location: "Times Square, New York",
-            features: ["City center", "Free WiFi", "Gym"]
-        },
-        {
-            name: "Central Park Suites",
-            image: "../assets/images/hotel-newyork2.jpg",
-            rating: 4.7,
-            price: 240,
-            currency: "USD",
-            location: "Near Central Park",
-            features: ["Park view", "Family rooms", "Restaurant"]
-        }
+        { name: "Times Square Hotel", image: "../assets/images/hotel-newyork1.jpg", rating: 4.8, price: 260, currency: "USD", location: "Times Square, New York", location_ar: "تايمز سكوير، نيويورك", features: ["City center", "Free WiFi", "Gym"], features_ar: ["وسط المدينة", "واي فاي مجاني", "صالة رياضية"] },
+        { name: "Central Park Suites", image: "../assets/images/hotel-newyork2.jpg", rating: 4.7, price: 240, currency: "USD", location: "Near Central Park", location_ar: "قريب من سنترال بارك", features: ["Park view", "Family rooms", "Restaurant"], features_ar: ["إطلالة على الحديقة", "غرف عائلية", "مطعم"] }
     ],
-
     9: [
-        {
-            name: "Barcelona Beach Hotel",
-            image: "../assets/images/hotel-barcelona1.jpg",
-            rating: 4.7,
-            price: 190,
-            currency: "USD",
-            location: "Barceloneta Beach",
-            features: ["Beach access", "Free WiFi", "Sea view"]
-        },
-        {
-            name: "Gaudi Art Hotel",
-            image: "../assets/images/hotel-barcelona2.jpg",
-            rating: 4.6,
-            price: 160,
-            currency: "USD",
-            location: "Near Sagrada Familia",
-            features: ["City tours", "Breakfast", "Modern rooms"]
-        }
+        { name: "Barcelona Beach Hotel", image: "../assets/images/hotel-barcelona1.jpg", rating: 4.7, price: 190, currency: "USD", location: "Barceloneta Beach", location_ar: "شاطئ برشلونيتا", features: ["Beach access", "Free WiFi", "Sea view"], features_ar: ["وصول للشاطئ", "واي فاي مجاني", "إطلالة بحرية"] },
+        { name: "Gaudi Art Hotel", image: "../assets/images/hotel-barcelona2.jpg", rating: 4.6, price: 160, currency: "USD", location: "Near Sagrada Familia", location_ar: "قريب من ساغرادا فاميليا", features: ["City tours", "Breakfast", "Modern rooms"], features_ar: ["جولات المدينة", "إفطار", "غرف حديثة"] }
     ],
-
     10: [
-        {
-            name: "Acropolis View Hotel",
-            image: "../assets/images/hotel-athens1.jpg",
-            rating: 4.7,
-            price: 150,
-            currency: "USD",
-            location: "Near Acropolis",
-            features: ["Acropolis view", "Free WiFi", "Breakfast"]
-        },
-        {
-            name: "Athens Classic Stay",
-            image: "../assets/images/hotel-athens2.jpg",
-            rating: 4.5,
-            price: 130,
-            currency: "USD",
-            location: "Athens City Center",
-            features: ["Near metro", "Family rooms", "Restaurant"]
-        }
+        { name: "Acropolis View Hotel", image: "../assets/images/hotel-athens1.jpg", rating: 4.7, price: 150, currency: "USD", location: "Near Acropolis", location_ar: "قريب من الأكروبوليس", features: ["Acropolis view", "Free WiFi", "Breakfast"], features_ar: ["إطلالة على الأكروبوليس", "واي فاي مجاني", "إفطار"] },
+        { name: "Athens Classic Stay", image: "../assets/images/hotel-athens2.jpg", rating: 4.5, price: 130, currency: "USD", location: "Athens City Center", location_ar: "وسط مدينة أثينا", features: ["Near metro", "Family rooms", "Restaurant"], features_ar: ["قريب من المترو", "غرف عائلية", "مطعم"] }
     ],
-
     11: [
-        {
-            name: "Amsterdam Canal Hotel",
-            image: "../assets/images/hotel-amsterdam1.jpg",
-            rating: 4.7,
-            price: 180,
-            currency: "USD",
-            location: "Canal District",
-            features: ["Canal view", "Free WiFi", "Bike rental"]
-        },
-        {
-            name: "Museum Square Hotel",
-            image: "../assets/images/hotel-amsterdam2.jpg",
-            rating: 4.6,
-            price: 160,
-            currency: "USD",
-            location: "Near Museum Square",
-            features: ["Near museums", "Breakfast", "Quiet rooms"]
-        }
+        { name: "Amsterdam Canal Hotel", image: "../assets/images/hotel-amsterdam1.jpg", rating: 4.7, price: 180, currency: "USD", location: "Canal District", location_ar: "حي القنوات", features: ["Canal view", "Free WiFi", "Bike rental"], features_ar: ["إطلالة على القناة", "واي فاي مجاني", "تأجير دراجات"] },
+        { name: "Museum Square Hotel", image: "../assets/images/hotel-amsterdam2.jpg", rating: 4.6, price: 160, currency: "USD", location: "Near Museum Square", location_ar: "قريب من ساحة المتاحف", features: ["Near museums", "Breakfast", "Quiet rooms"], features_ar: ["قريب من المتاحف", "إفطار", "غرف هادئة"] }
     ],
-
     12: [
-        {
-            name: "Zurich Lake Hotel",
-            image: "../assets/images/hotel-zurich1.jpg",
-            rating: 4.8,
-            price: 300,
-            currency: "USD",
-            location: "Near Lake Zurich",
-            features: ["Lake view", "Luxury rooms", "Free WiFi"]
-        },
-        {
-            name: "Swiss Mountain Stay",
-            image: "../assets/images/hotel-zurich2.jpg",
-            rating: 4.7,
-            price: 280,
-            currency: "USD",
-            location: "Zurich Old Town",
-            features: ["Mountain view", "Breakfast", "Spa"]
-        }
+        { name: "Zurich Lake Hotel", image: "../assets/images/hotel-zurich1.jpg", rating: 4.8, price: 300, currency: "USD", location: "Near Lake Zurich", location_ar: "قريب من بحيرة زيورخ", features: ["Lake view", "Luxury rooms", "Free WiFi"], features_ar: ["إطلالة على البحيرة", "غرف فاخرة", "واي فاي مجاني"] },
+        { name: "Swiss Mountain Stay", image: "../assets/images/hotel-zurich2.jpg", rating: 4.7, price: 280, currency: "USD", location: "Zurich Old Town", location_ar: "المدينة القديمة بزيورخ", features: ["Mountain view", "Breakfast", "Spa"], features_ar: ["إطلالة على الجبال", "إفطار", "سبا"] }
     ],
-
     13: [
-        {
-            name: "Bangkok Palace Hotel",
-            image: "../assets/images/hotel-bangkok1.jpg",
-            rating: 4.6,
-            price: 100,
-            currency: "USD",
-            location: "Central Bangkok",
-            features: ["Free WiFi", "Pool", "Near markets"]
-        },
-        {
-            name: "Temple View Hotel",
-            image: "../assets/images/hotel-bangkok2.jpg",
-            rating: 4.5,
-            price: 90,
-            currency: "USD",
-            location: "Old Bangkok",
-            features: ["Near temples", "Breakfast", "Restaurant"]
-        }
+        { name: "Bangkok Palace Hotel", image: "../assets/images/hotel-bangkok1.jpg", rating: 4.6, price: 100, currency: "USD", location: "Central Bangkok", location_ar: "وسط بانكوك", features: ["Free WiFi", "Pool", "Near markets"], features_ar: ["واي فاي مجاني", "حمام سباحة", "قريب من الأسواق"] },
+        { name: "Temple View Hotel", image: "../assets/images/hotel-bangkok2.jpg", rating: 4.5, price: 90, currency: "USD", location: "Old Bangkok", location_ar: "بانكوك القديمة", features: ["Near temples", "Breakfast", "Restaurant"], features_ar: ["قريب من المعابد", "إفطار", "مطعم"] }
     ],
-
     14: [
-        {
-            name: "Sydney Harbour Hotel",
-            image: "../assets/images/hotel-sydney1.jpg",
-            rating: 4.9,
-            price: 320,
-            currency: "USD",
-            location: "Sydney Harbour",
-            features: ["Opera House view", "Free WiFi", "Luxury rooms"]
-        },
-        {
-            name: "Bondi Beach Resort",
-            image: "../assets/images/hotel-sydney2.jpg",
-            rating: 4.7,
-            price: 260,
-            currency: "USD",
-            location: "Bondi Beach",
-            features: ["Beach access", "Pool", "Restaurant"]
-        }
+        { name: "Sydney Harbour Hotel", image: "../assets/images/hotel-sydney1.jpg", rating: 4.9, price: 320, currency: "USD", location: "Sydney Harbour", location_ar: "ميناء سيدني", features: ["Opera House view", "Free WiFi", "Luxury rooms"], features_ar: ["إطلالة على دار الأوبرا", "واي فاي مجاني", "غرف فاخرة"] },
+        { name: "Bondi Beach Resort", image: "../assets/images/hotel-sydney2.jpg", rating: 4.7, price: 260, currency: "USD", location: "Bondi Beach", location_ar: "شاطئ بوندي", features: ["Beach access", "Pool", "Restaurant"], features_ar: ["وصول للشاطئ", "حمام سباحة", "مطعم"] }
     ],
-
     15: [
-        {
-            name: "Copacabana Beach Hotel",
-            image: "../assets/images/hotel-rio1.jpg",
-            rating: 4.8,
-            price: 230,
-            currency: "USD",
-            location: "Copacabana Beach",
-            features: ["Beach view", "Free WiFi", "Pool"]
-        },
-        {
-            name: "Rio Mountain View Hotel",
-            image: "../assets/images/hotel-rio2.jpg",
-            rating: 4.7,
-            price: 210,
-            currency: "USD",
-            location: "Near Sugarloaf Mountain",
-            features: ["Mountain view", "Breakfast", "City tours"]
-        }
+        { name: "Copacabana Beach Hotel", image: "../assets/images/hotel-rio1.jpg", rating: 4.8, price: 230, currency: "USD", location: "Copacabana Beach", location_ar: "شاطئ كوباكابانا", features: ["Beach view", "Free WiFi", "Pool"], features_ar: ["إطلالة على الشاطئ", "واي فاي مجاني", "حمام سباحة"] },
+        { name: "Rio Mountain View Hotel", image: "../assets/images/hotel-rio2.jpg", rating: 4.7, price: 210, currency: "USD", location: "Near Sugarloaf Mountain", location_ar: "قريب من جبل شوغرلوف", features: ["Mountain view", "Breakfast", "City tours"], features_ar: ["إطلالة على الجبال", "إفطار", "جولات المدينة"] }
     ]
 };
 
+// Arabic country names mapping (used as fallback)
+const countryNames_ar = {
+    "Egypt": "مصر",
+    "UAE": "الإمارات",
+    "France": "فرنسا",
+    "Italy": "إيطاليا",
+    "Turkey": "تركيا",
+    "Japan": "اليابان",
+    "UK": "المملكة المتحدة",
+    "USA": "الولايات المتحدة",
+    "Spain": "إسبانيا",
+    "Greece": "اليونان",
+    "Netherlands": "هولندا",
+    "Switzerland": "سويسرا",
+    "Thailand": "تايلاند",
+    "Australia": "أستراليا",
+    "Brazil": "البرازيل"
+};
+
+// Inject country_ar and name_ar into destinations
+destinations.forEach(d => {
+    if (!d.country_ar) d.country_ar = countryNames_ar[d.country] || d.country;
+});

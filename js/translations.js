@@ -53,6 +53,82 @@ const TRANSLATIONS = {
     quick_links:   "Quick Links",
     contact_us:    "Contact Us",
     footer_rights: "© 2026 Tourism Website | Designed with ❤️",
+    book_now_footer: "Book Now",
+
+    // Login page
+    welcome_back:   "Welcome Back",
+    no_account:     "Don't have an account?",
+    register_link:  "Register",
+    login_submit:   "Sign in",
+
+    // Register page
+    create_account: "Create Account",
+    have_account:   "Already have an account?",
+    login_link:     "Login",
+    register_btn:   "Register",
+
+    // Placeholders
+    ph_email:       "Email",
+    ph_password:    "Password",
+    ph_first_name:  "First Name",
+    ph_last_name:   "Last Name",
+    ph_enter_email: "Enter your email",
+    ph_enter_pw:    "Enter password",
+    ph_confirm_pw:  "Confirm password",
+
+    // Search page hero
+    search_curated:     "Curated destinations worldwide",
+    search_hero_title:  "Where do you want to explore next?",
+    search_hero_sub:    "Discover extraordinary places — from ancient ruins to tropical escapes",
+    destination_label:  "Destination",
+    check_in_label:     "Check in",
+    check_out_label:    "Check out",
+    ph_city:            "City, country, or attraction...",
+    ph_min:             "Min",
+    ph_max:             "Max",
+
+    // Search filters
+    filters_title:      "Filters",
+    reset_all:          "Reset all",
+    sort_by:            "Sort by",
+    category_label:     "Category",
+    price_range:        "Price range",
+    min_rating_label:   "Minimum rating",
+    any_rating:         "Any",
+    apply_filters:      "Apply filters",
+    sort_relevance:     "Relevance",
+    price_low_high:     "Price: low → high",
+    price_high_low:     "Price: high → low",
+    sort_rating:        "Rating: high → low",
+    sort_name:          "Name: A → Z",
+    all_categories_opt: "All categories",
+    sort_label_txt:     "Sort:",
+    filters_btn:        "Filters",
+    searching:          "Searching…",
+    from_label:         "From",
+    view_deal:          "View deal",
+
+    // Results
+    no_results_title: "No destinations found",
+    no_results_sub:   "Try adjusting your filters or search for a different destination.",
+    clear_filters:    "Clear all filters",
+
+    // Booking page
+    my_bookings:    "My Bookings",
+    saved_items:    "Saved Items",
+    no_bookings:    "No bookings yet.",
+    empty_wishlist: "Your wishlist is empty.",
+    confirm_pay:    "Confirm & Pay",
+    trip_processed: "Trip processed successfully.",
+    pending_status: "Pending Confirmation",
+    paid_status:    "✅ Paid",
+    saved_badge:    "♥️ Saved",
+    remove_btn:     "Remove",
+    price_lbl:      "Price:",
+    rooms_lbl:      "Rooms:",
+    checkin_lbl:    "Check-in:",
+    checkout_lbl:   "Check-out:",
+    please_login:   "Please login first to book a room!",
 
     // Chat
     chat_title:       "Support Chat",
@@ -124,6 +200,82 @@ const TRANSLATIONS = {
     quick_links:   "روابط سريعة",
     contact_us:    "اتصل بنا",
     footer_rights: "© 2026 موقع السياحة | صُمم بـ ❤️",
+    book_now_footer: "احجز الآن",
+
+    // Login page
+    welcome_back:   "مرحباً من جديد",
+    no_account:     "ليس لديك حساب؟",
+    register_link:  "سجّل الآن",
+    login_submit:   "تسجيل الدخول",
+
+    // Register page
+    create_account: "إنشاء حساب",
+    have_account:   "لديك حساب بالفعل؟",
+    login_link:     "تسجيل الدخول",
+    register_btn:   "تسجيل",
+
+    // Placeholders
+    ph_email:       "البريد الإلكتروني",
+    ph_password:    "كلمة المرور",
+    ph_first_name:  "الاسم الأول",
+    ph_last_name:   "اسم العائلة",
+    ph_enter_email: "أدخل بريدك الإلكتروني",
+    ph_enter_pw:    "أدخل كلمة المرور",
+    ph_confirm_pw:  "تأكيد كلمة المرور",
+
+    // Search page hero
+    search_curated:     "وجهات مختارة حول العالم",
+    search_hero_title:  "إلى أين تريد الاستكشاف؟",
+    search_hero_sub:    "اكتشف أماكن استثنائية — من الآثار القديمة إلى الشواطئ الاستوائية",
+    destination_label:  "الوجهة",
+    check_in_label:     "تسجيل الوصول",
+    check_out_label:    "تسجيل المغادرة",
+    ph_city:            "مدينة، دولة، أو معلم...",
+    ph_min:             "أدنى",
+    ph_max:             "أقصى",
+
+    // Search filters
+    filters_title:      "الفلاتر",
+    reset_all:          "إعادة تعيين",
+    sort_by:            "ترتيب حسب",
+    category_label:     "الفئة",
+    price_range:        "نطاق السعر",
+    min_rating_label:   "أقل تقييم",
+    any_rating:         "أي",
+    apply_filters:      "تطبيق الفلاتر",
+    sort_relevance:     "الأكثر صلة",
+    price_low_high:     "السعر: من الأدنى للأعلى",
+    price_high_low:     "السعر: من الأعلى للأدنى",
+    sort_rating:        "التقييم: من الأعلى للأدنى",
+    sort_name:          "الاسم: أ ← ي",
+    all_categories_opt: "جميع الفئات",
+    sort_label_txt:     "ترتيب:",
+    filters_btn:        "الفلاتر",
+    searching:          "جارٍ البحث…",
+    from_label:         "من",
+    view_deal:          "عرض العرض",
+
+    // Results
+    no_results_title: "لا توجد وجهات",
+    no_results_sub:   "جرّب تعديل الفلاتر أو البحث عن وجهة مختلفة.",
+    clear_filters:    "مسح جميع الفلاتر",
+
+    // Booking page
+    my_bookings:    "حجوزاتي",
+    saved_items:    "المحفوظات",
+    no_bookings:    "لا توجد حجوزات بعد.",
+    empty_wishlist: "قائمة الرغبات فارغة.",
+    confirm_pay:    "تأكيد والدفع",
+    trip_processed: "تم معالجة الرحلة بنجاح.",
+    pending_status: "في انتظار التأكيد",
+    paid_status:    "✅ مدفوع",
+    saved_badge:    "♥️ محفوظ",
+    remove_btn:     "إزالة",
+    price_lbl:      "السعر:",
+    rooms_lbl:      "الغرف:",
+    checkin_lbl:    "تسجيل الوصول:",
+    checkout_lbl:   "تسجيل المغادرة:",
+    please_login:   "يرجى تسجيل الدخول أولاً للحجز!",
 
     // Chat
     chat_title:       "الدعم الفوري",
@@ -155,6 +307,7 @@ function getLang() {
 function setLang(lang) {
   localStorage.setItem('lang', lang);
   applyLang(lang);
+  document.dispatchEvent(new CustomEvent('langChanged', { detail: { lang } }));
 }
 
 function t(key) {
@@ -185,6 +338,22 @@ function applyLang(lang) {
           }
         }
       }
+    }
+  });
+
+  // Translate select option text with data-lang-opt
+  document.querySelectorAll('option[data-lang-opt]').forEach(el => {
+    const key = el.getAttribute('data-lang-opt');
+    if (tr[key] !== undefined) {
+      el.textContent = tr[key];
+    }
+  });
+
+  // Translate input placeholders with data-placeholder-lang
+  document.querySelectorAll('[data-placeholder-lang]').forEach(el => {
+    const key = el.getAttribute('data-placeholder-lang');
+    if (tr[key] !== undefined) {
+      el.placeholder = tr[key];
     }
   });
 

@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="../css/pages/booking.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/rtl.css">
 </head>
 <body>
 
@@ -67,13 +68,13 @@
 
     <div class="container">
         <div class="header-section">
-            <h1 style="font-family: 'Sora';">Manage your trips</h1>
-            <p>Track your bookings and saved destinations.</p>
+            <h1 style="font-family: 'Sora';" data-lang="manage_trips">Manage your trips</h1>
+            <p data-lang="manage_sub">Track your bookings and saved destinations.</p>
         </div>
 
         <div class="tabs-container">
-            <button class="tab-btn active" onclick="openTab(event, 'booked-section')">My Bookings</button>
-            <button class="tab-btn" onclick="openTab(event, 'saved-section')">Saved Items</button>
+            <button class="tab-btn active" onclick="openTab(event, 'booked-section')" data-lang="my_bookings">My Bookings</button>
+            <button class="tab-btn" onclick="openTab(event, 'saved-section')" data-lang="saved_items">Saved Items</button>
         </div>
 
         <div id="booked-section" class="tab-content active"></div>
@@ -92,7 +93,7 @@
         <div class="footer-container">
             <div class="footer-section about">
                 <h2 class="footer-logo">Tourism</h2>
-                <p>Discover the world's most beautiful destinations with us. Your journey starts here.</p>
+                <p data-lang="footer_desc">Discover the world's most beautiful destinations with us. Your journey starts here.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -101,22 +102,22 @@
             </div>
 
             <div class="footer-section links">
-                <h3>Quick Links</h3>
+                <h3 data-lang="quick_links">Quick Links</h3>
                 <ul>
                     <li><a href="index.html" data-lang="home">Home</a></li>
                     <li><a href="search.html" data-lang="explore">Explore</a></li>
-                    <li><a href="booking.html">Book Now</a></li>
+                    <li><a href="booking.html" data-lang="book_now_footer">Book Now</a></li>
                 </ul>
             </div>
 
             <div class="footer-section contact">
-                <h3>Contact Us</h3>
+                <h3 data-lang="contact_us">Contact Us</h3>
                 <p><i class="fas fa-envelope"></i> support@tourism.com</p>
                 <p><i class="fas fa-phone"></i> +20 123 456 789</p>
             </div>
         </div>
 
-        <div class="footer-bottom">
+        <div class="footer-bottom" data-lang="footer_rights">
             &copy; 2026 Tourism Website | Designed with ❤️
         </div>
     </footer>

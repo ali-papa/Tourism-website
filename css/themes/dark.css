@@ -37,7 +37,7 @@
 }
 
 [data-theme="dark"] .navbar {
-  background: var(--bg-navbar);
+  background: rgba(18, 18, 18, 0.98);
   border-bottom: 1px solid var(--border);
 }
 

@@ -845,7 +845,7 @@
 /* Similar hotels row */
 .similar-hotels-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 2fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 22px;
 }
 
@@ -892,7 +892,7 @@
     margin-right: 8px;
 }
 
-/* مراجعات (عام) */
+/* Guest reviews */
 .reviews-container {
     display: flex;
     flex-direction: column;
@@ -920,14 +920,14 @@
     color: var(--text-3, #64748b);
 }
 
-/* رسالة التحقق */
+/* Validation message */
 .validation-message {
     color: #d90429;
     font-weight: 600;
     margin: 10px 0 20px;
 }
 
-/* ====== الطقس ====== */
+/* Weather widget */
 .weather-widget {
     display: flex;
     flex-direction: column;
@@ -947,7 +947,7 @@
     color: #0c4a6e;
 }
 
-/* ====== تأثيرات إضافية ====== */
+/* Additional effects */
 .slide {
     position: relative;
 }
@@ -963,6 +963,7 @@
     font-size: 14px;
 }
 
+/* Room comparison table */
 .comparison-table {
     width: 100%;
     border-collapse: collapse;
