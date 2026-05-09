@@ -28,6 +28,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/rtl.css">
 </head>
 
 <body>
@@ -48,35 +49,39 @@
     <a href="booking.html" data-lang="book">Book</a>
     <button class="lang-toggle-btn" id="langToggle" aria-label="Toggle language">AR</button>
             <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
-    <a href="login.html">Sign in</a>
+    <a href="login.html" class="nav-cta" data-lang="signin">Sign in</a>
   </div>
-</nav>
 
-<!-- CONTENT -->
+  <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
 <div class="container">
   <div class="auth-wrapper">
 
     <div class="auth-box">
-      <h2>Create Account</h2>
+      <h2 data-lang="create_account">Create Account</h2>
 
       <form id="registerForm" novalidate>
 
         <div class="name-row">
           <div>
-            <input type="text" id="firstName" placeholder="First Name">
+            <input type="text" id="firstName" placeholder="First Name" data-placeholder-lang="ph_first_name">
             <div class="field-error" id="err-firstName">Letters only, min 2.</div>
           </div>
           <div>
-            <input type="text" id="lastName" placeholder="Last Name">
+            <input type="text" id="lastName" placeholder="Last Name" data-placeholder-lang="ph_last_name">
             <div class="field-error" id="err-lastName">Letters only, min 2.</div>
           </div>
         </div>
 
-        <input type="email" id="email" placeholder="Enter your email">
+        <input type="email" id="email" placeholder="Enter your email" data-placeholder-lang="ph_enter_email">
         <div class="field-error" id="err-email">Enter a valid email.</div>
 
         <div class="pw-wrap">
-          <input type="password" id="password" placeholder="Enter password" oninput="checkStrength(this.value)">
+          <input type="password" id="password" placeholder="Enter password" data-placeholder-lang="ph_enter_pw" oninput="checkStrength(this.value)">
           <button type="button" class="pw-toggle" onclick="togglePw('password', this)">👁</button>
         </div>
 
@@ -90,16 +95,16 @@
         <div class="field-error" id="err-password">Min. 6 characters.</div>
 
         <div class="pw-wrap">
-          <input type="password" id="confirmPassword" placeholder="Confirm password">
+          <input type="password" id="confirmPassword" placeholder="Confirm password" data-placeholder-lang="ph_confirm_pw">
           <button type="button" class="pw-toggle" onclick="togglePw('confirmPassword', this)">👁</button>
         </div>
         <div class="field-error" id="err-confirmPassword">Passwords do not match.</div>
 
-        <button type="submit">Register</button>
+        <button type="submit" data-lang="register_btn">Register</button>
 
         <p class="auth-footer">
-          Already have an account?
-          <a href="login.html">Login</a>
+          <span data-lang="have_account">Already have an account?</span>
+          <a href="login.html" data-lang="login_link">Login</a>
         </p>
 
       </form>
@@ -115,7 +120,7 @@
      <div class="footer-container">
         <div class="footer-section about">
             <h2 class="footer-logo">Tourism</h2>
-            <p>Discover the world's most beautiful destinations with us. Your journey starts here.</p>
+            <p data-lang="footer_desc">Discover the world's most beautiful destinations with us. Your journey starts here.</p>
             <div class="social-links">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
@@ -124,22 +129,22 @@
         </div>
 
         <div class="footer-section links">
-            <h3>Quick Links</h3>
+            <h3 data-lang="quick_links">Quick Links</h3>
             <ul>
                 <li><a href="index.html" data-lang="home">Home</a></li>
                 <li><a href="search.html" data-lang="explore">Explore</a></li>
-                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="booking.html" data-lang="book_now_footer">Book Now</a></li>
             </ul>
         </div>
 
         <div class="footer-section contact">
-            <h3>Contact Us</h3>
+            <h3 data-lang="contact_us">Contact Us</h3>
             <p><i class="fas fa-envelope"></i> support@tourism.com</p>
             <p><i class="fas fa-phone"></i> +20 123 456 789</p>
         </div>
     </div>
 
-    <div class="footer-bottom">
+    <div class="footer-bottom" data-lang="footer_rights">
         &copy; 2026 Tourism Website | Designed with ❤️
     </div>
     </footer>

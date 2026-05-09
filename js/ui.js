@@ -19,6 +19,8 @@ function updateNavbar() {
     if (!signBtn) return;
 
     if (user) {
+        // إزالة data-lang حتى لا تتجاوز الترجمة اسم المستخدم
+        signBtn.removeAttribute('data-lang');
         signBtn.textContent = getDisplayName(user);
         signBtn.href        = user.role === "admin" ? "admin-dashboard.html" : "profile.html";
         signBtn.classList.remove('active');
@@ -30,7 +32,9 @@ function updateNavbar() {
             signBtn.classList.add('active');
         }
     } else {
-        signBtn.textContent = "Sign in";
+        // إعادة data-lang="signin" للزر لو مفيش مستخدم
+        signBtn.setAttribute('data-lang', 'signin');
+        signBtn.textContent = (typeof t === 'function') ? t('signin') : "Sign in";
         signBtn.href        = "login.html";
         signBtn.classList.add('active');
     }
@@ -45,9 +49,10 @@ function updateNavbar() {
     if (user && user.role !== 'admin' && navLinks) {
         const logout = document.createElement('a');
         logout.id        = 'navLogoutBtn';
-        logout.textContent = "Logout";
+        logout.textContent = (typeof t === 'function') ? t('logout') : "Logout";
         logout.href      = "#";
         logout.className = "nav-logout";
+        logout.setAttribute('data-lang', 'logout');
         logout.addEventListener('click', function (e) {
             e.preventDefault();
             localStorage.removeItem('currentUser');
@@ -72,6 +77,10 @@ function goToDestination(id) {
 }
 
 document.addEventListener('DOMContentLoaded', updateNavbar);
+
+document.addEventListener('langChanged', function() {
+    updateNavbar();
+});
 
 
 // ============================================================

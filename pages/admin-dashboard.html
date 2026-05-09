@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="../css/pages/admin-dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/rtl.css">
 </head>
 
 <body>
@@ -50,6 +51,12 @@
             <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
     <a href="admin-dashboard.html" class="nav-cta active">Admin</a>
   </div>
+
+  <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
 <!-- ===== ADMIN DASHBOARD PAGE ===== -->
@@ -78,13 +85,13 @@
         </span>
       </div>
       <!-- Logout INSIDE hero section — same position as profile page -->
-      <button id="adminLogoutBtn" class="hero-logout-btn">
+      <button id="adminLogoutBtn" class="hero-logout-btn" data-lang="logout">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
           <polyline points="16 17 21 12 16 7"/>
           <line x1="21" y1="12" x2="9" y2="12"/>
         </svg>
-        Logout
+        تسجيل الخروج
       </button>
     </div>
   </div>
@@ -467,7 +474,7 @@
      <div class="footer-container">
         <div class="footer-section about">
             <h2 class="footer-logo">Tourism</h2>
-            <p>Discover the world's most beautiful destinations with us. Your journey starts here.</p>
+            <p data-lang="footer_desc">Discover the world's most beautiful destinations with us. Your journey starts here.</p>
             <div class="social-links">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
@@ -476,22 +483,22 @@
         </div>
 
         <div class="footer-section links">
-            <h3>Quick Links</h3>
+            <h3 data-lang="quick_links">Quick Links</h3>
             <ul>
                 <li><a href="index.html" data-lang="home">Home</a></li>
                 <li><a href="search.html" data-lang="explore">Explore</a></li>
-                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="booking.html" data-lang="book_now_footer">Book Now</a></li>
             </ul>
         </div>
 
         <div class="footer-section contact">
-            <h3>Contact Us</h3>
+            <h3 data-lang="contact_us">Contact Us</h3>
             <p><i class="fas fa-envelope"></i> support@tourism.com</p>
             <p><i class="fas fa-phone"></i> +20 123 456 789</p>
         </div>
     </div>
 
-    <div class="footer-bottom">
+    <div class="footer-bottom" data-lang="footer_rights">
         &copy; 2026 Tourism Website | Designed with ❤️
     </div>
     </footer>

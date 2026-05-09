@@ -179,28 +179,40 @@ function renderResults(results) {
     grid.innerHTML = "";
 
     if (!results.length) {
-        count.textContent = "0 destinations";
+        count.textContent = "0 " + ((typeof t === 'function') ? t('destinations_title') : 'destinations');
         grid.innerHTML = `
             <div class="no-results">
                 <span class="no-results-icon">🔍</span>
-                <h3 class="no-results-title">No destinations found</h3>
-                <p class="no-results-sub">Try adjusting your filters or search for a different destination.</p>
-                <button class="no-results-btn" onclick="clearFilters()">Clear all filters</button>
+                <h3 class="no-results-title">${(typeof t === 'function') ? t('no_results_title') : 'No destinations found'}</h3>
+                <p class="no-results-sub">${(typeof t === 'function') ? t('no_results_sub') : 'Try adjusting your filters or search for a different destination.'}</p>
+                <button class="no-results-btn" onclick="clearFilters()">${(typeof t === 'function') ? t('clear_filters') : 'Clear all filters'}</button>
             </div>
         `;
         return;
     }
 
-    count.textContent = `${results.length} destination${results.length !== 1 ? "s" : ""} found`;
+    const isArCount = (typeof getLang === 'function') ? getLang() === 'ar' : false;
+    count.textContent = isArCount
+        ? `${results.length} وجهة`
+        : `${results.length} destination${results.length !== 1 ? "s" : ""} found`;
+
+    const lang = (typeof getLang === 'function') ? getLang() : (localStorage.getItem('lang') || 'en');
+    const isAr = lang === 'ar';
 
     results.forEach((item, i) => {
         const card = document.createElement("div");
         card.className = "destination-card";
         card.style.animationDelay = `${Math.min(i * 35, 280)}ms`;
         card.onclick = () => goToDetails(item.id);
+
+        const displayName    = isAr && item.name_ar    ? item.name_ar    : item.name;
+        const displayCountry = isAr && item.country_ar ? item.country_ar : item.country;
+        const displayDesc    = isAr && item.shortDescription_ar ? item.shortDescription_ar : item.shortDescription;
+        const arrowDir       = isAr ? '←' : '→';
+
         card.innerHTML = `
             <div class="card-img-wrap">
-                <img src="${item.image}" alt="${item.name}" loading="lazy">
+                <img src="${item.image}" alt="${displayName}" loading="lazy">
                 <div class="card-img-overlay"></div>
                 <span class="card-badge-cat">${item.category}</span>
                 <span class="card-badge-rating">
@@ -208,15 +220,15 @@ function renderResults(results) {
                 </span>
                 <span class="card-country-tag">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
-                    ${item.country}
+                    ${displayCountry}
                 </span>
             </div>
             <div class="card-body">
-                <h3 class="card-title">${item.name}</h3>
-                <p class="card-desc">${item.shortDescription}</p>
+                <h3 class="card-title">${displayName}</h3>
+                <p class="card-desc">${displayDesc}</p>
                 <div class="card-footer">
                     <div class="card-price">
-                        <span class="card-price-label">From</span>
+                        <span class="card-price-label">${(typeof t === 'function') ? t('from_label') : 'From'}</span>
                         <span class="card-price-value">
                             <span data-price-usd="${item.price}">
                                 ${getCurrencySymbol()} ${convertPrice(item.price).toLocaleString()}
@@ -224,7 +236,7 @@ function renderResults(results) {
                             <span class="card-price-currency">${getSelectedCurrency()}</span>
                         </span>
                     </div>
-                    <button class="card-cta" tabindex="-1">View deal →</button>
+                    <button class="card-cta" tabindex="-1">${(typeof t === 'function') ? t('view_deal') : 'View deal'} ${arrowDir}</button>
                 </div>
             </div>
         `;
@@ -238,7 +250,7 @@ function showSkeletons(count = 6) {
     const counter = document.getElementById("resultsCount");
     if (!grid) return;
 
-    if (counter) counter.textContent = "Searching…";
+    if (counter) counter.textContent = (typeof t === 'function') ? t('searching') : "Searching…";
 
     grid.innerHTML = Array.from({ length: count }, () => `
         <div class="skeleton-card">
@@ -288,6 +300,11 @@ function goToDetails(id) {
 
 // ── Init ─────────────────────────────────────────────────
 window.addEventListener("DOMContentLoaded", initSearchPage);
+
+document.addEventListener('langChanged', function() {
+    buildQuickChips();
+    applySearch();
+});
 
 // Expose globals
 window.search           = applySearch;

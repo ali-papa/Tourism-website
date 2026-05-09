@@ -11,7 +11,7 @@ function displayMyBookings() {
     const allBookings = JSON.parse(localStorage.getItem('bookings')) || [];
     const myBookings = allBookings.filter(b => b.userEmail === user.email);
 
-    container.innerHTML = myBookings.length ? "" : "<div class='empty-state'><p>No bookings yet.</p></div>";
+    container.innerHTML = myBookings.length ? "" : `<div class='empty-state'><p>${(typeof t === 'function') ? t('no_bookings') : 'No bookings yet.'}</p></div>`;
 
     myBookings.forEach(book => {
         let imgPath = book.image;
@@ -27,17 +27,17 @@ function displayMyBookings() {
                 <img src="${imgPath}" alt="${book.tripName}" onerror="this.src='../assets/images/placeholder.jpg'">
                 <div class="card-body">
                     <h3>${book.tripName}</h3>
-                    <p>Price: <strong>${symbol} ${Number(book.price).toLocaleString()}</strong></p>
-                    ${book.rooms ? `<p>Rooms: <strong>${book.rooms}</strong></p>` : ""}
-                    ${book.checkIn ? `<p>Check-in: <strong>${book.checkIn}</strong></p>` : ""}
-                    ${book.checkOut ? `<p>Check-out: <strong>${book.checkOut}</strong></p>` : ""}
+                    <p>${(typeof t==='function')?t('price_lbl'):'Price:'} <strong>${symbol} ${Number(book.price).toLocaleString()}</strong></p>
+                    ${book.rooms ? `<p>${(typeof t==='function')?t('rooms_lbl'):'Rooms:'} <strong>${book.rooms}</strong></p>` : ""}
+                    ${book.checkIn ? `<p>${(typeof t==='function')?t('checkin_lbl'):'Check-in:'} <strong>${book.checkIn}</strong></p>` : ""}
+                    ${book.checkOut ? `<p>${(typeof t==='function')?t('checkout_lbl'):'Check-out:'} <strong>${book.checkOut}</strong></p>` : ""}
                     <span class="status-badge ${book.status === 'Pending' ? 'status-pending' : 'status-completed'}">
-                        ${book.status === 'Pending' ? 'Pending Confirmation' : '✅ Paid'}
+                        ${book.status === 'Pending' ? ((typeof t==='function')?t('pending_status'):'Pending Confirmation') : ((typeof t==='function')?t('paid_status'):'✅ Paid')}
                     </span>
                     <div class="button-group">
                         ${book.status === 'Pending' ? 
-                            `<button class="confirm-btn" onclick="confirmAndPay('${book.id}', ${book.price})">Confirm & Pay</button>` 
-                            : `<p class="processed-text">Trip processed successfully.</p>`
+                            `<button class="confirm-btn" onclick="confirmAndPay('${book.id}', ${book.price})">${(typeof t==='function')?t('confirm_pay'):'Confirm & Pay'}</button>` 
+                            : `<p class="processed-text">${(typeof t==='function')?t('trip_processed'):'Trip processed successfully.'}</p>`
                         }
                     </div>
                 </div>
@@ -48,10 +48,10 @@ function displayMyBookings() {
 // وظيفة الحجز
 function bookTrip(name, price, image, checkIn = "", checkOut = "", rooms = 1) {
     const user = JSON.parse(localStorage.getItem('currentUser')) || 
-                 JSON.parse(localStorage.getItem('isLoggedIn'));
+                JSON.parse(localStorage.getItem('isLoggedIn'));
 
     if (!user) {
-        alert("Please login first to book a room!");
+        alert((typeof t === 'function') ? t('please_login') : "Please login first to book a room!");
         window.location.href = "login.html";
         return;
     }
@@ -106,19 +106,19 @@ function displaySavedItems() {
                     <div class="booking-card">
                         <img src="${imgPath}" alt="${hotel.name}" onerror="this.src='../assets/images/placeholder.jpg'">
                         <div class="card-body">
-                            <span class="status-badge status-saved">♥️ Saved</span>
+                            <span class="status-badge status-saved">${(typeof t==='function')?t('saved_badge'):'♥️ Saved'}</span>
                             <h3>${hotel.name}</h3>
                             <p class="location-text">${hotel.location}</p>
                             <div class="button-group">
-                                <button class="confirm-btn" onclick="window.location.href='hotel-details.html?destinationId=${destId}&hotelIndex=${hotelIdx}'">View Details</button>
-                                <button class="btn-remove" onclick="removeSavedItem('${key}')">Remove</button>
+                                <button class="confirm-btn" onclick="window.location.href='hotel-details.html?destinationId=${destId}&hotelIndex=${hotelIdx}'">${(typeof t==='function')?t('view_details'):'View Details'}</button>
+                                <button class="btn-remove" onclick="removeSavedItem('${key}')">${(typeof t==='function')?t('remove_btn'):'Remove'}</button>
                             </div>
                         </div>
                     </div>`;
             }
         }
     }
-    if (!hasItems) container.innerHTML = "<div class='empty-state'><p>Your wishlist is empty.</p></div>";
+    if (!hasItems) container.innerHTML = `<div class='empty-state'><p>${(typeof t==='function')?t('empty_wishlist'):"Your wishlist is empty."}</p></div>`;
 }
 
 function removeSavedItem(key) {
@@ -152,6 +152,11 @@ function confirmAndPay(bookingId, amount) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    displayMyBookings();
+    displaySavedItems();
+});
+
+document.addEventListener('langChanged', () => {
     displayMyBookings();
     displaySavedItems();
 });
