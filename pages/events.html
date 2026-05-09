@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        const t = localStorage.getItem('theme') || 'light', l = localStorage.getItem('lang') || 'en';
+        document.documentElement.setAttribute('data-theme', t);
+        document.documentElement.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
+        document.documentElement.setAttribute('lang', l);
+    </script>
+    <title>Events & Tour Guides – Tourism</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/themes/light.css">
+    <link rel="stylesheet" href="../css/themes/dark.css">
+    <link rel="stylesheet" href="../css/pages/events.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+            <circle cx="12" cy="10" r="3"/>
+        </svg>
+        Tourism
+    </a>
+    <div class="nav-links">
+        <a href="index.html" data-lang="home">Home</a>
+        <a href="search.html" data-lang="explore">Explore</a>
+        <a href="booking.html" data-lang="book">Book</a>
+        <a href="events.html" class="active">Events</a>
+        <div class="currency-selector" id="currencyContainer">
+            <span class="currency-icon">💱</span>
+            <select id="globalCurrencySelect" onchange="handleCurrencyChange(this.value)">
+                <option value="USD">USD</option><option value="EGP">EGP</option>
+                <option value="EUR">EUR</option><option value="GBP">GBP</option>
+                <option value="AED">AED</option><option value="SAR">SAR</option>
+            </select>
+        </div>
+        <button class="lang-toggle-btn" id="langToggle">AR</button>
+        <button class="theme-toggle-btn" id="themeToggle"></button>
+        <a href="login.html" class="nav-cta" data-lang="signin">Sign in</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="events-hero">
+    <div class="events-hero-bg"></div>
+    <div class="events-hero-content">
+        <span class="events-kicker">🌍 Around the World</span>
+        <h1>Events & <span class="events-hero-accent">Festivals</span></h1>
+        <p>Discover the most vibrant celebrations across our 15 destinations.</p>
+        <div class="events-hero-btns">
+            <a href="#events-section" class="ev-btn-primary">Browse Events</a>
+        </div>
+    </div>
+</div>
+
+<div class="ev-container">
+    <div class="ev-tabs">
+        <button class="ev-tab active" data-tab="events" onclick="switchTab('events')">🎉 Events & Festivals</button>
+        <button class="ev-tab" data-tab="guides" onclick="switchTab('guides')">🧭 Tour Guide Services</button>
+    </div>
+
+    <section id="events-section" class="ev-section active-section">
+        <div class="ev-filter-bar">
+            <button class="ev-filter active" onclick="filterEvents('all',this)">All</button>
+            <button class="ev-filter" onclick="filterEvents('egypt',this)">🇪🇬 Egypt</button>
+            <button class="ev-filter" onclick="filterEvents('middle-east',this)">Middle East</button>
+            <button class="ev-filter" onclick="filterEvents('europe',this)">Europe</button>
+            <button class="ev-filter" onclick="filterEvents('asia',this)">Asia</button>
+            <button class="ev-filter" onclick="filterEvents('americas',this)">Americas</button>
+            <button class="ev-filter" onclick="filterEvents('upcoming',this)">⭐ Upcoming</button>
+        </div>
+        <div class="ev-grid" id="eventsGrid"></div>
+    </section>
+
+    <section id="guides-section" class="ev-section">
+        <div class="guides-intro">
+            <h2>Expert Local Tour Guides</h2>
+            <p>Connect with certified local guides who know every hidden gem.</p>
+        </div>
+        <div class="guides-grid" id="guidesGrid"></div>
+    </section>
+</div>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-section about">
+            <h2 class="footer-logo">Tourism</h2>
+            <p>Discover the world's most beautiful destinations with us.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="footer-section links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Explore</a></li>
+                <li><a href="events.html">Events</a></li>
+            </ul>
+        </div>
+        <div class="footer-section contact">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-envelope"></i> support@tourism.com</p>
+            <p><i class="fas fa-phone"></i> +20 123 456 789</p>
+        </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Tourism Website | Designed with ❤️</div>
+</footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/currency.js"></script>
+<script src="../js/events.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/layout.js"></script>
+<script src="../js/chat.js"></script>
+</body>
+</html>

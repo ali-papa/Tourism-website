@@ -45,8 +45,9 @@
             <a href="index.html" class="active" data-lang="home">Home</a>
             <a href="search.html" data-lang="explore">Explore</a>
             <a href="booking.html" data-lang="book">Book</a>
+            <a href="events.html">Events</a>
 
-            <!-- Currency Selector هنا مباشرة -->
+            <!-- Currency Selector -->
             <div class="currency-selector" id="currencyContainer">
                 <span class="currency-icon">💱</span>
                 <select id="globalCurrencySelect" onchange="handleCurrencyChange(this.value)">
@@ -59,7 +60,7 @@
                 </select>
             </div>
 
-                        <button class="lang-toggle-btn" id="langToggle" aria-label="Toggle language">AR</button>
+            <button class="lang-toggle-btn" id="langToggle" aria-label="Toggle language">AR</button>
             <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
             <a href="login.html" class="nav-cta" data-lang="signin">Sign in</a>
         </div>
@@ -118,6 +119,24 @@
             </div>
         </section>
 
+        <!-- Events & Guides Promo Banner -->
+        <section class="events-promo-banner" onclick="window.location.href='events.html'">
+            <div class="events-promo-left">
+                <span class="events-promo-kicker">✨ New</span>
+                <h3>Events, Festivals & Tour Guides</h3>
+                <p>Discover upcoming celebrations across 15 destinations — from Eid Al-Adha in Egypt to Rio Carnival in Brazil.</p>
+                <a href="events.html" class="events-promo-btn" onclick="event.stopPropagation()">
+                    Explore Events
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="events-promo-icons">
+                <span>🎉</span><span>🎭</span>
+            </div>
+        </section>
+
         <!-- Destinations -->
         <section class="destinations" id="destinationsSection">
             <h2 class="section-title" data-lang="destinations_title">Popular Destinations</h2>
@@ -126,44 +145,44 @@
 
     </div>
 
-        <footer class="main-footer">
-     <div class="footer-container">
-        <div class="footer-section about">
-            <h2 class="footer-logo">Tourism</h2>
-            <p>Discover the world's most beautiful destinations with us. Your journey starts here.</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section about">
+                <h2 class="footer-logo">Tourism</h2>
+                <p>Discover the world's most beautiful destinations with us. Your journey starts here.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section links">
+                <h3 data-lang="quick_links">Quick Links</h3>
+                <ul>
+                    <li><a href="index.html" data-lang="home">Home</a></li>
+                    <li><a href="search.html" data-lang="explore">Explore</a></li>
+                    <li><a href="booking.html">Book Now</a></li>
+                    <li><a href="events.html">Events</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section contact">
+                <h3 data-lang="contact_us">Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> support@tourism.com</p>
+                <p><i class="fas fa-phone"></i> +20 123 456 789</p>
             </div>
         </div>
 
-        <div class="footer-section links">
-            <h3 data-lang="quick_links">Quick Links</h3>
-            <ul>
-                <li><a href="index.html" data-lang="home">Home</a></li>
-                <li><a href="search.html" data-lang="explore">Explore</a></li>
-                <li><a href="booking.html">Book Now</a></li>
-            </ul>
+        <div class="footer-bottom">
+            &copy; 2026 Tourism Website | Designed with ❤️
         </div>
-
-        <div class="footer-section contact">
-            <h3 data-lang="contact_us">Contact Us</h3>
-            <p><i class="fas fa-envelope"></i> support@tourism.com</p>
-            <p><i class="fas fa-phone"></i> +20 123 456 789</p>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        &copy; 2026 Tourism Website | Designed with ❤️
-    </div>
     </footer>
 
     <script src="../js/data.js"></script>
     <script src="../js/currency.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/ui.js"></script>
-
     <script src="../js/translations.js"></script>
     <script src="../js/layout.js"></script>
     <script src="../js/chat.js"></script>
