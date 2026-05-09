@@ -1,8 +1,7 @@
-// hotel-details.js – Full Merged Version (Offers + Currency + Reviews + Travelers Limitation)
-// Place this entire content in your hotel-details.js file
+// hotel-details.js – Hotel detail page logic, room booking, offers, reviews, and UI
 
-// ========== قاعدة صور الغرف (60 غرفة – 30 فندق × 2 نوع غرفة) ==========
-// كل غرفة مفتاحها: "destinationId-hotelIndex-standard" أو "-deluxe"
+// ========== Room photo base (60 rooms – 30 hotels x 2 room types) ==========
+// Each room has a key: "destinationId-hotelIndex-standard" or "-deluxe"
 const roomImages = {
     // Cairo (id=1)
     "1-0-standard": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/819364852.jpg?k=75e6ef55c8a141049847330c3bbccf67c610375d7e401f5ef45f4a4070871a2e&o=",
@@ -81,6 +80,7 @@ const roomImages = {
     "15-1-deluxe":   "https://www.riolasvegas.com/wp-content/uploads/2023/08/20230921_Rio_1321_Doubles_Suite_v1-4-scaled-1.jpg",
 };
 
+// Room-specific discount offers (keyed by destinationId-hotelIndex-roomType)
 const roomOffers = {
     "1-0-standard": 20,
     "1-0-deluxe": 25,
@@ -94,27 +94,38 @@ const hotelDetailsContainer = document.getElementById("hotelDetailsContainer");
 const params = new URLSearchParams(window.location.search);
 const destinationId = parseInt(params.get("destinationId"));
 const hotelIndex = parseInt(params.get("hotelIndex"));
+
+// Look up the destination and the specific hotel from global data (data.js)
 const destination = destinations.find(item => item.id === destinationId);
 const hotels = hotelsByDestination[destinationId] || [];
 const hotel = hotels[hotelIndex];
 
+ // Generate a Google Maps embed URL from an address string.
 function createMapEmbed(address) {
     return `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 }
+
+// Convert a 5-star rating (e.g., 4.5) to a 10-point review score.
 function getReviewScore(rating) {
     return (rating * 2).toFixed(1);
 }
+
+// Return a review label based on a 10-point score.
 function getReviewText(score) {
     if (score >= 9) return "Exceptional";
     if (score >= 8.5) return "Excellent";
     if (score >= 8) return "Very Good";
     return "Good";
 }
+
+// Check whether the user is logged in via any known localStorage flag.
 function isUserLoggedIn() {
     return localStorage.getItem("loggedInUser") ||
            localStorage.getItem("currentUser") ||
            localStorage.getItem("isLoggedIn") === "true";
 }
+
+// Create fake guest reviews for the hotel.
 function generateHotelReviews(hotelName) {
     const reviewers = ["Fatima", "Omar", "Layla", "Khaled", "Nour"];
     const comments = [
@@ -134,13 +145,15 @@ function generateHotelReviews(hotelName) {
         });
     }
     return reviews;
-}
+}   
 
+// Proceed only if both destination and hotel exist
 if (destination && hotel) {
     const reviewScore = getReviewScore(hotel.rating);
     const reviewText = getReviewText(reviewScore);
     const reviewCount = 48 + hotelIndex * 36;
 
+    // Build similar hotels cards (exclude the current hotel)
     const similarHotels = hotels.map((item, index) => ({ item, index }))
         .filter(obj => obj.index !== hotelIndex)
         .map(obj => `
@@ -156,17 +169,19 @@ if (destination && hotel) {
             </a>
         `).join("");
 
-  // ========== مفاتيح العروض والأسعار ==========
+  // ---- Offer keys and price calculations ----
 const stdOfferKey = destination.id + "-" + hotelIndex + "-standard";
 const dlxOfferKey = destination.id + "-" + hotelIndex + "-deluxe";
 const stdDiscount = roomOffers[stdOfferKey] || null;
 const dlxDiscount = roomOffers[dlxOfferKey] || null;
+
 const stdOriginalUSD = hotel.price;
 const dlxOriginalUSD = hotel.price + 40;
+
 const stdFinalUSD = stdDiscount ? (stdOriginalUSD * (1 - stdDiscount / 100)).toFixed(0) : stdOriginalUSD;
 const dlxFinalUSD = dlxDiscount ? (dlxOriginalUSD * (1 - dlxDiscount / 100)).toFixed(0) : dlxOriginalUSD;
 
-// ========== بناء HTML الأسعار مع الخصم مسبقاً ==========
+// Helper to build HTML for a room price (with strikethrough original if discount applies)  
 function buildPriceHTML(discount, originalUSD, finalUSD, currencySymbol, convertFn) {
     if (!discount) {
         return `${currencySymbol} ${convertFn(finalUSD).toLocaleString()}`;
@@ -186,7 +201,7 @@ const convertPriceFn = typeof convertPrice === 'function' ? convertPrice : (usd)
 const stdPriceHTML = buildPriceHTML(stdDiscount, stdOriginalUSD, stdFinalUSD, currencySymbol, convertPriceFn);
 const dlxPriceHTML = buildPriceHTML(dlxDiscount, dlxOriginalUSD, dlxFinalUSD, currencySymbol, convertPriceFn);
 
-// ========== تجهيز نصوص الأسعار النهائية ==========
+// ========== Preparing final price texts ==========
 const stdPriceDisplay = stdDiscount
     ? `<s style="color:#999; margin-right:6px;">${getCurrencySymbol()} ${convertPrice(stdOriginalUSD).toLocaleString()}</s> ${getCurrencySymbol()} ${convertPrice(stdFinalUSD).toLocaleString()} <span style="color:green; font-size:16px;"> (${stdDiscount}% OFF)</span>`
     : `${getCurrencySymbol()} ${convertPrice(stdFinalUSD).toLocaleString()}`;
@@ -195,6 +210,7 @@ const dlxPriceDisplay = dlxDiscount
     ? `<s style="color:#999; margin-right:6px;">${getCurrencySymbol()} ${convertPrice(dlxOriginalUSD).toLocaleString()}</s> ${getCurrencySymbol()} ${convertPrice(dlxFinalUSD).toLocaleString()} <span style="color:green; font-size:16px;"> (${dlxDiscount}% OFF)</span>`
     : `${getCurrencySymbol()} ${convertPrice(dlxFinalUSD).toLocaleString()}`;
 
+    // Main HTML injection
     hotelDetailsContainer.innerHTML = `
         <section class="hotel-search-bar">
             <div class="search-box"><span>📍</span><div><small>Where to?</small><p>${destination.name}, ${destination.country}</p></div></div>
@@ -209,7 +225,9 @@ const dlxPriceDisplay = dlxDiscount
                 <button class="outline-btn" id="saveBtn">♡ Save</button>
             </div>
         </section>
-        <section class="hotel-main-photo"><img src="${hotel.image}" alt="${hotel.name}"></section>
+        <section class="hotel-main-photo">
+        <img src="${hotel.image}" alt="${hotel.name}">
+        </section>
         <div class="hotel-tabs-wrapper">
             <nav class="hotel-tabs" id="hotelTabs">
                 <a href="#overview" class="active">Overview</a>
@@ -224,8 +242,7 @@ const dlxPriceDisplay = dlxDiscount
             <div class="hotel-main-content">
                 <h1>${hotel.name}</h1>
                 <div class="stars">★ ★ ★</div>
-                <div class="review-row"><span class="score-box">${reviewScore}</span><strong>${reviewText}</strong></div>
-                <p class="reviews-link">See all ${reviewCount} reviews ›</p>
+                
                 <h2>Highlights for your 1-night trip</h2>
                 <div class="highlights-list">
                     <div class="highlight-item"><div class="highlight-icon">🏆</div><div><h3>Highly rated by travelers</h3><p>This property received multiple high ratings from guests.</p></div></div>
@@ -356,7 +373,7 @@ const dlxPriceDisplay = dlxDiscount
         </section>
     `;
 
-    // --------------------- Logic ---------------------
+    // --------------------- UI Logic ---------------------
     const topCheckIn = document.getElementById("topCheckIn");
     const topCheckOut = document.getElementById("topCheckOut");
     const topTravelers = document.getElementById("topTravelers");
@@ -367,6 +384,7 @@ const dlxPriceDisplay = dlxDiscount
     const bookingMessage = document.getElementById("bookingValidationMessage");
     const reserveButtons = document.querySelectorAll(".reserve-btn");
 
+    // Format a Date object as YYYY-MM-DD for date input fields
     function getLocalDateString(date) {
         const y = date.getFullYear();
         const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -378,6 +396,7 @@ const dlxPriceDisplay = dlxDiscount
     const tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
 
+    // Initialize date fields and synchronize top/room sections
     if (topCheckIn && topCheckOut && roomCheckIn && roomCheckOut) {
         topCheckIn.value = getLocalDateString(today);
         topCheckOut.value = getLocalDateString(tomorrow);
@@ -386,6 +405,7 @@ const dlxPriceDisplay = dlxDiscount
         roomCheckIn.value = topCheckIn.value;
         roomCheckOut.value = topCheckOut.value;
 
+        // Update the minimum checkout date based on current check-in selection
         function updateTopCheckoutMin() {
             const val = topCheckIn.value;
             if (!val) return;
@@ -414,6 +434,7 @@ const dlxPriceDisplay = dlxDiscount
         updateTopCheckoutMin();
     }
 
+    // Travelers management based on room count
     if (roomCount && roomTravelers) {
         roomCount.value = 1;
         roomTravelers.value = 2;
@@ -459,6 +480,7 @@ const dlxPriceDisplay = dlxDiscount
         updateMaxTravelers();
     }
 
+    // Validate the booking form inputs. Returns true if valid, false otherwise.
     function validateBooking() {
         if (!roomCheckIn || !roomCheckOut || !roomCount || !roomTravelers || !bookingMessage) return false;
         const checkIn = new Date(roomCheckIn.value);
@@ -481,14 +503,15 @@ const dlxPriceDisplay = dlxDiscount
         return true;
     }
 
+    // Attach validation to Reserve buttons
     reserveButtons.forEach(btn => {
         btn.addEventListener("click", function (e) {
             if (!validateBooking()) e.preventDefault();
         });
     });
-    validateBooking();
+    validateBooking();  // initial validation to clear any message
 
-    // Save & Share
+     // ---- Save & Share functionality ----
     const saveBtn = document.getElementById("saveBtn");
     const shareBtn = document.getElementById("shareBtn");
     const savedHotelKey = `savedHotel-${destination.id}-${hotelIndex}`;
@@ -520,7 +543,7 @@ const dlxPriceDisplay = dlxDiscount
         });
     }
 
-    // Tabs
+    // ---- Tab switching with scroll spy ----
     const tabLinks = document.querySelectorAll("#hotelTabs a");
     const sections = document.querySelectorAll("#overview, #about, #rooms, #accessibility, #policies");
     function changeActiveTab() {
@@ -545,6 +568,8 @@ const dlxPriceDisplay = dlxDiscount
     });
 
 } else {
+
+    // Hotel or destination not found – show error message
     hotelDetailsContainer.innerHTML = `
         <div class="not-found">
             <h2>Hotel not found</h2>
@@ -573,7 +598,7 @@ function handleRoomBooking(roomName, basePrice, image) {
     }
 }
 
-// ========== إصلاح نهائي لتواريخ قسم الغرف (Rooms) ==========
+// ---- Immediate fix to enforce room date constraints ---- 
 (function enforceRoomDateConstraints() {
     const roomCheckIn = document.getElementById("roomCheckIn");
     const roomCheckOut = document.getElementById("roomCheckOut");
@@ -588,11 +613,11 @@ function handleRoomBooking(roomName, basePrice, image) {
 
     const todayStr = getLocalDateString(new Date());
 
-    // تعيين الحد الأدنى لتاريخ الوصول = اليوم
+    // Minimum check-in date is today
     roomCheckIn.min = todayStr;
     if (roomCheckIn.value < todayStr) roomCheckIn.value = todayStr;
 
-    // تحديث حد check-out بناءً على check-in الحالي
+    // Dynamically set the minimum check-out date based on the current check-in selection
     function setCheckOutMin() {
         const checkInDate = new Date(roomCheckIn.value + "T00:00:00");
         if (isNaN(checkInDate.getTime())) return;
@@ -603,11 +628,12 @@ function handleRoomBooking(roomName, basePrice, image) {
         if (roomCheckOut.value < minCheckOut) roomCheckOut.value = minCheckOut;
     }
 
-    // تطبيق القيود عند التغيير
+    // Apply constraints on change
     roomCheckIn.addEventListener("change", () => {
         if (roomCheckIn.value < todayStr) roomCheckIn.value = todayStr;
         setCheckOutMin();
-        // مزامنة مع العلوي (اختياري)
+
+        // Sync with top date fields 
         const topCheckIn = document.getElementById("topCheckIn");
         if (topCheckIn) topCheckIn.value = roomCheckIn.value;
     });
@@ -636,6 +662,6 @@ function handleRoomBooking(roomName, basePrice, image) {
         }
     });
 
-    // تشغيل أولي
+    // Run once to set initial constraints
     setCheckOutMin();
 })();

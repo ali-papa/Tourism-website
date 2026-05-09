@@ -1,8 +1,9 @@
-// details.js – merged with currency converter, offers, weather, reviews
+// details.js – Destination details page logic with hotel offers, weather, and reviews
 
 const detailsContainer = document.getElementById("detailsContainer");
 
-// ========== عروض خاصة على غرف ==========
+// ========== Room-specific discount offers ==========
+// Key format: "destinationId-hotelIndex-roomType" → discount percentage
 const roomOffers = {
     "1-0-standard": 20,   // Cairo, hotel 0 → 20% OFF
     "1-0-deluxe": 25,     // Cairo, hotel 0, deluxe → 25% OFF
@@ -12,7 +13,7 @@ const roomOffers = {
     "13-0-standard": 30   // Bangkok, hotel 0 → 30% OFF
 };
 
-// ========== بيانات الطقس الوهمية ==========
+// ========== Mock weather data by city ==========
 const weatherData = {
     "Cairo": { temp: "32°C", condition: "Sunny" },
     "Dubai": { temp: "38°C", condition: "Hot" },
@@ -31,7 +32,7 @@ const weatherData = {
     "Rio de Janeiro": { temp: "33°C", condition: "Tropical" }
 };
 
-// ========== توليد مراجعات وهمية للمدينة ==========
+// ========== Generate fake reviews for a city ==========
 function generateCityReviews(cityName) {
     const reviewers = ["Ahmed", "Mona", "Carlos", "Sara", "John"];
     const comments = [
@@ -54,16 +55,21 @@ function generateCityReviews(cityName) {
     return reviews;
 }
 
+// Retrieve destination ID from URL query parameters
 const params = new URLSearchParams(window.location.search);
 const destinationId = parseInt(params.get("id"));
+// Find the matching destination object from the global 'destinations' array (defined in data.js)
 const destination = destinations.find(item => item.id === destinationId);
 
+// Build a Google Maps embed URL from an address string
 function createMapEmbed(address) {
     return `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 }
 
+// Main rendering function – populates the details page with destination info, hotels, offers, weather, and reviews
 function renderDetails() {
     if (!destination) {
+        // Show a friendly error message if the destination doesn't exist
         detailsContainer.innerHTML = `
             <div class="not-found">
                 <h2>Destination not found</h2>
@@ -72,6 +78,7 @@ function renderDetails() {
         return;
     }
 
+    // Build gallery slides markup
     const gallerySlides = destination.gallery.map((img, idx) => `
         <div class="slide">
             <img src="${img}" alt="${destination.name} - Image ${idx+1}">
@@ -79,14 +86,17 @@ function renderDetails() {
         </div>
     `).join("");
 
+    // Build list items for highlights, accessibility, and nearby places
     const highlightsHTML    = destination.highlights.map(item => `<li>${item}</li>`).join("");
     const accessibilityHTML = destination.accessibility.map(item => `<li>${item}</li>`).join("");
     const nearbyHTML        = destination.nearbyPlaces.map(place => `<li>${place}</li>`).join("");
 
+    // Retrieve hotels for this destination (global hotelsByDestination from data.js)
     const hotels = hotelsByDestination[destination.id] || [];
     let hotelsHTML = "";
     if (hotels.length > 0) {
         hotelsHTML = hotels.map((hotel, index) => {
+            // Build offer keys for both room types
             const keyStandard = `${destination.id}-${index}-standard`;
             const keyDeluxe = `${destination.id}-${index}-deluxe`;
 
@@ -96,7 +106,9 @@ function renderDetails() {
             const priceStd = hotel.price;
             const priceDlx = hotel.price + 40;
 
+            // Apply discount if available
             const finalStd = discountStd ? (priceStd * (1 - discountStd / 100)).toFixed(0) : priceStd;
+
             const finalDlx = discountDlx ? (priceDlx * (1 - discountDlx / 100)).toFixed(0) : priceDlx;
 
             const hasOffer = discountStd || discountDlx;
@@ -105,10 +117,11 @@ function renderDetails() {
                 ? Math.max(discountStd, discountDlx)
                 : discountStd || discountDlx;
 
-            // currency conversion
+            // Convert price to the active currency (functions from currency.js)
             const convertedPrice = convertPrice(displayPriceUSD).toLocaleString();
             const symbol = getCurrencySymbol();
 
+            // Build price HTML: show original crossed out if on offer
             let priceHTML = '';
             if (hasOffer) {
                 const originalConverted = convertPrice(hotel.price).toLocaleString();
@@ -139,6 +152,7 @@ function renderDetails() {
         hotelsHTML = `<p class="no-data">No hotels available for this destination.</p>`;
     }
 
+     // Inject the complete details layout into the container
     detailsContainer.innerHTML = `
         <section class="details-hero">
             <div class="details-card">
@@ -233,7 +247,7 @@ function renderDetails() {
             <ul class="details-list">${nearbyHTML}</ul>
         </section>
 
-        <!-- Weather -->
+        <!-- Current weather widget -->
         <section class="details-section weather-section">
             <h2>🌤️ Current Weather</h2>
             <div class="weather-widget">
@@ -242,7 +256,7 @@ function renderDetails() {
             </div>
         </section>
 
-        <!-- City Reviews -->
+        <!-- Guest reviews for the city -->
         <section class="details-section reviews-section">
             <h2>💬 Guest Reviews about ${destination.name}</h2>
             <div class="reviews-container">
@@ -260,9 +274,11 @@ function renderDetails() {
         </section>
     `;
 
+     // Initialize the gallery slider after injecting the HTML
     setupSlider();
 }
 
+// Gallery Slider Implementation
 let currentSlide = 0;
 
 function setupSlider() {
@@ -301,5 +317,5 @@ function goToSlide(index) {
     updateSliderView();
 }
 
-// Initial render
+// Initial page render on script load
 renderDetails();

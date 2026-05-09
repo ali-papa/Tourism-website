@@ -1,8 +1,5 @@
-/* ============================================= */
-/*      DETAILS.CSS – وجهة + فندق (مدمج نهائي)    */
-/* ============================================= */
+/* ----- General Page Basics ----- */
 
-/* ----- الأساسيات العامة للصفحة ----- */
 .details-page {
     padding: 30px 0;
     background: var(--bg-surface, #f5f7fb);
@@ -21,7 +18,7 @@
     border-radius: 16px;
 }
 
-/* ----- أزرار عامة ----- */
+/* ----- Common Buttons ----- */
 .book-btn,
 .back-btn,
 .map-btn,
@@ -56,10 +53,10 @@
 }
 
 /* ============================================= */
-/*         🧳 تفاصيل الوجهة (Destination)        */
+/*         Destination Details Section           */
 /* ============================================= */
 
-/* البطاقة الرئيسية */
+/* Main destination card */
 .details-card {
     display: flex;
     gap: 30px;
@@ -100,6 +97,7 @@
     color: var(--text-2, #444);
 }
 
+/* Price box styling */
 .price-box {
     margin: 20px 0;
     padding: 16px;
@@ -124,7 +122,7 @@
     margin-top: 20px;
 }
 
-/* الأقسام العامة */
+/* Generic sections */
 .details-section {
     background: var(--bg-card, #fff);
     border-radius: 16px;
@@ -149,6 +147,7 @@
     line-height: 1.6;
 }
 
+/* Policy grid */
 .policy-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -166,7 +165,7 @@
     color: var(--text-1, #111827);
 }
 
-/* سلايدر المعرض */
+/* Gallery slider */
 .slider-container {
     position: relative;
     max-width: 100%;
@@ -196,6 +195,7 @@
     border-radius: 14px;
 }
 
+/* Previous/Next arrows */
 .prev, .next {
     position: absolute;
     top: 50%;
@@ -219,6 +219,7 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+/* Dots navigation */
 .dots {
     text-align: center;
     margin-top: 15px;
@@ -241,7 +242,7 @@
     border-radius: 8px;
 }
 
-/* الفيديو */
+/* Video section */
 .video-box {
     border-radius: 14px;
     overflow: hidden;
@@ -253,7 +254,7 @@
     background: #000;
 }
 
-/* الموقع والخريطة */
+/* Location and map */
 .location-layout {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -280,7 +281,7 @@
     border: 0;
 }
 
-/* كروت الفنادق المختصرة */
+/* Hotel cards (abbreviated) */
 .hotels-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -349,10 +350,10 @@
 }
 
 /* ============================================= */
-/*       🏨 تفاصيل الفندق (Hotel Details)        */
+/*       Hotel Details Section                   */
 /* ============================================= */
 
-/* شريط البحث العلوي */
+/* Top search bar (mini search) */
 .hotel-search-bar {
     display: grid;
     grid-template-columns: 1.2fr 1.2fr 1.2fr auto;
@@ -395,7 +396,7 @@
     color: var(--text-1, inherit);
 }
 
-/* أعلى الصفحة (أزرار المشاركة والحفظ) */
+/* Top action buttons (share/save) */
 .hotel-top-actions {
     display: flex;
     justify-content: space-between;
@@ -426,7 +427,7 @@
     background: #fff0f3;
 }
 
-/* الصورة الرئيسية للفندق */
+/* Main hotel photo */
 .hotel-main-photo {
     width: 100%;
     height: 430px;
@@ -441,7 +442,7 @@
     object-fit: cover;
 }
 
-/* التبويبات اللاصقة */
+/* Sticky tabs */
 .hotel-tabs-wrapper {
     position: sticky;
     top: 70px;
@@ -490,7 +491,7 @@
     white-space: nowrap;
 }
 
-/* تنسيق الأقسام عند التمرير */
+/* Offset for anchor scrolling */
 #overview,
 #about,
 #rooms,
@@ -499,7 +500,7 @@
     scroll-margin-top: 160px;
 }
 
-/* التخطيط العام لنظرة عامة */
+/* Overview layout (2/3 + 1/3) */
 .hotel-overview-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -579,7 +580,7 @@
     line-height: 1.6;
 }
 
-/* الخريطة الجانبية */
+/* Side map panel */
 .hotel-side-map {
     background: var(--bg-card, #fff);
     border: 1px solid var(--border, #e5e7eb);
@@ -629,7 +630,7 @@
     white-space: nowrap;
 }
 
-/* الأقسام العامة داخل الفندق */
+/* General hotel sections */
 .hotel-section {
     background: var(--bg-card, #fff);
     padding: 35px 0;
@@ -637,6 +638,7 @@
     margin-bottom: 10px;
 }
 
+/* Features grid (2 columns) */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -648,7 +650,7 @@
     color: var(--text-1, #222);
 }
 
-/* بانر التوفير (لغير المسجلين) */
+/* Savings banner for unauthenticated users */
 .saving-banner {
     background: #080e2f;
     color: white;
@@ -672,7 +674,7 @@
     cursor: pointer;
 }
 
-/* قسم الغرف */
+/* Rooms section */
 .rooms-search {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -691,6 +693,7 @@
     color: var(--text-2, #555);
 }
 
+/* Price comparison message */
 .price-message {
     border: 1px solid var(--border, #d8dee9);
     border-radius: 14px;
@@ -724,6 +727,7 @@
     color: var(--text-2, #444);
 }
 
+/* Room cards */
 .room-cards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -790,7 +794,7 @@
     color: var(--text-1, inherit);
 }
 
-/* Accessibility & Policies Grid */
+/* Accessibility & Policies grid */
 .hotel-info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -817,7 +821,7 @@
     line-height: 1.6;
 }
 
-/* طرق الدفع */
+/* Payment types display */
 .payment-types {
     display: flex;
     gap: 15px;
@@ -838,10 +842,10 @@
     font-size: 18px;
 }
 
-/* فنادق مشابهة */
+/* Similar hotels row */
 .similar-hotels-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 2fr));
     gap: 22px;
 }
 

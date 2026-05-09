@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Apply theme before page render to prevent flash -->
+        <!-- Apply stored theme and language settings immediately to prevent flash -->
     <script>
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
-        // Apply lang/dir before CSS loads to prevent flash of wrong direction
+        // Apply text direction and language attribute before stylesheets load to prevent flash of wrong direction
         const savedLang = localStorage.getItem('lang') || 'en';
         document.documentElement.setAttribute('dir', savedLang === 'ar' ? 'rtl' : 'ltr');
         document.documentElement.setAttribute('lang', savedLang);
@@ -15,25 +15,30 @@
     
     <title>Hotel Details</title>
 
-    <!-- Fonts -->
+    <!-- Preconnect to Google Fonts for faster loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Primary and secondary font families -->
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
+    <!-- Core stylesheets -->
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/layout.css">
+    <!-- Theme stylesheets (light/dark) -->
     <link rel="stylesheet" href="../css/themes/light.css">
     <link rel="stylesheet" href="../css/themes/dark.css">
+    <!-- Page-specific styles (shared between destination and hotel details) -->
     <link rel="stylesheet" href="../css/pages/details.css">
+    <!-- Font Awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Responsive layout adjustments -->
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- Site navigation bar -->
     <nav class="navbar">
     <a href="index.html" class="logo">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -47,7 +52,7 @@
         <a href="search.html" data-lang="explore">Explore</a>
         <a href="booking.html" data-lang="book">Book</a>
 
-        <!-- Currency Selector -->
+        <!-- Multi-currency selector dropdown -->   
         <div class="currency-selector" id="currencyContainer">
             <span class="currency-icon">💱</span>
             <select id="globalCurrencySelect" onchange="handleCurrencyChange(this.value)">
@@ -59,24 +64,26 @@
                 <option value="SAR">SAR</option>
             </select>
         </div>
-
-                    <button class="lang-toggle-btn" id="langToggle" aria-label="Toggle language">AR</button>
+            <!-- Language toggle (English / Arabic) -->
+            <button class="lang-toggle-btn" id="langToggle" aria-label="Toggle language">AR</button>
+            <!-- Theme toggle (light / dark) -->
             <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
+            <!-- Call-to-action sign in button -->
             <a href="login.html" class="nav-cta" data-lang="signin">Sign in</a>
     </div>
 </nav>
 
-    <!-- MAIN -->
+    <!-- Main content area -->
     <main class="details-page">
         <div class="container">
-            <!-- الـ Container ده هو اللي الجافا سكريبت بيملى فيه البيانات -->
-            <div id="hotelDetailsContainer" class="details-container">
-                <!-- Hotel details will be injected here by hotel-details.js -->
+            <!-- Hotel details will be dynamically injected here by hotel-details.js -->
+             <div id="hotelDetailsContainer" class="details-container">
+                <!-- Hotel details content -->
             </div>
         </div>
     </main>
 
-    <!-- FOOTER -->
+    <!-- Site footer -->
         <footer class="main-footer">
      <div class="footer-container">
         <div class="footer-section about">
@@ -110,19 +117,19 @@
     </div>
     </footer>
 
-    <!-- JS SCRIPTS -->
-    <!-- الترتيب هنا "حياة أو موت" للمشروع -->
+    <!-- JavaScript files: order is critical for dependencies -->
+    <!-- Core data and currency logic -->
     <script src="../js/data.js"></script>
     <script src="../js/currency.js"></script>
     
-    <!-- 1. استدعاء ملف الحجز أولاً عشان وظيفة الخصم والـ LocalStorage تكون جاهزة -->
+    <!-- booking.js must load BEFORE hotel-details.js because hotel-details uses discount functions and localStorage operations defined in booking.js -->>
     <script src="../js/booking.js"></script> 
     
-    <!-- 2. استدعاء ملف التفاصيل اللي هيستخدم الوظائف اللي في booking.js -->
+     <!-- Hotel details page logic (depends on booking.js) -->
     <script src="../js/hotel-details.js"></script>
     
+    <!-- General UI and translation modules -->
     <script src="../js/ui.js"></script>
-
     <script src="../js/translations.js"></script>
     <script src="../js/layout.js"></script>
     <script src="../js/chat.js"></script>
